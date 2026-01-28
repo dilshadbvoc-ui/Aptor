@@ -38,11 +38,5 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
     "typescript": "^5"
-  },
-  "resolutions": {
-    "nodemailer": "6.9.8"
-  },
-  "overrides": {
-    "nodemailer": "6.9.8"
   }
 }

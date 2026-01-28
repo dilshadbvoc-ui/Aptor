@@ -122,7 +122,7 @@ export default async function BlogParamsPage({
                                     <span className="text-yellow-400 font-medium">Topics</span>
                                 </div>
                                 <div className="flex flex-wrap gap-2">
-                                    {blog.tags.map((tag, index) => (
+                                    {blog.tags.map((tag: string, index: number) => (
                                         <span
                                             key={index}
                                             className="px-3 py-1 bg-yellow-400/10 border border-yellow-400/30 rounded-full text-sm font-medium text-yellow-400"

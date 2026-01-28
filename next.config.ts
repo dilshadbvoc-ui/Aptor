@@ -1,35 +1,28 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Enable Turbopack configuration
+  turbopack: {},
+  
   // Enable experimental features for better performance
   experimental: {
     optimizePackageImports: ['lucide-react'],
   },
   
-  // Image optimization
+  // Image optimization - updated for Next.js 16
   images: {
-    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'localhost',
+      },
+    ],
     formats: ['image/webp', 'image/avif'],
   },
   
   // Environment variables
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
-  },
-  
-  // Webpack configuration for better builds
-  webpack: (config, { isServer }) => {
-    // Optimize for production builds
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-        net: false,
-        tls: false,
-      };
-    }
-    
-    return config;
   },
   
   // Headers for security and performance

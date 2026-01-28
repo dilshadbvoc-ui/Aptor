@@ -97,8 +97,8 @@ export async function POST(request: NextRequest) {
     
     const blog = new Blog({
       ...validation.data,
-      author: session.user.id,
-      authorName: session.user.name || "Edubird Team"
+      author: authUser.userId,
+      authorName: authUser.email || "Aptor Studies Team"
     });
     await blog.save();
     

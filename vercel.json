@@ -3,19 +3,6 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["iad1"],
-  "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "AUTH_SECRET": "@auth_secret",
-    "NEXTAUTH_URL": "@nextauth_url",
-    "ADMIN_PASSWORD": "@admin_password",
-    "ADMIN_EMAIL": "@admin_email",
-    "SMTP_HOST": "@smtp_host",
-    "SMTP_PORT": "@smtp_port",
-    "SMTP_USER": "@smtp_user",
-    "SMTP_PASS": "@smtp_pass",
-    "SMTP_FROM_NAME": "@smtp_from_name",
-    "SMTP_FROM_EMAIL": "@smtp_from_email"
-  },
   "functions": {
     "src/app/api/**/*.ts": {
       "maxDuration": 30
