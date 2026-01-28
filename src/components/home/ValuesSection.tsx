@@ -8,32 +8,32 @@ const benefits = [
     {
         icon: Crown,
         title: "Expert Mentorship",
-        description: "Exclusive guidance from industry titans and academic luminaries",
+        description: "Quality guidance from industry professionals and academic experts",
         color: "from-yellow-400 to-yellow-600"
     },
     {
         icon: Diamond,
         title: "Proven Excellence",
-        description: "Join an exclusive network of students achieving extraordinary success",
+        description: "Join a network of students achieving outstanding success",
         color: "from-blue-400 to-blue-600"
     },
     {
         icon: Star,
-        title: "Luxury Experience",
-        description: "Bespoke educational journey tailored to your aspirations",
+        title: "Quality Experience",
+        description: "Comprehensive educational journey tailored to your aspirations",
         color: "from-purple-400 to-purple-600"
     },
     {
         icon: Shield,
         title: "Security",
-        description: "Ultra-secure platform trusted by the world's most discerning students",
+        description: "Secure platform trusted by students and institutions worldwide",
         color: "from-emerald-400 to-emerald-600"
     },
 ];
 
 export function ValuesSection() {
     return (
-        <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-b from-gray-900 to-black mobile-safe-area">
+        <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-b from-green-50 to-white mobile-safe-area">
             <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
                     {/* Image Side - Mobile Optimized */}
@@ -41,56 +41,56 @@ export function ValuesSection() {
                         <div className="relative">
                             {/* Main image */}
                             <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl">
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent z-10"></div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-green-900/30 to-transparent z-10"></div>
                                 <Image
                                     src="/campus.png"
-                                    alt="University campus with luxury facilities and architecture"
+                                    alt="University campus with modern facilities and architecture"
                                     width={600}
                                     height={500}
                                     className="w-full object-cover aspect-[4/3] sm:aspect-auto"
                                 />
                                 {/* Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 to-transparent"></div>
+                                <div className="absolute inset-0 bg-gradient-to-br from-green-400/10 to-transparent"></div>
                             </div>
 
                             {/* Floating stats card - Mobile Optimized */}
-                            <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 card-premium p-3 sm:p-4 lg:p-6 hidden sm:block hover-lift-premium glow">
+                            <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 card-premium p-3 sm:p-4 lg:p-6 hidden sm:block hover-lift-premium shadow-lg">
                                 <div className="text-center">
                                     <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center mx-auto mb-2 sm:mb-3 shadow-lg">
                                         <Star className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-black fill-current" />
                                     </div>
                                     <div className="text-lg sm:text-xl lg:text-2xl font-bold gradient-text mb-0.5 sm:mb-1">99.8%</div>
-                                    <div className="text-xs sm:text-sm text-gray-400">Success Rate</div>
+                                    <div className="text-xs sm:text-sm text-green-600">Success Rate</div>
                                 </div>
                             </div>
 
                             {/* Decorative elements - Mobile Optimized */}
-                            <div className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8 border-2 border-yellow-400 rounded-full opacity-60 animate-pulse"></div>
+                            <div className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8 border-2 border-green-400 rounded-full opacity-60 animate-pulse"></div>
                             <div className="absolute top-1/2 -right-1 sm:-right-2 w-2 h-2 sm:w-3 sm:h-3 lg:w-4 lg:h-4 bg-yellow-400 rounded-full opacity-40 animate-pulse delay-1000"></div>
                         </div>
                     </div>
 
                     {/* Content Side - Mobile Optimized */}
                     <div className="order-1 lg:order-2 fade-in">
-                        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-yellow-400/10 border border-yellow-400/30 rounded-full mb-4 sm:mb-6">
-                            <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" />
-                            <span className="text-yellow-400 text-xs sm:text-sm font-medium">ADVANTAGE</span>
-                            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" />
+                        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-green-100 border border-green-300 rounded-full mb-4 sm:mb-6">
+                            <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-600" />
+                            <span className="text-green-700 text-xs sm:text-sm font-medium">ADVANTAGE</span>
+                            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-600" />
                         </div>
 
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-green-800 mb-4 sm:mb-6 leading-tight">
                             Why <span className="gradient-text">Students</span> Choose 
                             <div className="inline-flex items-center gap-2 sm:gap-3 ml-2 sm:ml-3">
                                 <img 
                                     src="/logo.png" 
-                                    alt="Aptor Studies Logo" 
+                                    alt="APTOR Studies Logo" 
                                     className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 rounded-lg object-cover shadow-lg"
                                 />
                             </div>
                         </h2>
                         
-                        <p className="text-base sm:text-lg md:text-xl text-gray-400 leading-relaxed mb-6 sm:mb-8">
-                            We're dedicated to elevating your educational journey with exclusive support, guidance, and unparalleled results that define luxury education.
+                        <p className="text-base sm:text-lg md:text-xl text-green-600 leading-relaxed mb-6 sm:mb-8">
+                            We're dedicated to elevating your educational journey with quality support, guidance, and exceptional results that define educational excellence.
                         </p>
 
                         {/* Benefits - Mobile Optimized */}
@@ -101,14 +101,14 @@ export function ValuesSection() {
                                     className="flex items-start gap-3 sm:gap-4 card-premium p-3 sm:p-4 hover-lift-premium slide-up"
                                     style={{ animationDelay: `${i * 0.1}s` }}
                                 >
-                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br ${benefit.color} flex items-center justify-center shrink-0 shadow-lg`}>
+                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shrink-0 shadow-lg`}>
                                         <benefit.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                                     </div>
                                     <div className="min-w-0 flex-1">
-                                        <h3 className="text-base sm:text-lg font-semibold text-white mb-1 sm:mb-2 group-hover:text-yellow-400 transition-colors">
+                                        <h3 className="text-base sm:text-lg font-semibold text-green-800 mb-1 sm:mb-2 group-hover:text-yellow-600 transition-colors">
                                             {benefit.title}
                                         </h3>
-                                        <p className="text-gray-400 text-sm leading-relaxed">
+                                        <p className="text-green-600 text-sm leading-relaxed">
                                             {benefit.description}
                                         </p>
                                     </div>
@@ -129,7 +129,7 @@ export function ValuesSection() {
                             
                             <Link 
                                 href="/contact" 
-                                className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 text-sm font-medium text-yellow-400 border-2 border-yellow-400 rounded-lg sm:rounded-xl hover:bg-yellow-400 hover:text-black transition-all duration-300 glass min-h-[48px]"
+                                className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 text-sm font-medium text-green-700 border-2 border-green-500 rounded-lg sm:rounded-xl hover:bg-green-500 hover:text-white transition-all duration-300 bg-white/80 backdrop-blur-sm min-h-[48px]"
                             >
                                 <Diamond className="w-4 h-4 sm:w-5 sm:h-5" />
                                 Join Network

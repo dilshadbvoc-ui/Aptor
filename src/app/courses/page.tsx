@@ -121,26 +121,26 @@ export default function CoursesPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
+        <div className="min-h-screen bg-white">
             {/* Hero Section */}
-            <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 to-transparent"></div>
+            <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-green-50 to-white">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-100/30 to-transparent"></div>
                 
                 <div className="max-w-7xl mx-auto relative z-10">
                     <div className="text-center mb-12 fade-in">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400/10 border border-yellow-400/30 rounded-full mb-6">
-                            <BookOpen className="w-4 h-4 text-yellow-400" />
-                            <span className="text-yellow-400 text-sm font-medium">EXCLUSIVE COURSES</span>
-                            <Sparkles className="w-4 h-4 text-yellow-400" />
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 border border-green-200 rounded-full mb-6">
+                            <BookOpen className="w-4 h-4 text-green-600" />
+                            <span className="text-green-700 text-sm font-medium">COURSES</span>
+                            <Sparkles className="w-4 h-4 text-green-600" />
                         </div>
                         
-                        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                            <span className="gradient-text">Exclusive</span>
+                        <h1 className="text-4xl md:text-6xl font-bold text-green-900 mb-6">
+                            <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">Exclusive</span>
                             <br />
-                            <span className="text-white">Courses</span>
+                            <span className="text-green-900">Courses</span>
                         </h1>
                         
-                        <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
                             Access the world's most exclusive educational programs. Master cutting-edge skills with faculty at prestigious institutions worldwide.
                         </p>
                     </div>
@@ -153,14 +153,14 @@ export default function CoursesPage() {
                             { icon: Award, value: "98%", label: "Success Rate" },
                             { icon: Globe, value: "100+", label: "Universities" }
                         ].map((stat, index) => (
-                            <div key={index} className="card-premium p-6 text-center hover-lift-premium">
+                            <div key={index} className="bg-white rounded-2xl shadow-lg border border-green-100 p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                                 <div className="flex justify-center mb-3">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
-                                        <stat.icon className="w-6 h-6 text-black" />
+                                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+                                        <stat.icon className="w-6 h-6 text-white" />
                                     </div>
                                 </div>
-                                <div className="text-2xl font-bold gradient-text mb-1">{stat.value}</div>
-                                <div className="text-sm text-gray-400">{stat.label}</div>
+                                <div className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent mb-1">{stat.value}</div>
+                                <div className="text-sm text-gray-600">{stat.label}</div>
                             </div>
                         ))}
                     </div>
@@ -174,7 +174,7 @@ export default function CoursesPage() {
                                     placeholder="Search courses..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full px-4 py-3 bg-black/50 border border-yellow-400/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
+                                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
                                 />
                             </div>
                             
@@ -192,8 +192,8 @@ export default function CoursesPage() {
                                         onClick={() => setActiveFilter(filter.key)}
                                         className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm ${
                                             activeFilter === filter.key
-                                                ? "bg-yellow-400 text-black"
-                                                : "bg-black/50 text-gray-400 hover:text-yellow-400 border border-yellow-400/30"
+                                                ? "bg-green-500 text-white"
+                                                : "bg-white text-gray-700 hover:text-green-600 border border-gray-300 hover:border-green-300"
                                         }`}
                                     >
                                         {filter.label}
@@ -206,15 +206,15 @@ export default function CoursesPage() {
             </section>
 
             {/* Featured Courses */}
-            <section className="py-16 px-4 sm:px-6 lg:px-8">
+            <section className="py-16 px-4 sm:px-6 lg:px-8 bg-green-50">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-12">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400/10 border border-yellow-400/30 rounded-full mb-6">
-                            <Star className="w-4 h-4 text-yellow-400" />
-                            <span className="text-yellow-400 text-sm font-medium">FEATURED PROGRAMS</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 border border-green-200 rounded-full mb-6">
+                            <Star className="w-4 h-4 text-green-600" />
+                            <span className="text-green-700 text-sm font-medium">FEATURED PROGRAMS</span>
                         </div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                            <span className="gradient-text">Featured</span> Courses
+                        <h2 className="text-3xl md:text-4xl font-bold text-green-900 mb-4">
+                            <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">Featured</span> Courses
                         </h2>
                     </div>
 
@@ -222,7 +222,7 @@ export default function CoursesPage() {
                         {featuredCourses.map((course, index) => (
                             <div
                                 key={course.id}
-                                className="card-premium hover-lift-premium slide-up group"
+                                className="bg-white rounded-2xl shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group"
                                 style={{ animationDelay: `${index * 150}ms` }}
                             >
                                 <div className="relative overflow-hidden rounded-t-xl">
@@ -232,12 +232,12 @@ export default function CoursesPage() {
                                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                                     />
                                     <div className="absolute top-4 right-4">
-                                        <div className="bg-yellow-400 text-black px-3 py-1 rounded-full text-sm font-medium">
+                                        <div className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                                             {course.level}
                                         </div>
                                     </div>
                                     <div className="absolute top-4 left-4">
-                                        <div className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                                        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                                             <Star className="w-3 h-3" />
                                             Featured
                                         </div>
@@ -247,53 +247,53 @@ export default function CoursesPage() {
                                 
                                 <div className="p-6">
                                     <div className="flex items-center gap-2 mb-3">
-                                        <Crown className="w-5 h-5 text-yellow-400" />
-                                        <span className="text-yellow-400 text-sm font-medium uppercase">
+                                        <Crown className="w-5 h-5 text-green-600" />
+                                        <span className="text-green-700 text-sm font-medium uppercase">
                                             {course.category}
                                         </span>
                                     </div>
                                     
-                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">
+                                    <h3 className="text-xl font-bold text-green-900 mb-2 group-hover:text-green-600 transition-colors">
                                         {course.title}
                                     </h3>
                                     
-                                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                                         {course.description}
                                     </p>
                                     
                                     <div className="space-y-2 mb-4">
                                         <div className="flex items-center justify-between">
-                                            <span className="text-gray-400 text-sm">University:</span>
-                                            <span className="text-white text-sm">{course.university}</span>
+                                            <span className="text-gray-600 text-sm">University:</span>
+                                            <span className="text-green-900 text-sm">{course.university}</span>
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <span className="text-gray-400 text-sm">Duration:</span>
-                                            <span className="text-white text-sm">{course.duration}</span>
+                                            <span className="text-gray-600 text-sm">Duration:</span>
+                                            <span className="text-green-900 text-sm">{course.duration}</span>
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <span className="text-gray-400 text-sm">Mode:</span>
-                                            <span className="text-white text-sm">{course.mode}</span>
+                                            <span className="text-gray-600 text-sm">Mode:</span>
+                                            <span className="text-green-900 text-sm">{course.mode}</span>
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <span className="text-gray-400 text-sm">Course Fee:</span>
-                                            <span className="text-yellow-400 font-bold">{course.price}</span>
+                                            <span className="text-gray-600 text-sm">Course Fee:</span>
+                                            <span className="text-green-600 font-bold">{course.price}</span>
                                         </div>
                                     </div>
                                     
                                     <div className="flex items-center justify-between mb-4">
                                         <div className="flex items-center gap-1">
-                                            <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                                            <span className="text-white text-sm">{course.rating}</span>
+                                            <Star className="w-4 h-4 text-green-500 fill-current" />
+                                            <span className="text-green-900 text-sm">{course.rating}</span>
                                         </div>
                                         <div className="flex items-center gap-1">
-                                            <Users className="w-4 h-4 text-yellow-400" />
-                                            <span className="text-white text-sm">{course.students}</span>
+                                            <Users className="w-4 h-4 text-green-600" />
+                                            <span className="text-green-900 text-sm">{course.students}</span>
                                         </div>
                                     </div>
                                     
                                     <button 
                                         onClick={() => handleEnrollClick(course.title)}
-                                        className="btn-premium w-full text-center inline-flex items-center justify-center gap-2 text-black font-semibold"
+                                        className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center gap-2"
                                     >
                                         <Play className="w-4 h-4" />
                                         Enroll Now

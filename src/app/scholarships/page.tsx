@@ -108,26 +108,26 @@ export default function ScholarshipsPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
+        <div className="min-h-screen bg-white">
             {/* Hero Section */}
-            <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 to-transparent"></div>
+            <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-green-50 to-white">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-100/30 to-transparent"></div>
                 
                 <div className="max-w-7xl mx-auto relative z-10">
                     <div className="text-center mb-12 fade-in">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400/10 border border-yellow-400/30 rounded-full mb-6">
-                            <Trophy className="w-4 h-4 text-yellow-400" />
-                            <span className="text-yellow-400 text-sm font-medium">SCHOLARSHIPS</span>
-                            <Sparkles className="w-4 h-4 text-yellow-400" />
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 border border-green-200 rounded-full mb-6">
+                            <Trophy className="w-4 h-4 text-green-600" />
+                            <span className="text-green-700 text-sm font-medium">SCHOLARSHIPS</span>
+                            <Sparkles className="w-4 h-4 text-green-600" />
                         </div>
                         
-                        <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-                            <span className="gradient-text">Scholarships</span>
+                        <h1 className="text-4xl md:text-6xl font-bold text-green-900 mb-6">
+                            <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">Scholarships</span>
                             <br />
-                            <span className="text-white">& Funding</span>
+                            <span className="text-green-900">& Funding</span>
                         </h1>
                         
-                        <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
+                        <p className="text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
                             Unlock exclusive scholarship opportunities worth millions. Access funding for your education journey at the world's top institutions.
                         </p>
                     </div>
@@ -140,14 +140,14 @@ export default function ScholarshipsPage() {
                             { icon: Award, value: "15+", label: "Programs" },
                             { icon: Globe, value: "50+", label: "Countries" }
                         ].map((stat, index) => (
-                            <div key={index} className="card-premium p-6 text-center hover-lift-premium">
+                            <div key={index} className="bg-white rounded-2xl shadow-lg border border-green-100 p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
                                 <div className="flex justify-center mb-3">
-                                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center">
-                                        <stat.icon className="w-6 h-6 text-black" />
+                                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center">
+                                        <stat.icon className="w-6 h-6 text-white" />
                                     </div>
                                 </div>
-                                <div className="text-2xl font-bold gradient-text mb-1">{stat.value}</div>
-                                <div className="text-sm text-gray-400">{stat.label}</div>
+                                <div className="text-2xl font-bold bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent mb-1">{stat.value}</div>
+                                <div className="text-sm text-gray-600">{stat.label}</div>
                             </div>
                         ))}
                     </div>
@@ -161,7 +161,7 @@ export default function ScholarshipsPage() {
                                     placeholder="Search scholarships..."
                                     value={searchTerm}
                                     onChange={(e) => setSearchTerm(e.target.value)}
-                                    className="w-full px-4 py-3 bg-black/50 border border-yellow-400/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
+                                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
                                 />
                             </div>
                             
@@ -179,8 +179,8 @@ export default function ScholarshipsPage() {
                                         onClick={() => setActiveFilter(filter.key)}
                                         className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 text-sm ${
                                             activeFilter === filter.key
-                                                ? "bg-yellow-400 text-black"
-                                                : "bg-black/50 text-gray-400 hover:text-yellow-400 border border-yellow-400/30"
+                                                ? "bg-green-500 text-white"
+                                                : "bg-white text-gray-700 hover:text-green-600 border border-gray-300 hover:border-green-300"
                                         }`}
                                     >
                                         {filter.label}
@@ -193,15 +193,15 @@ export default function ScholarshipsPage() {
             </section>
 
             {/* Featured Scholarships */}
-            <section className="py-16 px-4 sm:px-6 lg:px-8">
+            <section className="py-16 px-4 sm:px-6 lg:px-8 bg-green-50">
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-12">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400/10 border border-yellow-400/30 rounded-full mb-6">
-                            <Star className="w-4 h-4 text-yellow-400" />
-                            <span className="text-yellow-400 text-sm font-medium">FEATURED OPPORTUNITIES</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 border border-green-200 rounded-full mb-6">
+                            <Star className="w-4 h-4 text-green-600" />
+                            <span className="text-green-700 text-sm font-medium">FEATURED OPPORTUNITIES</span>
                         </div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                            <span className="gradient-text">Featured</span> Scholarships
+                        <h2 className="text-3xl md:text-4xl font-bold text-green-900 mb-4">
+                            <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">Featured</span> Scholarships
                         </h2>
                     </div>
 
@@ -209,59 +209,59 @@ export default function ScholarshipsPage() {
                         {featuredScholarships.map((scholarship, index) => (
                             <div
                                 key={scholarship.id}
-                                className="card-premium hover-lift-premium slide-up group"
+                                className="bg-white rounded-2xl shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group"
                                 style={{ animationDelay: `${index * 150}ms` }}
                             >
                                 <div className="p-6">
                                     <div className="flex items-center justify-between mb-4">
                                         <div className="flex items-center gap-2">
-                                            <Crown className="w-5 h-5 text-yellow-400" />
-                                            <span className="text-yellow-400 text-sm font-medium uppercase">
+                                            <Crown className="w-5 h-5 text-green-600" />
+                                            <span className="text-green-700 text-sm font-medium uppercase">
                                                 {scholarship.category}
                                             </span>
                                         </div>
-                                        <div className="bg-gradient-to-r from-yellow-400 to-yellow-600 text-black px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                                        <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                                             <Star className="w-3 h-3" />
                                             Featured
                                         </div>
                                     </div>
                                     
-                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-yellow-400 transition-colors">
+                                    <h3 className="text-xl font-bold text-green-900 mb-2 group-hover:text-green-600 transition-colors">
                                         {scholarship.name}
                                     </h3>
                                     
-                                    <p className="text-gray-400 text-sm mb-4 leading-relaxed">
+                                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                                         {scholarship.description}
                                     </p>
                                     
                                     <div className="space-y-3 mb-6">
                                         <div className="flex items-center justify-between">
-                                            <span className="text-gray-400 text-sm">Amount:</span>
-                                            <span className="text-yellow-400 font-bold">{scholarship.amount}</span>
+                                            <span className="text-gray-600 text-sm">Amount:</span>
+                                            <span className="text-green-600 font-bold">{scholarship.amount}</span>
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <span className="text-gray-400 text-sm">Duration:</span>
-                                            <span className="text-white">{scholarship.duration}</span>
+                                            <span className="text-gray-600 text-sm">Duration:</span>
+                                            <span className="text-green-900">{scholarship.duration}</span>
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <span className="text-gray-400 text-sm">Recipients:</span>
-                                            <span className="text-white">{scholarship.recipients}</span>
+                                            <span className="text-gray-600 text-sm">Recipients:</span>
+                                            <span className="text-green-900">{scholarship.recipients}</span>
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <span className="text-gray-400 text-sm">Deadline:</span>
-                                            <span className="text-red-400 font-medium">{scholarship.deadline}</span>
+                                            <span className="text-gray-600 text-sm">Deadline:</span>
+                                            <span className="text-red-600 font-medium">{scholarship.deadline}</span>
                                         </div>
                                     </div>
                                     
-                                    <div className="border-t border-yellow-400/20 pt-4 mb-4">
-                                        <p className="text-gray-400 text-sm">
-                                            <strong className="text-white">Eligibility:</strong> {scholarship.eligibility}
+                                    <div className="border-t border-green-200 pt-4 mb-4">
+                                        <p className="text-gray-600 text-sm">
+                                            <strong className="text-green-900">Eligibility:</strong> {scholarship.eligibility}
                                         </p>
                                     </div>
                                     
                                     <button 
                                         onClick={() => handleApplyClick(scholarship.name)}
-                                        className="btn-premium w-full text-center inline-flex items-center justify-center gap-2 text-black font-semibold"
+                                        className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center gap-2"
                                     >
                                         <Trophy className="w-4 h-4" />
                                         Apply Now

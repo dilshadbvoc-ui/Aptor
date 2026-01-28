@@ -6,7 +6,7 @@ import { useState } from "react";
 export function WhatsAppButton() {
     const [isHovered, setIsHovered] = useState(false);
     const phoneNumber = "+919526797987"; // The phone number from the context
-    const message = "Hi! I'm interested in learning more about Aptor Studies services.";
+    const message = "Hi! I'm interested in learning more about APTOR Studies services.";
     
     const whatsappUrl = `https://wa.me/${phoneNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
 
@@ -16,7 +16,7 @@ export function WhatsAppButton() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
+                className="group relative flex items-center justify-center w-14 h-14 bg-green-600 hover:bg-green-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 aria-label="Contact us on WhatsApp"
@@ -25,7 +25,7 @@ export function WhatsAppButton() {
                 <MessageCircle className="w-7 h-7" />
                 
                 {/* Pulse Animation */}
-                <div className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-20"></div>
+                <div className="absolute inset-0 rounded-full bg-green-600 animate-ping opacity-20"></div>
                 
                 {/* Tooltip */}
                 <div className={`absolute right-16 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap transition-all duration-300 ${

@@ -54,21 +54,21 @@ export function Hero() {
     };
 
     return (
-        <section className="relative min-h-screen animated-bg overflow-hidden mobile-safe-area-top">
+        <section className="relative min-h-screen bg-gradient-to-br from-white via-green-50 to-white overflow-hidden mobile-safe-area-top">
             {/* Premium Background Elements */}
             <div className="absolute inset-0">
-                <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-95"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-green-50/50 via-white to-green-50/30"></div>
                 <div 
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10 sm:opacity-20"
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10 sm:opacity-15"
                     style={{
                         backgroundImage: "url('/hero-students.png')"
                     }}
                 />
                 {/* Luxury Overlay Pattern - Mobile Optimized */}
-                <div className="absolute inset-0 opacity-5 sm:opacity-10">
-                    <div className="absolute top-10 sm:top-20 left-10 sm:left-20 w-16 sm:w-32 h-16 sm:h-32 border border-yellow-400 rounded-full animate-pulse"></div>
+                <div className="absolute inset-0 opacity-10 sm:opacity-15">
+                    <div className="absolute top-10 sm:top-20 left-10 sm:left-20 w-16 sm:w-32 h-16 sm:h-32 border border-green-400 rounded-full animate-pulse"></div>
                     <div className="absolute top-20 sm:top-40 right-16 sm:right-32 w-12 sm:w-24 h-12 sm:h-24 border border-yellow-400 rounded-full animate-pulse delay-1000"></div>
-                    <div className="absolute bottom-16 sm:bottom-32 left-16 sm:left-32 w-10 sm:w-20 h-10 sm:h-20 border border-yellow-400 rounded-full animate-pulse delay-2000"></div>
+                    <div className="absolute bottom-16 sm:bottom-32 left-16 sm:left-32 w-10 sm:w-20 h-10 sm:h-20 border border-green-400 rounded-full animate-pulse delay-2000"></div>
                 </div>
             </div>
             
@@ -77,22 +77,22 @@ export function Hero() {
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
                         {/* Left Content - Premium Mobile Optimized */}
-                        <div className="text-white fade-in text-center lg:text-left">
+                        <div className="text-green-800 fade-in text-center lg:text-left">
                             {/* Elite Badge - Mobile Optimized */}
-                            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-yellow-400/10 border border-yellow-400/30 rounded-full mb-4 sm:mb-6">
-                                <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" />
-                                <span className="text-yellow-400 text-xs sm:text-sm font-medium">ELITE EDUCATION PORTAL</span>
-                                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" />
+                            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-green-100 border border-green-300 rounded-full mb-4 sm:mb-6">
+                                <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-600" />
+                                <span className="text-green-700 text-xs sm:text-sm font-medium">EDUCATION PORTAL</span>
+                                <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-600" />
                             </div>
 
-                            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight text-shadow-premium">
-                                <span className="gradient-text">Aptor</span>
+                            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+                                <span className="gradient-text">APTOR</span>
                                 <br />
-                                <span className="text-white">Studies</span>
+                                <span className="text-green-800">Studies</span>
                             </h1>
                             
-                            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-300 leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0">
-                                Experience premium education services with our elite platform. Your exclusive gateway to elite institutions and luxury career opportunities in India's Silicon Valley.
+                            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-green-600 leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto lg:mx-0">
+                                Experience quality education services with our comprehensive platform. Your gateway to top institutions and career opportunities in India's educational landscape.
                             </p>
                             
                             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-8 sm:mb-10 lg:mb-12 justify-center lg:justify-start">
@@ -101,34 +101,34 @@ export function Hero() {
                                     className="btn-premium inline-flex items-center justify-center gap-2 text-black font-semibold text-sm sm:text-base min-h-[48px] sm:min-h-[52px]"
                                 >
                                     <Crown className="w-4 h-4 sm:w-5 sm:h-5" />
-                                    Elite Counselling
+                                    Get Counselling
                                     <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                                 </Link>
                                 
                                 <Link
                                     href="/universities"
-                                    className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-medium text-white border-2 border-yellow-400 rounded-lg sm:rounded-xl hover:bg-yellow-400 hover:text-black transition-all duration-300 glass min-h-[48px] sm:min-h-[52px]"
+                                    className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-lg font-medium text-green-700 border-2 border-green-500 rounded-lg sm:rounded-xl hover:bg-green-500 hover:text-white transition-all duration-300 bg-white/80 backdrop-blur-sm min-h-[48px] sm:min-h-[52px]"
                                 >
                                     <Diamond className="w-4 h-4 sm:w-5 sm:h-5" />
-                                    Explore Premium
+                                    Explore Programs
                                 </Link>
                             </div>
 
                             {/* Premium Stats - Mobile Optimized */}
                             <div className="grid grid-cols-3 gap-3 sm:gap-6 lg:gap-8 max-w-md sm:max-w-lg mx-auto lg:mx-0">
                                 {[
-                                    { num: "500+", label: "Elite Partners", icon: Crown },
+                                    { num: "500+", label: "Partner Institutions", icon: Crown },
                                     { num: "10K+", label: "Success Stories", icon: Star },
-                                    { num: "95%", label: "Premium Placements", icon: Diamond },
+                                    { num: "95%", label: "Placement Rate", icon: Diamond },
                                 ].map((stat) => (
                                     <div key={stat.label} className="text-center card-premium p-2 sm:p-3 lg:p-4 hover-lift-premium">
                                         <div className="flex justify-center mb-1 sm:mb-2">
-                                            <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-yellow-400" />
+                                            <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-yellow-600" />
                                         </div>
                                         <div className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold gradient-text mb-0.5 sm:mb-1">
                                             {stat.num}
                                         </div>
-                                        <div className="text-xs sm:text-sm text-gray-400 line-clamp-mobile-2">{stat.label}</div>
+                                        <div className="text-xs sm:text-sm text-green-600 line-clamp-mobile-2">{stat.label}</div>
                                     </div>
                                 ))}
                             </div>
@@ -136,14 +136,14 @@ export function Hero() {
 
                         {/* Right Content - Premium Form Mobile Optimized */}
                         <div className="lg:ml-auto slide-up order-first lg:order-last">
-                            <div className="card-premium p-4 sm:p-6 lg:p-8 max-w-md mx-auto glow">
+                            <div className="card-premium p-4 sm:p-6 lg:p-8 max-w-md mx-auto shadow-lg">
                                 <div className="text-center mb-4 sm:mb-6">
-                                    <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 bg-yellow-400/10 border border-yellow-400/30 rounded-full mb-3 sm:mb-4">
-                                        <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400" />
-                                        <span className="text-yellow-400 text-xs font-medium">EXCLUSIVE ACCESS</span>
+                                    <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 bg-green-100 border border-green-300 rounded-full mb-3 sm:mb-4">
+                                        <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-600" />
+                                        <span className="text-green-700 text-xs font-medium">FREE CONSULTATION</span>
                                     </div>
-                                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-1 sm:mb-2">Elite Consultation</h3>
-                                    <p className="text-sm sm:text-base text-gray-400">Get personalized guidance from our premium education experts</p>
+                                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-green-800 mb-1 sm:mb-2">Expert Consultation</h3>
+                                    <p className="text-sm sm:text-base text-green-600">Get personalized guidance from our education experts</p>
                                 </div>
                                 
                                 <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
@@ -154,7 +154,7 @@ export function Hero() {
                                             placeholder="Full Name"
                                             value={formData.name}
                                             onChange={handleInputChange}
-                                            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-black/50 border border-yellow-400/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-sm sm:text-base min-h-[44px]"
+                                            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white border border-green-300 rounded-lg text-green-800 placeholder-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all duration-300 text-sm sm:text-base min-h-[44px]"
                                             required
                                         />
                                     </div>
@@ -165,7 +165,7 @@ export function Hero() {
                                             placeholder="Email Address"
                                             value={formData.email}
                                             onChange={handleInputChange}
-                                            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-black/50 border border-yellow-400/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-sm sm:text-base min-h-[44px]"
+                                            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white border border-green-300 rounded-lg text-green-800 placeholder-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all duration-300 text-sm sm:text-base min-h-[44px]"
                                             required
                                         />
                                     </div>
@@ -176,7 +176,7 @@ export function Hero() {
                                             placeholder="Phone Number"
                                             value={formData.phone}
                                             onChange={handleInputChange}
-                                            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-black/50 border border-yellow-400/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 text-sm sm:text-base min-h-[44px]"
+                                            className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white border border-green-300 rounded-lg text-green-800 placeholder-green-500 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent transition-all duration-300 text-sm sm:text-base min-h-[44px]"
                                             required
                                         />
                                     </div>
@@ -185,12 +185,12 @@ export function Hero() {
                                         className="btn-premium w-full text-center inline-flex items-center justify-center gap-2 text-black font-semibold text-sm sm:text-base min-h-[48px]"
                                     >
                                         <Crown className="w-4 h-4 sm:w-5 sm:h-5" />
-                                        Request Elite Session
+                                        Request Free Session
                                     </button>
                                 </form>
                                 
-                                <p className="text-xs text-gray-500 mt-3 sm:mt-4 text-center leading-relaxed">
-                                    By submitting, you agree to our Premium Terms & Privacy Policy
+                                <p className="text-xs text-green-500 mt-3 sm:mt-4 text-center leading-relaxed">
+                                    By submitting, you agree to our Terms & Privacy Policy
                                 </p>
                             </div>
                         </div>
@@ -208,9 +208,9 @@ export function Hero() {
                 >
                     <defs>
                         <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#1a1a1a" />
-                            <stop offset="50%" stopColor="#2a2a2a" />
-                            <stop offset="100%" stopColor="#1a1a1a" />
+                            <stop offset="0%" stopColor="#f0f9f4" />
+                            <stop offset="50%" stopColor="#ffffff" />
+                            <stop offset="100%" stopColor="#f0f9f4" />
                         </linearGradient>
                     </defs>
                     <path
