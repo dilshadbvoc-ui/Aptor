@@ -4,13 +4,14 @@ import College from "@/models/College";
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     await connectDB();
     
+    const { slug } = await params;
     const college = await College.findOne({ 
-      slug: params.slug, 
+      slug: slug, 
       published: true 
     });
     

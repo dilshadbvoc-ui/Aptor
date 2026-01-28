@@ -4,13 +4,14 @@ import Internship from "@/models/Internship";
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     await connectDB();
     
+    const { slug } = await params;
     const internship = await Internship.findOne({ 
-      slug: params.slug, 
+      slug: slug, 
       published: true 
     });
     

@@ -5,7 +5,7 @@ import { isAuthenticated } from "@/lib/auth-middleware";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check authentication
@@ -13,9 +13,10 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await params;
     await connectDB();
     
-    const contact = await Contact.findById(params.id);
+    const contact = await Contact.findById(id);
     
     if (!contact) {
       return NextResponse.json({
@@ -40,7 +41,7 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check authentication
@@ -48,12 +49,13 @@ export async function PUT(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await params;
     const body = await request.json();
     
     await connectDB();
     
     const contact = await Contact.findByIdAndUpdate(
-      params.id,
+      id,
       { ...body, updatedAt: new Date() },
       { new: true }
     );
@@ -81,7 +83,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check authentication
@@ -89,9 +91,10 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { id } = await params;
     await connectDB();
     
-    const contact = await Contact.findByIdAndDelete(params.id);
+    const contact = await Contact.findByIdAndDelete(id);
     
     if (!contact) {
       return NextResponse.json({

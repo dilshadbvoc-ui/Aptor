@@ -4,13 +4,14 @@ import Blog from "@/models/Blog";
 
 export async function GET(
   request: Request,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
     await connectDB();
     
+    const { slug } = await params;
     const blog = await Blog.findOne({ 
-      slug: params.slug, 
+      slug: slug, 
       published: true 
     }).populate('author', 'name');
     
