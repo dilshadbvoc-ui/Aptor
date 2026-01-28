@@ -38,14 +38,22 @@ const CourseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'College'
   },
-  university: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'University'
-  },
-  universityAffiliation: { 
+  price: {
     type: String,
     trim: true
   },
+  category: {
+    type: String,
+    trim: true
+  },
+  curriculum: [{
+    type: String,
+    trim: true
+  }],
+  prerequisites: [{
+    type: String,
+    trim: true
+  }],
   isActive: {
     type: Boolean,
     default: true

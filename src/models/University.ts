@@ -26,10 +26,23 @@ const UniversitySchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  foundedYear: { 
+    type: Number,
+    min: 1800,
+    max: new Date().getFullYear()
+  },
   establishedYear: { 
     type: Number,
     min: 1800,
     max: new Date().getFullYear()
+  },
+  tuitionFee: {
+    type: String,
+    trim: true
+  },
+  published: {
+    type: Boolean,
+    default: true
   },
   type: {
     type: String,
