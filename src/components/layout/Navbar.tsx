@@ -93,7 +93,7 @@ export function Navbar() {
                         <div className="hidden md:flex items-center space-x-2 lg:space-x-3">
                             {/* Small Login Button */}
                             <Link
-                                href="/api/auth/signin"
+                                href="/login"
                                 className="inline-flex items-center gap-1.5 px-3 py-2 text-xs lg:text-sm font-medium text-green-600 hover:text-green-800 border border-green-300 hover:border-green-400 rounded-lg transition-all duration-300 min-h-[36px] lg:min-h-[40px]"
                             >
                                 <Crown className="w-3 h-3 lg:w-4 lg:h-4" />
