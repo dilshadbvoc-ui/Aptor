@@ -69,10 +69,10 @@ export default function AdminLayout({
 
     if (status === "loading") {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center mobile-safe-area">
+            <div className="min-h-screen bg-white flex items-center justify-center mobile-safe-area">
                 <div className="text-center">
-                    <div className="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="text-white">Loading...</p>
+                    <div className="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-green-900">Loading...</p>
                 </div>
             </div>
         );
@@ -83,20 +83,20 @@ export default function AdminLayout({
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black mobile-safe-area">
+        <div className="min-h-screen bg-white mobile-safe-area">
             <div className="flex">
                 {/* Sidebar */}
-                <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-black/90 backdrop-blur-md border-r border-yellow-400/20 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
+                <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-green-50 border-r border-green-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
                     sidebarOpen ? 'translate-x-0' : '-translate-x-full'
                 }`}>
-                    <div className="flex items-center justify-between h-16 px-4 border-b border-yellow-400/20">
+                    <div className="flex items-center justify-between h-16 px-4 border-b border-green-200">
                         <div className="flex items-center gap-2">
-                            <Crown className="w-6 h-6 text-yellow-400" />
-                            <span className="text-white font-semibold">Admin Panel</span>
+                            <Crown className="w-6 h-6 text-green-600" />
+                            <span className="text-green-900 font-semibold">Admin Panel</span>
                         </div>
                         <button
                             onClick={() => setSidebarOpen(false)}
-                            className="lg:hidden text-gray-400 hover:text-white"
+                            className="lg:hidden text-green-600 hover:text-green-700"
                         >
                             <X className="w-5 h-5" />
                         </button>
@@ -108,7 +108,7 @@ export default function AdminLayout({
                                 key={item.href}
                                 href={item.href}
                                 onClick={() => setSidebarOpen(false)}
-                                className="flex items-center gap-3 px-3 py-2 text-gray-300 hover:text-white hover:bg-yellow-400/10 rounded-lg transition-colors duration-200 mb-1"
+                                className="flex items-center gap-3 px-3 py-2 text-green-700 hover:text-green-900 hover:bg-green-100 rounded-lg transition-colors duration-200 mb-1"
                             >
                                 <item.icon className="w-5 h-5" />
                                 <span>{item.label}</span>
@@ -120,25 +120,25 @@ export default function AdminLayout({
                 {/* Main Content */}
                 <div className="flex-1 lg:ml-0">
                     {/* Top Bar */}
-                    <div className="bg-black/50 backdrop-blur-md border-b border-yellow-400/20 px-4 py-3">
+                    <div className="bg-white border-b border-green-200 px-4 py-3">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-4">
                                 <button
                                     onClick={() => setSidebarOpen(true)}
-                                    className="lg:hidden text-gray-400 hover:text-white"
+                                    className="lg:hidden text-green-600 hover:text-green-700"
                                 >
                                     <Menu className="w-6 h-6" />
                                 </button>
                                 <div className="hidden sm:block">
-                                    <p className="text-sm text-gray-400">Welcome back,</p>
-                                    <p className="text-white font-medium">{user?.name}</p>
+                                    <p className="text-sm text-green-600">Welcome back,</p>
+                                    <p className="text-green-900 font-medium">{user?.name}</p>
                                 </div>
                             </div>
                             
                             <div className="flex items-center gap-4">
                                 <div className="text-right hidden md:block">
-                                    <p className="text-xs text-gray-400">Logged in as</p>
-                                    <p className="text-yellow-400 text-sm font-medium">{user?.email}</p>
+                                    <p className="text-xs text-green-600">Logged in as</p>
+                                    <p className="text-green-700 text-sm font-medium">{user?.email}</p>
                                 </div>
                                 <button
                                     onClick={handleLogout}

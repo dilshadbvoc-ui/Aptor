@@ -1,41 +1,32 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import User from "@/models/User";
-import bcrypt from "bcryptjs";
 
 export async function POST() {
     try {
         await connectDB();
-        
+
         // Check if admin user already exists
         const existingAdmin = await User.findOne({ email: 'info@aptorstudies.com' });
-        
+
         if (existingAdmin) {
-            return NextResponse.json({
-                success: false,
-                message: "Admin user already exists",
-                email: "info@aptorstudies.com"
-            }, { status: 400 });
+            // Delete and recreate to fix potential password issues
+            await User.deleteOne({ email: 'info@aptorstudies.com' });
         }
-        
-        // Hash the password
+
+        // Create admin user - password will be hashed by the User model's pre-save hook
         const password = process.env.ADMIN_PASSWORD || 'SecureAdmin123!';
-        const salt = await bcrypt.genSalt(12);
-        const hashedPassword = await bcrypt.hash(password, salt);
-        
-        // Create admin user
+
         const adminUser = new User({
             name: 'Admin User',
             email: 'info@aptorstudies.com',
-            password: hashedPassword,
+            password: password, // Plain password - User model will hash it
             role: 'admin',
-            isActive: true,
-            createdAt: new Date(),
-            updatedAt: new Date()
+            isActive: true
         });
-        
+
         await adminUser.save();
-        
+
         return NextResponse.json({
             success: true,
             message: "Admin user created successfully",
@@ -46,7 +37,7 @@ export async function POST() {
                 createdAt: adminUser.createdAt
             }
         }, { status: 201 });
-        
+
     } catch (error) {
         console.error("Error creating admin user:", error);
         return NextResponse.json({
@@ -60,10 +51,10 @@ export async function POST() {
 export async function GET() {
     try {
         await connectDB();
-        
+
         // Check if admin user exists
         const adminUser = await User.findOne({ email: 'info@aptorstudies.com' }).select('-password');
-        
+
         if (!adminUser) {
             return NextResponse.json({
                 success: false,
@@ -71,7 +62,7 @@ export async function GET() {
                 exists: false
             }, { status: 404 });
         }
-        
+
         return NextResponse.json({
             success: true,
             message: "Admin user found",
@@ -85,7 +76,7 @@ export async function GET() {
                 lastLogin: adminUser.lastLogin
             }
         }, { status: 200 });
-        
+
     } catch (error) {
         console.error("Error checking admin user:", error);
         return NextResponse.json({

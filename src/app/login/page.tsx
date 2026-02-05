@@ -22,7 +22,7 @@ export default function LoginPage() {
 
         try {
             const success = await login(email, password);
-            
+
             if (success) {
                 router.push("/admin");
             } else {
@@ -37,42 +37,42 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center p-4 mobile-safe-area">
+        <div className="min-h-screen bg-white flex items-center justify-center p-4 mobile-safe-area">
             {/* Background Elements */}
             <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-20 left-20 w-32 h-32 border border-yellow-400/20 rounded-full animate-pulse"></div>
-                <div className="absolute bottom-32 right-32 w-24 h-24 border border-yellow-400/20 rounded-full animate-pulse delay-1000"></div>
-                <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-yellow-400/20 rounded-full animate-pulse delay-2000"></div>
+                <div className="absolute top-20 left-20 w-32 h-32 border border-green-500/20 rounded-full animate-pulse"></div>
+                <div className="absolute bottom-32 right-32 w-24 h-24 border border-gold/20 rounded-full animate-pulse delay-1000"></div>
+                <div className="absolute top-1/2 left-1/4 w-16 h-16 border border-green-600/20 rounded-full animate-pulse delay-2000"></div>
             </div>
 
             <div className="relative z-10 w-full max-w-md">
-                {/* Premium Login Card */}
+                {/* Login Card */}
                 <div className="card-premium p-6 sm:p-8 glow">
                     {/* Header */}
                     <div className="text-center mb-8">
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400/10 border border-yellow-400/30 rounded-full mb-6">
-                            <Crown className="w-4 h-4 text-yellow-400" />
-                            <span className="text-yellow-400 text-sm font-medium">ELITE ACCESS</span>
-                            <Sparkles className="w-4 h-4 text-yellow-400" />
+                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full mb-6">
+                            <Crown className="w-4 h-4 text-green-600" />
+                            <span className="text-green-600 text-sm font-medium">ADMIN ACCESS</span>
+                            <Sparkles className="w-4 h-4 text-green-600" />
                         </div>
-                        
-                        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                            Welcome Back to <span className="gradient-text">Aptor Studies</span>
+
+                        <h1 className="text-2xl sm:text-3xl font-bold text-green-900 mb-2">
+                            Welcome Back to <span className="gradient-text">APTOR Studies</span>
                         </h1>
-                        <p className="text-gray-400">Sign in to access your premium dashboard</p>
+                        <p className="text-green-700">Sign in to access your admin dashboard</p>
                     </div>
 
                     {/* Login Form */}
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {error && (
-                            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 text-red-400 text-sm">
+                            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 text-red-600 text-sm">
                                 {error}
                             </div>
                         )}
 
                         {/* Email Field */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                            <label className="block text-sm font-medium text-green-700 mb-2">
                                 <Mail className="w-4 h-4 inline mr-2" />
                                 Email Address
                             </label>
@@ -81,14 +81,14 @@ export default function LoginPage() {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Enter your email"
-                                className="w-full px-4 py-3 bg-black/50 border border-yellow-400/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 min-h-[48px]"
+                                className="w-full px-4 py-3 bg-white border border-green-300 rounded-lg text-green-900 placeholder-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 min-h-[48px]"
                                 required
                             />
                         </div>
 
                         {/* Password Field */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">
+                            <label className="block text-sm font-medium text-green-700 mb-2">
                                 <Lock className="w-4 h-4 inline mr-2" />
                                 Password
                             </label>
@@ -98,13 +98,13 @@ export default function LoginPage() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="Enter your password"
-                                    className="w-full px-4 py-3 bg-black/50 border border-yellow-400/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300 min-h-[48px] pr-12"
+                                    className="w-full px-4 py-3 bg-white border border-green-300 rounded-lg text-green-900 placeholder-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 min-h-[48px] pr-12"
                                     required
                                 />
                                 <button
                                     type="button"
                                     onClick={() => setShowPassword(!showPassword)}
-                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-yellow-400 transition-colors"
+                                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500 hover:text-green-600 transition-colors"
                                 >
                                     {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                                 </button>
@@ -118,23 +118,15 @@ export default function LoginPage() {
                             className="btn-premium w-full text-center inline-flex items-center justify-center gap-2 text-black font-semibold min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <Crown className="w-5 h-5" />
-                            {isLoading ? "Signing In..." : "Sign In to Elite Portal"}
+                            {isLoading ? "Signing In..." : "Sign In to Admin Portal"}
                         </button>
                     </form>
 
-                    {/* Demo Credentials */}
-                    <div className="mt-8 p-4 bg-yellow-400/5 border border-yellow-400/20 rounded-lg">
-                        <h3 className="text-sm font-medium text-yellow-400 mb-2">Demo Credentials:</h3>
-                        <div className="text-xs text-gray-400 space-y-1">
-                            <div>Email: info@aptorstudies.com</div>
-                            <div>Password: SecureAdmin123!</div>
-                        </div>
-                    </div>
 
                     {/* Footer */}
-                    <div className="text-center mt-8 pt-6 border-t border-yellow-400/20">
-                        <Link href="/" className="text-gray-400 hover:text-yellow-400 transition-colors text-sm">
-                            ← Back to Aptor Studies
+                    <div className="text-center mt-8 pt-6 border-t border-green-200">
+                        <Link href="/" className="text-green-600 hover:text-green-700 transition-colors text-sm">
+                            ← Back to APTOR Studies
                         </Link>
                     </div>
                 </div>

@@ -17,6 +17,7 @@ const config: Config = {
         'no-touch': { 'raw': '(hover: hover) and (pointer: fine)' },
       },
       colors: {
+        gold: '#d4af37',
         primary: {
           50: '#f0fdfa',
           100: '#ccfbf1',
