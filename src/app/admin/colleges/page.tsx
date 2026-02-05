@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit, Trash2, Search, Filter, Building, MapPin, Calendar, Globe, Crown } from "lucide-react";
+import { Plus, Edit, Trash2, Search, Filter, Building, MapPin, Calendar, Globe, Crown, X } from "lucide-react";
 
 interface College {
   _id: string;
@@ -47,7 +47,7 @@ export default function AdminCollegesPage() {
 
   const filteredColleges = colleges.filter(college => {
     const matchesSearch = college.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         college.location.toLowerCase().includes(searchTerm.toLowerCase());
+      college.location.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = filterType === "all" || college.type === filterType;
     return matchesSearch && matchesFilter;
   });
@@ -60,8 +60,8 @@ export default function AdminCollegesPage() {
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this college?")) {
       try {
-        const response = await fetch(`/api/admin/colleges/${id}`, { 
-          method: "DELETE" 
+        const response = await fetch(`/api/admin/colleges/${id}`, {
+          method: "DELETE"
         });
         if (!response.ok) {
           throw new Error("Failed to delete college");
@@ -91,7 +91,7 @@ export default function AdminCollegesPage() {
         throw new Error("Failed to update college status");
       }
 
-      setColleges(colleges.map(c => 
+      setColleges(colleges.map(c =>
         c._id === id ? { ...c, isActive: !c.isActive } : c
       ));
     } catch (error) {
@@ -126,22 +126,22 @@ export default function AdminCollegesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-400/10 border border-yellow-400/30 rounded-full mb-2">
-            <Building className="w-4 h-4 text-yellow-400" />
-            <span className="text-yellow-400 text-sm font-medium">COLLEGES</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 border border-green-300 rounded-full mb-2">
+            <Building className="w-4 h-4 text-green-600" />
+            <span className="text-green-600 text-sm font-medium">AFFILIATED COLLEGES</span>
           </div>
-          <h1 className="text-2xl font-bold text-white">Manage Colleges</h1>
-          <p className="text-gray-400 mt-1">Add, edit, and manage college listings</p>
+          <h1 className="text-3xl font-bold text-green-900">Manage <span className="gradient-text">Affiliated Colleges</span></h1>
+          <p className="text-green-700 mt-1">Add, edit, and manage local affiliated college listings</p>
         </div>
         <button
           onClick={() => {
             setEditingCollege(null);
             setShowForm(true);
           }}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg font-medium transition-colors duration-200"
+          className="btn-premium px-4 py-2 text-black font-semibold flex items-center gap-2"
         >
           <Plus className="w-4 h-4" />
-          Add College
+          Add Affiliated College
         </button>
       </div>
 
@@ -185,8 +185,8 @@ export default function AdminCollegesPage() {
             <Building className="w-12 h-12 text-gray-600 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-white mb-2">No Colleges Found</h3>
             <p className="text-gray-400 mb-4">
-              {searchTerm || filterType !== "all" 
-                ? "Try adjusting your search or filters" 
+              {searchTerm || filterType !== "all"
+                ? "Try adjusting your search or filters"
                 : "Get started by adding your first college"
               }
             </p>
@@ -210,18 +210,17 @@ export default function AdminCollegesPage() {
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
                     <h3 className="text-xl font-semibold text-white">{college.name}</h3>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      college.isActive 
-                        ? "bg-green-500/20 text-green-400" 
-                        : "bg-gray-500/20 text-gray-400"
-                    }`}>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${college.isActive
+                      ? "bg-green-500/20 text-green-400"
+                      : "bg-gray-500/20 text-gray-400"
+                      }`}>
                       {college.isActive ? "Active" : "Inactive"}
                     </span>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getTypeColor(college.type)}`}>
                       {college.type.charAt(0).toUpperCase() + college.type.slice(1)}
                     </span>
                   </div>
-                  
+
                   <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
                     <div className="flex items-center gap-1">
                       <MapPin className="w-4 h-4" />
@@ -234,9 +233,9 @@ export default function AdminCollegesPage() {
                     {college.website && (
                       <div className="flex items-center gap-1">
                         <Globe className="w-4 h-4" />
-                        <a 
-                          href={college.website} 
-                          target="_blank" 
+                        <a
+                          href={college.website}
+                          target="_blank"
                           rel="noopener noreferrer"
                           className="text-yellow-400 hover:text-yellow-300 transition-colors"
                         >
@@ -245,9 +244,9 @@ export default function AdminCollegesPage() {
                       </div>
                     )}
                   </div>
-                  
+
                   <p className="text-gray-300 mb-3 line-clamp-2">{college.description}</p>
-                  
+
                   {college.affiliation && (
                     <div className="text-sm">
                       <span className="font-medium text-gray-400">Affiliation: </span>
@@ -255,15 +254,14 @@ export default function AdminCollegesPage() {
                     </div>
                   )}
                 </div>
-                
+
                 <div className="flex items-center gap-2 ml-4">
                   <button
                     onClick={() => toggleStatus(college._id)}
-                    className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                      college.isActive
-                        ? "bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30"
-                        : "bg-green-500/20 text-green-400 hover:bg-green-500/30"
-                    }`}
+                    className={`px-3 py-1 rounded text-sm font-medium transition-colors ${college.isActive
+                      ? "bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30"
+                      : "bg-green-500/20 text-green-400 hover:bg-green-500/30"
+                      }`}
                   >
                     {college.isActive ? "Deactivate" : "Activate"}
                   </button>
@@ -288,33 +286,111 @@ export default function AdminCollegesPage() {
 
       {/* Form Modal */}
       {showForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="card-premium max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Crown className="w-5 h-5 text-yellow-400" />
-                <h2 className="text-2xl font-bold text-white">
-                  {editingCollege ? "Edit College" : "Add New College"}
-                </h2>
-              </div>
-              <p className="text-gray-400 mb-6">
-                This form would contain fields for creating/editing colleges. 
-                API integration is ready for full functionality.
-              </p>
-              <div className="flex justify-end gap-3">
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+          <div className="card-premium max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+            <div className="p-8">
+              <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                    <Building className="w-5 h-5 text-green-600" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-green-900">
+                    {editingCollege ? "Edit Affiliated College" : "Add Affiliated College"}
+                  </h2>
+                </div>
                 <button
                   onClick={() => setShowForm(false)}
-                  className="px-4 py-2 text-gray-400 border border-gray-600 rounded-lg hover:bg-gray-600/10 transition-colors"
+                  className="p-2 text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                 >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => setShowForm(false)}
-                  className="px-4 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 font-medium transition-colors"
-                >
-                  Save
+                  <X className="w-6 h-6" />
                 </button>
               </div>
+
+              <form onSubmit={async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.currentTarget);
+                const data = Object.fromEntries(formData.entries());
+
+                try {
+                  const method = editingCollege ? "PATCH" : "POST";
+                  const url = editingCollege ? `/api/admin/colleges/${editingCollege._id}` : "/api/admin/colleges";
+
+                  const response = await fetch(url, {
+                    method,
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                      ...data,
+                      establishedYear: parseInt(data.establishedYear as string) || 2024
+                    }),
+                  });
+
+                  if (response.ok) {
+                    setShowForm(false);
+                    fetchColleges();
+                  } else {
+                    alert("Failed to save college");
+                  }
+                } catch (error) {
+                  console.error("Error saving college:", error);
+                  alert("An error occurred. Please try again.");
+                }
+              }} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-green-900 mb-2">College Name</label>
+                    <input name="name" defaultValue={editingCollege?.name} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-green-900 mb-2">Slug</label>
+                    <input name="slug" defaultValue={editingCollege?.name?.toLowerCase().replace(/\s+/g, '-')} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-green-900 mb-2">Location</label>
+                    <input name="location" defaultValue={editingCollege?.location} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-green-900 mb-2">Est. Year</label>
+                    <input type="number" name="establishedYear" defaultValue={editingCollege?.establishedYear} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-green-900 mb-2">Type</label>
+                    <select name="type" defaultValue={editingCollege?.type || "engineering"} className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all">
+                      <option value="engineering">Engineering</option>
+                      <option value="medical">Medical</option>
+                      <option value="arts">Arts</option>
+                      <option value="science">Science</option>
+                      <option value="commerce">Commerce</option>
+                      <option value="law">Law</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-green-900 mb-2">Website</label>
+                    <input type="url" name="website" defaultValue={editingCollege?.website} className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-green-900 mb-2">Description</label>
+                  <textarea name="description" defaultValue={editingCollege?.description} rows={4} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"></textarea>
+                </div>
+
+                <div className="flex justify-end gap-3 pt-6 border-t border-green-100">
+                  <button
+                    type="button"
+                    onClick={() => setShowForm(false)}
+                    className="px-6 py-2.5 text-green-700 font-semibold border border-green-200 rounded-xl hover:bg-green-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="btn-premium px-8 py-2.5 text-black font-bold"
+                  >
+                    {editingCollege ? "Update College" : "Create College"}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>

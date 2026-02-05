@@ -118,6 +118,27 @@ export const internshipSchema = z.object({
   }).optional()
 });
 
+// Course validation
+export const courseSchema = z.object({
+  title: z.string().min(3, 'Title must be at least 3 characters').max(200, 'Title must be less than 200 characters'),
+  slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
+  description: z.string().min(50, 'Description must be at least 50 characters'),
+  level: z.enum(["Undergraduate", "Postgraduate", "Diploma", "Certificate"]),
+  mode: z.enum(["Offline", "Online", "Hybrid"]).optional(),
+  duration: z.string().min(1, 'Duration is required'),
+  college: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Invalid college ID').optional(),
+  university: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Invalid university ID').optional(),
+  price: z.string().optional(),
+  category: z.string().optional(),
+  featured: z.boolean().optional(),
+  isActive: z.boolean().optional(),
+  seo: z.object({
+    title: z.string().optional(),
+    description: z.string().optional(),
+    keywords: z.array(z.string()).optional()
+  }).optional()
+});
+
 // Helper function to validate data
 export function validateData<T>(schema: z.ZodSchema<T>, data: unknown): { success: true; data: T } | { success: false; errors: string[] } {
   try {

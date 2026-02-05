@@ -27,7 +27,7 @@ export default function UsersManagement() {
 
   useEffect(() => {
     if (status === "loading") return;
-    
+
     if (status === "unauthenticated") {
       router.push("/login");
       return;
@@ -43,40 +43,17 @@ export default function UsersManagement() {
 
   const fetchUsers = async () => {
     try {
-      // Mock data for now - replace with actual API call
-      const mockUsers: User[] = [
-        {
-          _id: "1",
-          name: "Admin User",
-          email: "info@aptorstudies.com",
-          role: "admin",
-          isActive: true,
-          lastLogin: new Date(),
-          createdAt: new Date("2024-01-01")
-        },
-        {
-          _id: "2", 
-          name: "John Editor",
-          email: "editor@aptorstudies.com",
-          role: "editor",
-          isActive: true,
-          lastLogin: new Date("2024-01-25"),
-          createdAt: new Date("2024-01-15")
-        },
-        {
-          _id: "3",
-          name: "Jane Viewer", 
-          email: "viewer@aptorstudies.com",
-          role: "viewer",
-          isActive: false,
-          lastLogin: new Date("2024-01-20"),
-          createdAt: new Date("2024-01-10")
-        }
-      ];
-      
-      setUsers(mockUsers);
+      const response = await fetch('/api/admin/users');
+      if (response.ok) {
+        const data = await response.json();
+        setUsers(data.users || []);
+      } else {
+        console.error("Error fetching users:", response.statusText);
+        setUsers([]);
+      }
     } catch (error) {
       console.error("Error fetching users:", error);
+      setUsers([]);
     } finally {
       setLoading(false);
     }
@@ -84,12 +61,12 @@ export default function UsersManagement() {
 
   const filteredUsers = users.filter(user => {
     const matchesSearch = user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(searchTerm.toLowerCase());
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = roleFilter === "all" || user.role === roleFilter;
-    const matchesStatus = statusFilter === "all" || 
-                         (statusFilter === "active" && user.isActive) ||
-                         (statusFilter === "inactive" && !user.isActive);
-    
+    const matchesStatus = statusFilter === "all" ||
+      (statusFilter === "active" && user.isActive) ||
+      (statusFilter === "inactive" && !user.isActive);
+
     return matchesSearch && matchesRole && matchesStatus;
   });
 
@@ -136,7 +113,7 @@ export default function UsersManagement() {
           </h1>
           <p className="text-green-700">Manage user accounts, roles, and permissions</p>
         </div>
-        <Link 
+        <Link
           href="/admin/users/create"
           className="btn-premium inline-flex items-center gap-2 text-black font-semibold"
         >
@@ -160,7 +137,7 @@ export default function UsersManagement() {
                 className="w-full pl-10 pr-4 py-3 bg-white border border-green-300 rounded-lg text-green-900 placeholder-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
               />
             </div>
-            
+
             <div className="flex gap-3">
               <select
                 value={roleFilter}
@@ -172,7 +149,7 @@ export default function UsersManagement() {
                 <option value="editor">Editor</option>
                 <option value="viewer">Viewer</option>
               </select>
-              
+
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}

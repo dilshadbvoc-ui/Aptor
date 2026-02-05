@@ -4,14 +4,14 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "@/components/providers/SessionProvider";
 import Link from "next/link";
-import { 
-    Crown, 
-    Users, 
-    BookOpen, 
-    Star, 
-    Calendar, 
-    Mail, 
-    Settings, 
+import {
+    Crown,
+    Users,
+    BookOpen,
+    Star,
+    Calendar,
+    Mail,
+    Settings,
     LogOut,
     Home,
     Building2,
@@ -24,8 +24,9 @@ import {
 
 const adminNavItems = [
     { href: "/admin", label: "Dashboard", icon: Home },
-    { href: "/admin/universities", label: "Universities", icon: Building2 },
-    { href: "/admin/colleges", label: "Colleges", icon: GraduationCap },
+    { href: "/admin/universities", label: "Colleges", icon: GraduationCap },
+    { href: "/admin/colleges", label: "Affiliated Colleges", icon: Building2 },
+    { href: "/admin/courses", label: "Courses", icon: BookOpen },
     { href: "/admin/blogs", label: "Blogs", icon: BookOpen },
     { href: "/admin/events", label: "Events", icon: Calendar },
     { href: "/admin/internships", label: "Internships", icon: Briefcase },
@@ -45,10 +46,10 @@ export default function AdminLayout({
     const router = useRouter();
     const [isLoggingOut, setIsLoggingOut] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    
+
     useEffect(() => {
         if (status === "loading") return;
-        
+
         if (status === "unauthenticated") {
             router.push("/login");
         }
@@ -56,7 +57,7 @@ export default function AdminLayout({
 
     const handleLogout = async () => {
         setIsLoggingOut(true);
-        
+
         try {
             await logout();
             router.push("/login");
@@ -86,9 +87,8 @@ export default function AdminLayout({
         <div className="min-h-screen bg-white mobile-safe-area">
             <div className="flex">
                 {/* Sidebar */}
-                <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-green-50 border-r border-green-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${
-                    sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-                }`}>
+                <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-green-50 border-r border-green-200 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+                    }`}>
                     <div className="flex items-center justify-between h-16 px-4 border-b border-green-200">
                         <div className="flex items-center gap-2">
                             <Crown className="w-6 h-6 text-green-600" />
@@ -101,7 +101,7 @@ export default function AdminLayout({
                             <X className="w-5 h-5" />
                         </button>
                     </div>
-                    
+
                     <nav className="mt-4 px-2">
                         {adminNavItems.map((item) => (
                             <Link
@@ -134,7 +134,7 @@ export default function AdminLayout({
                                     <p className="text-green-900 font-medium">{user?.name}</p>
                                 </div>
                             </div>
-                            
+
                             <div className="flex items-center gap-4">
                                 <div className="text-right hidden md:block">
                                     <p className="text-xs text-green-600">Logged in as</p>

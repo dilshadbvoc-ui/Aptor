@@ -9,10 +9,12 @@ export async function createUniversity(formData: FormData) {
     const name = formData.get("name") as string;
     const slug = formData.get("slug") as string;
     const location = formData.get("location") as string;
+    const country = formData.get("country") as string;
+    const type = formData.get("type") as "public" | "private";
     const description = formData.get("description") as string;
     const website = formData.get("website") as string;
 
-    if (!name || !slug || !location || !description) {
+    if (!name || !slug || !location || !country || !type || !description) {
         throw new Error("Missing required fields");
     }
 
@@ -22,9 +24,11 @@ export async function createUniversity(formData: FormData) {
         name,
         slug,
         location,
+        country,
+        type,
         description,
         website,
-        courses: [] // Placeholder
+        courses: []
     });
 
     revalidatePath("/universities");

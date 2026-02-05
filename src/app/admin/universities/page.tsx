@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Plus, Edit, Trash2, Eye, Crown, Building2 } from "lucide-react";
+import { Plus, Edit, Trash2, Eye, Crown, Building2, GraduationCap } from "lucide-react";
 import { useState, useEffect } from "react";
 
 interface University {
@@ -70,7 +70,7 @@ export default function AdminUniversitiesPage() {
             });
 
             if (response.ok) {
-                setUniversities(universities.map(uni => 
+                setUniversities(universities.map(uni =>
                     uni._id === id ? { ...uni, isActive: !currentStatus } : uni
                 ));
             } else {
@@ -95,19 +95,19 @@ export default function AdminUniversitiesPage() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-yellow-400/10 border border-yellow-400/30 rounded-full mb-2">
-                        <Building2 className="w-4 h-4 text-yellow-400" />
-                        <span className="text-yellow-400 text-sm font-medium">UNIVERSITIES</span>
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 border border-green-300 rounded-full mb-2">
+                        <GraduationCap className="w-4 h-4 text-green-600" />
+                        <span className="text-green-600 text-sm font-medium">COLLEGES</span>
                     </div>
-                    <h1 className="text-2xl font-bold text-white">Manage Universities</h1>
-                    <p className="text-gray-400 mt-1">Add, edit, and manage university listings</p>
+                    <h1 className="text-3xl font-bold text-green-900">Manage <span className="gradient-text">Colleges</span></h1>
+                    <p className="text-green-700 mt-1">Add, edit, and manage college listings</p>
                 </div>
                 <Link
                     href="/admin/universities/new"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg font-medium transition-colors duration-200"
+                    className="btn-premium px-4 py-2 text-black font-semibold flex items-center gap-2"
                 >
                     <Plus className="w-4 h-4" />
-                    Add New University
+                    Add New College
                 </Link>
             </div>
 
@@ -123,14 +123,14 @@ export default function AdminUniversitiesPage() {
                 {universities.length === 0 ? (
                     <div className="text-center py-12">
                         <Building2 className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-                        <h3 className="text-lg font-medium text-white mb-2">No Universities Found</h3>
-                        <p className="text-gray-400 mb-4">Get started by adding your first university.</p>
+                        <h3 className="text-lg font-medium text-green-900 mb-2">No Colleges Found</h3>
+                        <p className="text-green-700 mb-4">Get started by adding your first college.</p>
                         <Link
                             href="/admin/universities/new"
-                            className="inline-flex items-center gap-2 px-4 py-2 bg-yellow-400 hover:bg-yellow-500 text-black rounded-lg font-medium transition-colors duration-200"
+                            className="btn-premium px-4 py-2 text-black font-semibold flex items-center gap-2"
                         >
                             <Plus className="w-4 h-4" />
-                            Add University
+                            Add College
                         </Link>
                     </div>
                 ) : (
@@ -174,11 +174,10 @@ export default function AdminUniversitiesPage() {
                                         <td className="py-4 px-6">
                                             <button
                                                 onClick={() => toggleStatus(university._id, university.isActive)}
-                                                className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium transition-colors ${
-                                                    university.isActive
-                                                        ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
-                                                        : 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
-                                                }`}
+                                                className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium transition-colors ${university.isActive
+                                                    ? 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
+                                                    : 'bg-red-500/20 text-red-400 hover:bg-red-500/30'
+                                                    }`}
                                             >
                                                 {university.isActive ? 'Active' : 'Inactive'}
                                             </button>
