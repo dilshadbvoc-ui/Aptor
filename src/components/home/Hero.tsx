@@ -11,11 +11,25 @@ export function Hero() {
         phone: ''
     });
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
         if (!formData.email || !formData.name || !formData.phone) {
             alert('Please fill in all fields');
+            return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            alert('Please enter a valid email address');
+            return;
+        }
+
+        // Phone validation
+        const phoneRegex = /^[\+]?[\d\s\-\(\)]{10,15}$/;
+        if (!phoneRegex.test(formData.phone)) {
+            alert('Please enter a valid phone number');
             return;
         }
 

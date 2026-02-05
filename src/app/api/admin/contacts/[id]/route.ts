@@ -1,118 +1,99 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { verifyToken } from "@/lib/auth-middleware";
 import connectDB from "@/lib/db";
 import Contact from "@/models/Contact";
-import { isAuthenticated } from "@/lib/auth-middleware";
 
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // Check authentication
-    if (!isAuthenticated(request as any)) {
+    const authUser = verifyToken(request);
+    if (!authUser) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = await params;
     await connectDB();
-    
     const contact = await Contact.findById(id);
     
     if (!contact) {
-      return NextResponse.json({
-        success: false,
-        error: "Contact not found"
-      }, { status: 404 });
+      return NextResponse.json({ error: "Contact not found" }, { status: 404 });
     }
     
-    return NextResponse.json({
-      success: true,
-      contact: contact
-    });
-    
+    return NextResponse.json({ contact });
   } catch (error) {
     console.error("Error fetching contact:", error);
-    return NextResponse.json({
-      success: false,
-      error: "Failed to fetch contact"
-    }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to fetch contact" },
+      { status: 500 }
+    );
   }
 }
 
-export async function PUT(
-  request: Request,
+export async function PATCH(
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // Check authentication
-    if (!isAuthenticated(request as any)) {
+    const authUser = verifyToken(request);
+    if (!authUser) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = await params;
-    const body = await request.json();
+    const data = await request.json();
     
     await connectDB();
     
+    // For PATCH, we only update the provided fields
     const contact = await Contact.findByIdAndUpdate(
       id,
-      { ...body, updatedAt: new Date() },
-      { new: true }
+      { $set: data },
+      { new: true, runValidators: true }
     );
     
     if (!contact) {
-      return NextResponse.json({
-        success: false,
-        error: "Contact not found"
-      }, { status: 404 });
+      return NextResponse.json({ error: "Contact not found" }, { status: 404 });
     }
     
-    return NextResponse.json({
-      success: true,
-      contact: contact
+    return NextResponse.json({ 
+      message: "Contact updated successfully",
+      contact 
     });
-    
   } catch (error) {
     console.error("Error updating contact:", error);
-    return NextResponse.json({
-      success: false,
-      error: "Failed to update contact"
-    }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to update contact" },
+      { status: 500 }
+    );
   }
 }
 
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // Check authentication
-    if (!isAuthenticated(request as any)) {
+    const authUser = verifyToken(request);
+    if (!authUser) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const { id } = await params;
     await connectDB();
-    
     const contact = await Contact.findByIdAndDelete(id);
     
     if (!contact) {
-      return NextResponse.json({
-        success: false,
-        error: "Contact not found"
-      }, { status: 404 });
+      return NextResponse.json({ error: "Contact not found" }, { status: 404 });
     }
     
-    return NextResponse.json({
-      success: true,
-      message: "Contact deleted successfully"
-    });
-    
+    return NextResponse.json({ message: "Contact deleted successfully" });
   } catch (error) {
     console.error("Error deleting contact:", error);
-    return NextResponse.json({
-      success: false,
-      error: "Failed to delete contact"
-    }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to delete contact" },
+      { status: 500 }
+    );
   }
 }

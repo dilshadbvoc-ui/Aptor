@@ -1,24 +1,48 @@
 import { z } from 'zod';
 
+// Shared validation constants
+const SLUG_REGEX = /^[a-z0-9-]+$/;
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_REGEX = /^[\+]?[\d\s\-\(\)]{10,15}$/;
+const CURRENT_YEAR = new Date().getFullYear();
+
+// Shared validators
+const establishedYearValidator = z.number()
+  .min(1800, 'Established year must be after 1800')
+  .max(CURRENT_YEAR, 'Established year cannot be in the future');
+
+const slugValidator = z.string()
+  .min(3, 'Slug must be at least 3 characters')
+  .regex(SLUG_REGEX, 'Slug can only contain lowercase letters, numbers, and hyphens');
+
+const emailValidator = z.string()
+  .email('Please enter a valid email address')
+  .regex(EMAIL_REGEX, 'Please enter a valid email address');
+
+const phoneValidator = z.string()
+  .min(10, 'Phone number must be at least 10 digits')
+  .max(15, 'Phone number must be less than 15 digits')
+  .regex(PHONE_REGEX, 'Please enter a valid phone number');
+
 // Contact form validation
 export const contactSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').max(100, 'Name must be less than 100 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().min(10, 'Phone number must be at least 10 digits').max(15, 'Phone number must be less than 15 digits'),
+  email: emailValidator,
+  phone: phoneValidator,
   message: z.string().min(10, 'Message must be at least 10 characters').max(1000, 'Message must be less than 1000 characters')
 });
 
 // User validation
 export const userSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').max(100, 'Name must be less than 100 characters'),
-  email: z.string().email('Please enter a valid email address'),
+  email: emailValidator,
   password: z.string().min(6, 'Password must be at least 6 characters').max(100, 'Password must be less than 100 characters'),
   role: z.enum(['admin', 'editor', 'viewer']).optional()
 });
 
 // Login validation
 export const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
+  email: emailValidator,
   password: z.string().min(1, 'Password is required')
 });
 
@@ -27,7 +51,7 @@ export const blogSchema = z.object({
   title: z.string().min(5, 'Title must be at least 5 characters').max(200, 'Title must be less than 200 characters'),
   content: z.string().min(50, 'Content must be at least 50 characters'),
   excerpt: z.string().min(20, 'Excerpt must be at least 20 characters').max(300, 'Excerpt must be less than 300 characters'),
-  slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
+  slug: slugValidator,
   tags: z.array(z.string()).optional(),
   published: z.boolean().optional(),
   featured: z.boolean().optional(),
@@ -44,11 +68,11 @@ export const universitySchema = z.object({
   description: z.string().min(50, 'Description must be at least 50 characters'),
   location: z.string().min(3, 'Location must be at least 3 characters'),
   country: z.string().min(2, 'Country must be at least 2 characters'),
-  establishedYear: z.number().min(1800, 'Established year must be after 1800').max(new Date().getFullYear(), 'Established year cannot be in the future'),
+  establishedYear: establishedYearValidator,
   type: z.enum(['public', 'private']),
   ranking: z.number().min(1).optional(),
   website: z.string().url('Please enter a valid website URL').optional(),
-  slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
+  slug: slugValidator,
   featured: z.boolean().optional(),
   seo: z.object({
     title: z.string().optional(),
@@ -62,11 +86,11 @@ export const collegeSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters').max(200, 'Name must be less than 200 characters'),
   description: z.string().min(50, 'Description must be at least 50 characters'),
   location: z.string().min(3, 'Location must be at least 3 characters'),
-  establishedYear: z.number().min(1800, 'Established year must be after 1800').max(new Date().getFullYear(), 'Established year cannot be in the future'),
+  establishedYear: establishedYearValidator,
   type: z.enum(['engineering', 'medical', 'arts', 'science', 'commerce', 'law', 'other']),
   affiliation: z.string().optional(),
   website: z.string().url('Please enter a valid website URL').optional().or(z.literal("")),
-  slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
+  slug: slugValidator,
   isActive: z.boolean().optional(),
   featured: z.boolean().optional(),
   seo: z.object({
@@ -87,7 +111,7 @@ export const eventSchema = z.object({
   capacity: z.number().min(1, 'Capacity must be at least 1').optional(),
   registrationDeadline: z.string().optional(),
   fee: z.string().optional(),
-  slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
+  slug: slugValidator,
   isActive: z.boolean().optional(),
   published: z.boolean().optional(),
   featured: z.boolean().optional(),
@@ -111,8 +135,8 @@ export const internshipSchema = z.object({
   applicationDeadline: z.string().refine((date) => new Date(date) > new Date(), 'Application deadline must be in the future'),
   startDate: z.string().refine((date) => new Date(date) > new Date(), 'Start date must be in the future'),
   applicationUrl: z.string().url('Please enter a valid application URL').optional(),
-  contactEmail: z.string().email('Please enter a valid contact email').optional(),
-  slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
+  contactEmail: emailValidator.optional(),
+  slug: slugValidator,
   isActive: z.boolean().optional(),
   published: z.boolean().optional(),
   featured: z.boolean().optional(),
@@ -126,7 +150,7 @@ export const internshipSchema = z.object({
 // Course validation
 export const courseSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters').max(200, 'Title must be less than 200 characters'),
-  slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
+  slug: slugValidator,
   description: z.string().min(50, 'Description must be at least 50 characters'),
   level: z.enum(["Undergraduate", "Postgraduate", "Diploma", "Certificate"]),
   mode: z.enum(["Offline", "Online", "Hybrid"]).optional(),

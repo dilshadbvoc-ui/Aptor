@@ -93,6 +93,42 @@ export async function PUT(
   }
 }
 
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const authUser = verifyToken(request);
+    if (!authUser) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await params;
+    const data = await request.json();
+    
+    await connectDB();
+    
+    // For PATCH, we only update the provided fields
+    const college = await College.findByIdAndUpdate(
+      id,
+      { $set: data },
+      { new: true, runValidators: true }
+    );
+    
+    if (!college) {
+      return NextResponse.json({ error: "College not found" }, { status: 404 });
+    }
+    
+    return NextResponse.json(college);
+  } catch (error) {
+    console.error("Error updating college:", error);
+    return NextResponse.json(
+      { error: "Failed to update college" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
