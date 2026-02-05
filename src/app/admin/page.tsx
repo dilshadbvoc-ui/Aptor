@@ -87,7 +87,7 @@ export default function AdminDashboard() {
                     { title: "Applications", value: stats.applications.toString(), icon: Star, color: "from-yellow-500 to-yellow-600" },
                     { title: "Success Rate", value: stats.successRate, icon: TrendingUp, color: "from-purple-500 to-purple-600" },
                 ].map((stat, index) => (
-                    <div key={index} className="card-premium p-6 hover-lift-premium">
+                    <div key={index} className="card p-6 hover:shadow-xl hover:scale-[1.02]">
                         <div className="flex items-center justify-between">
                             <div>
                                 <p className="text-green-600 text-sm">{stat.title}</p>
@@ -111,7 +111,7 @@ export default function AdminDashboard() {
                     { title: "Contact Messages", desc: "View contact inquiries", icon: Mail, href: "/admin/contacts" },
                     { title: "Settings", desc: "System configuration", icon: Settings, href: "/admin/settings" },
                 ].map((action, index) => (
-                    <Link key={index} href={action.href} className="card-premium p-6 hover-lift-premium group cursor-pointer block">
+                    <Link key={index} href={action.href} className="card p-6 hover:shadow-xl hover:scale-[1.02] group cursor-pointer block">
                         <div className="flex items-start gap-4">
                             <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center group-hover:bg-green-200 transition-colors">
                                 <action.icon className="w-6 h-6 text-green-600" />

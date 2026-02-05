@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit, Trash2, Search, Filter, Calendar, MapPin, Users, Clock, Crown } from "lucide-react";
+import { Plus, Edit, Trash2, Search, Filter, Calendar, MapPin, Users, Clock } from "lucide-react";
+import EventForm from "@/components/admin/EventForm";
 
 interface Event {
   _id: string;
@@ -14,14 +15,22 @@ interface Event {
   capacity?: number;
   registrationDeadline?: string;
   fee?: string;
+  slug: string;
+  featured: boolean;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
+  seo: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  };
 }
 
 export default function AdminEventsPage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<string>("all");
   const [showForm, setShowForm] = useState(false);
@@ -57,6 +66,52 @@ export default function AdminEventsPage() {
   const handleEdit = (event: Event) => {
     setEditingEvent(event);
     setShowForm(true);
+  };
+
+  const handleFormSubmit = async (data: Partial<Event>) => {
+    setSaving(true);
+    try {
+      const url = editingEvent 
+        ? `/api/admin/events/${editingEvent._id}`
+        : "/api/admin/events";
+      
+      const method = editingEvent ? "PATCH" : "POST";
+      
+      const response = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `Failed to ${editingEvent ? 'update' : 'create'} event`);
+      }
+
+      const result = await response.json();
+      
+      if (editingEvent) {
+        setEvents(events.map(e => e._id === editingEvent._id ? result.event : e));
+      } else {
+        setEvents([result.event, ...events]);
+      }
+      
+      setShowForm(false);
+      setEditingEvent(null);
+      alert(`Event ${editingEvent ? 'updated' : 'created'} successfully!`);
+    } catch (error) {
+      console.error(`Error ${editingEvent ? 'updating' : 'creating'} event:`, error);
+      alert(error instanceof Error ? error.message : `Failed to ${editingEvent ? 'update' : 'create'} event. Please try again.`);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleFormCancel = () => {
+    setShowForm(false);
+    setEditingEvent(null);
   };
 
   const handleDelete = async (id: string) => {
@@ -293,36 +348,12 @@ export default function AdminEventsPage() {
 
       {/* Form Modal */}
       {showForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="card-premium max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex items-center gap-2 mb-4">
-                <Crown className="w-5 h-5 text-yellow-400" />
-                <h2 className="text-2xl font-bold text-white">
-                  {editingEvent ? "Edit Event" : "Add New Event"}
-                </h2>
-              </div>
-              <p className="text-gray-400 mb-6">
-                This form would contain fields for creating/editing events. 
-                API integration is ready for full functionality.
-              </p>
-              <div className="flex justify-end gap-3">
-                <button
-                  onClick={() => setShowForm(false)}
-                  className="px-4 py-2 text-gray-400 border border-gray-600 rounded-lg hover:bg-gray-600/10 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => setShowForm(false)}
-                  className="px-4 py-2 bg-yellow-400 text-black rounded-lg hover:bg-yellow-500 font-medium transition-colors"
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <EventForm
+          event={editingEvent}
+          onSubmit={handleFormSubmit}
+          onCancel={handleFormCancel}
+          loading={saving}
+        />
       )}
     </div>
   );

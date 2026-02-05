@@ -5,83 +5,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { LeadModal } from "@/components/ui";
 
-const universities = [
-    {
-        id: 1,
-        name: "Harvard University",
-        location: "Cambridge, Massachusetts, USA",
-        ranking: "#1 Global",
-        students: "23,000+",
-        programs: "Engineering, Business, Medicine, Law",
-        tuition: "₹44,00,000/year",
-        image: "/campus.png",
-        type: "university",
-        featured: true
-    },
-    {
-        id: 2,
-        name: "Stanford University",
-        location: "Stanford, California, USA",
-        ranking: "#2 Global",
-        students: "17,000+",
-        programs: "Technology, Business, Engineering",
-        tuition: "₹45,00,000/year",
-        image: "/campus.png",
-        type: "university",
-        featured: true
-    },
-    {
-        id: 3,
-        name: "MIT",
-        location: "Cambridge, Massachusetts, USA",
-        ranking: "#3 Global",
-        students: "11,000+",
-        programs: "Engineering, Technology, Science",
-        tuition: "₹43,00,000/year",
-        image: "/campus.png",
-        type: "university",
-        featured: false
-    }
-];
-
-const colleges = [
-    {
-        id: 4,
-        name: "Williams College",
-        location: "Williamstown, Massachusetts, USA",
-        ranking: "#1 Liberal Arts",
-        students: "2,000+",
-        programs: "Liberal Arts, Sciences, Humanities",
-        tuition: "₹48,00,000/year",
-        image: "/campus.png",
-        type: "college",
-        featured: true
-    },
-    {
-        id: 5,
-        name: "Amherst College",
-        location: "Amherst, Massachusetts, USA",
-        ranking: "#2 Liberal Arts",
-        students: "1,800+",
-        programs: "Liberal Arts, Economics, Psychology",
-        tuition: "₹47,00,000/year",
-        image: "/campus.png",
-        type: "college",
-        featured: true
-    },
-    {
-        id: 6,
-        name: "Swarthmore College",
-        location: "Swarthmore, Pennsylvania, USA",
-        ranking: "#3 Liberal Arts",
-        students: "1,600+",
-        programs: "Liberal Arts, Engineering, Sciences",
-        tuition: "₹45,00,000/year",
-        image: "/campus.png",
-        type: "college",
-        featured: false
-    }
-];
+// Demo data removed - institutions will be loaded from database
+const universities: any[] = [];
+const colleges: any[] = [];
 
 export default function UniversitiesCollegesPage() {
     const [activeFilter, setActiveFilter] = useState("all");
@@ -121,13 +47,11 @@ export default function UniversitiesCollegesPage() {
                         </div>
                         
                         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold text-green-900 mb-4 sm:mb-6 leading-tight">
-                            <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">Universities</span>
-                            <br />
-                            <span className="text-green-900">& Colleges</span>
+                            <span className="bg-gradient-to-r from-green-600 to-green-800 bg-clip-text text-transparent">Colleges</span>
                         </h1>
                         
                         <p className="text-base sm:text-lg lg:text-xl text-gray-700 max-w-3xl mx-auto leading-relaxed">
-                            Discover the world's most prestigious educational institutions. Access exclusive opportunities at universities and colleges worldwide.
+                            Discover the world's most prestigious educational institutions. Access exclusive opportunities at colleges worldwide.
                         </p>
                     </div>
 
@@ -182,69 +106,79 @@ export default function UniversitiesCollegesPage() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-                        {featuredInstitutions.map((institution, index) => (
-                            <div
-                                key={institution.id}
-                                className="bg-white rounded-2xl shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group"
-                                style={{ animationDelay: `${index * 150}ms` }}
-                            >
-                                <div className="relative overflow-hidden rounded-t-lg sm:rounded-t-xl">
-                                    <img
-                                        src={institution.image}
-                                        alt={institution.name}
-                                        className="w-full h-32 sm:h-40 lg:h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                                    />
-                                    <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
-                                        <div className="bg-green-500 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium">
-                                            {institution.ranking}
+                        {featuredInstitutions.length > 0 ? (
+                            featuredInstitutions.map((institution, index) => (
+                                <div
+                                    key={institution.id}
+                                    className="bg-white rounded-2xl shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group"
+                                    style={{ animationDelay: `${index * 150}ms` }}
+                                >
+                                    <div className="relative overflow-hidden rounded-t-lg sm:rounded-t-xl">
+                                        <img
+                                            src={institution.image}
+                                            alt={institution.name}
+                                            className="w-full h-32 sm:h-40 lg:h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                                        />
+                                        <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
+                                            <div className="bg-green-500 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium">
+                                                {institution.ranking}
+                                            </div>
                                         </div>
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                                     </div>
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                                    
+                                    <div className="p-3 sm:p-4 lg:p-6">
+                                        <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+                                            <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+                                            <span className="text-green-700 text-xs sm:text-sm font-medium uppercase">
+                                                {institution.type}
+                                            </span>
+                                        </div>
+                                        
+                                        <h3 className="text-base sm:text-lg lg:text-xl font-bold text-green-900 mb-2 group-hover:text-green-600 transition-colors line-clamp-2">
+                                            {institution.name}
+                                        </h3>
+                                        
+                                        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600 mb-2 sm:mb-3">
+                                            <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                                            <span className="text-xs sm:text-sm line-clamp-1">{institution.location}</span>
+                                        </div>
+                                        
+                                        <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
+                                            <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
+                                                <Users className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
+                                                <span className="text-xs sm:text-sm">{institution.students} Students</span>
+                                            </div>
+                                            <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
+                                                <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
+                                                <span className="text-xs sm:text-sm line-clamp-1">{institution.programs}</span>
+                                            </div>
+                                            <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
+                                                <Diamond className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
+                                                <span className="text-xs sm:text-sm font-medium">{institution.tuition}</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <button 
+                                            onClick={() => handleApplyClick(institution.name)}
+                                            className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-xl transition-all duration-300 transform hover:scale-105 text-xs sm:text-sm min-h-[40px] sm:min-h-[44px] inline-flex items-center justify-center gap-1.5 sm:gap-2"
+                                        >
+                                            <Crown className="w-3 h-3 sm:w-4 sm:h-4" />
+                                            Apply Now
+                                            <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                                        </button>
+                                    </div>
                                 </div>
-                                
-                                <div className="p-3 sm:p-4 lg:p-6">
-                                    <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
-                                        <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
-                                        <span className="text-green-700 text-xs sm:text-sm font-medium uppercase">
-                                            {institution.type}
-                                        </span>
-                                    </div>
-                                    
-                                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-green-900 mb-2 group-hover:text-green-600 transition-colors line-clamp-2">
-                                        {institution.name}
-                                    </h3>
-                                    
-                                    <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600 mb-2 sm:mb-3">
-                                        <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                                        <span className="text-xs sm:text-sm line-clamp-1">{institution.location}</span>
-                                    </div>
-                                    
-                                    <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
-                                        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
-                                            <Users className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
-                                            <span className="text-xs sm:text-sm">{institution.students} Students</span>
-                                        </div>
-                                        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
-                                            <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
-                                            <span className="text-xs sm:text-sm line-clamp-1">{institution.programs}</span>
-                                        </div>
-                                        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
-                                            <Diamond className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
-                                            <span className="text-xs sm:text-sm font-medium">{institution.tuition}</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <button 
-                                        onClick={() => handleApplyClick(institution.name)}
-                                        className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-xl transition-all duration-300 transform hover:scale-105 text-xs sm:text-sm min-h-[40px] sm:min-h-[44px] inline-flex items-center justify-center gap-1.5 sm:gap-2"
-                                    >
-                                        <Crown className="w-3 h-3 sm:w-4 sm:h-4" />
-                                        Apply Now
-                                        <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                                    </button>
+                            ))
+                        ) : (
+                            <div className="col-span-full text-center py-12">
+                                <div className="bg-white rounded-2xl shadow-lg border border-green-100 p-8">
+                                    <Crown className="w-16 h-16 text-green-300 mx-auto mb-4" />
+                                    <h3 className="text-xl font-bold text-green-900 mb-2">No Featured Institutions Yet</h3>
+                                    <p className="text-gray-600">Featured institutions will appear here once they are added to the system.</p>
                                 </div>
                             </div>
-                        ))}
+                        )}
                     </div>
                 </div>
             </section>
@@ -262,78 +196,93 @@ export default function UniversitiesCollegesPage() {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-                        {filteredInstitutions.map((institution, index) => (
-                            <div
-                                key={institution.id}
-                                className="bg-white rounded-2xl shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group"
-                                style={{ animationDelay: `${index * 100}ms` }}
-                            >
-                                <div className="relative overflow-hidden rounded-t-lg sm:rounded-t-xl">
-                                    <img
-                                        src={institution.image}
-                                        alt={institution.name}
-                                        className="w-full h-32 sm:h-40 lg:h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                                    />
-                                    <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
-                                        <div className="bg-green-500 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium">
-                                            {institution.ranking}
-                                        </div>
-                                    </div>
-                                    {institution.featured && (
-                                        <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
-                                            <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium flex items-center gap-1">
-                                                <Star className="w-2 h-2 sm:w-3 sm:h-3" />
-                                                <span className="hidden sm:inline">Featured</span>
-                                                <span className="sm:hidden">★</span>
+                        {filteredInstitutions.length > 0 ? (
+                            filteredInstitutions.map((institution, index) => (
+                                <div
+                                    key={institution.id}
+                                    className="bg-white rounded-2xl shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group"
+                                    style={{ animationDelay: `${index * 100}ms` }}
+                                >
+                                    <div className="relative overflow-hidden rounded-t-lg sm:rounded-t-xl">
+                                        <img
+                                            src={institution.image}
+                                            alt={institution.name}
+                                            className="w-full h-32 sm:h-40 lg:h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                                        />
+                                        <div className="absolute top-2 sm:top-4 right-2 sm:right-4">
+                                            <div className="bg-green-500 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium">
+                                                {institution.ranking}
                                             </div>
                                         </div>
-                                    )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                                        {institution.featured && (
+                                            <div className="absolute top-2 sm:top-4 left-2 sm:left-4">
+                                                <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs sm:text-sm font-medium flex items-center gap-1">
+                                                    <Star className="w-2 h-2 sm:w-3 sm:h-3" />
+                                                    <span className="hidden sm:inline">Featured</span>
+                                                    <span className="sm:hidden">★</span>
+                                                </div>
+                                            </div>
+                                        )}
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                                    </div>
+                                    
+                                    <div className="p-3 sm:p-4 lg:p-6">
+                                        <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+                                            <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
+                                            <span className="text-green-700 text-xs sm:text-sm font-medium uppercase">
+                                                {institution.type}
+                                            </span>
+                                        </div>
+                                        
+                                        <h3 className="text-base sm:text-lg lg:text-xl font-bold text-green-900 mb-2 group-hover:text-green-600 transition-colors line-clamp-2">
+                                            {institution.name}
+                                        </h3>
+                                        
+                                        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600 mb-2 sm:mb-3">
+                                            <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                                            <span className="text-xs sm:text-sm line-clamp-1">{institution.location}</span>
+                                        </div>
+                                        
+                                        <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
+                                            <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
+                                                <Users className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
+                                                <span className="text-xs sm:text-sm">{institution.students} Students</span>
+                                            </div>
+                                            <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
+                                                <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
+                                                <span className="text-xs sm:text-sm line-clamp-1">{institution.programs}</span>
+                                            </div>
+                                            <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
+                                                <Diamond className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
+                                                <span className="text-xs sm:text-sm font-medium">{institution.tuition}</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <button 
+                                            onClick={() => handleApplyClick(institution.name)}
+                                            className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-xl transition-all duration-300 transform hover:scale-105 text-xs sm:text-sm min-h-[40px] sm:min-h-[44px] inline-flex items-center justify-center gap-1.5 sm:gap-2"
+                                        >
+                                            <Crown className="w-3 h-3 sm:w-4 sm:h-4" />
+                                            Learn More
+                                            <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+                                        </button>
+                                    </div>
                                 </div>
-                                
-                                <div className="p-3 sm:p-4 lg:p-6">
-                                    <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
-                                        <Crown className="w-4 h-4 sm:w-5 sm:h-5 text-green-600" />
-                                        <span className="text-green-700 text-xs sm:text-sm font-medium uppercase">
-                                            {institution.type}
-                                        </span>
-                                    </div>
-                                    
-                                    <h3 className="text-base sm:text-lg lg:text-xl font-bold text-green-900 mb-2 group-hover:text-green-600 transition-colors line-clamp-2">
-                                        {institution.name}
-                                    </h3>
-                                    
-                                    <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600 mb-2 sm:mb-3">
-                                        <MapPin className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                                        <span className="text-xs sm:text-sm line-clamp-1">{institution.location}</span>
-                                    </div>
-                                    
-                                    <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
-                                        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
-                                            <Users className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
-                                            <span className="text-xs sm:text-sm">{institution.students} Students</span>
-                                        </div>
-                                        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
-                                            <BookOpen className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
-                                            <span className="text-xs sm:text-sm line-clamp-1">{institution.programs}</span>
-                                        </div>
-                                        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-600">
-                                            <Diamond className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 flex-shrink-0" />
-                                            <span className="text-xs sm:text-sm font-medium">{institution.tuition}</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <button 
-                                        onClick={() => handleApplyClick(institution.name)}
-                                        className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-2.5 sm:py-3 px-4 rounded-xl transition-all duration-300 transform hover:scale-105 text-xs sm:text-sm min-h-[40px] sm:min-h-[44px] inline-flex items-center justify-center gap-1.5 sm:gap-2"
-                                    >
-                                        <Crown className="w-3 h-3 sm:w-4 sm:h-4" />
-                                        Learn More
-                                        <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
-                                    </button>
+                            ))
+                        ) : (
+                            <div className="col-span-full text-center py-12">
+                                <div className="bg-white rounded-2xl shadow-lg border border-green-100 p-8">
+                                    <Crown className="w-16 h-16 text-green-300 mx-auto mb-4" />
+                                    <h3 className="text-xl font-bold text-green-900 mb-2">No Institutions Found</h3>
+                                    <p className="text-gray-600">
+                                        {searchTerm || activeFilter !== "all" 
+                                            ? "Try adjusting your search or filter criteria." 
+                                            : "Institutions will appear here once they are added to the system."
+                                        }
+                                    </p>
                                 </div>
                             </div>
-                        ))}
+                        )}
                     </div>
                 </div>
             </section>

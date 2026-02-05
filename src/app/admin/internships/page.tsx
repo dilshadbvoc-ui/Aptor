@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Plus, Edit, Trash2, Search, Filter, Calendar, MapPin, Building, Briefcase } from "lucide-react";
+import InternshipForm from "@/components/admin/InternshipForm";
 
 interface Internship {
   _id: string;
@@ -15,14 +16,24 @@ interface Internship {
   requirements: string[];
   applicationDeadline: string;
   startDate: string;
+  applicationUrl?: string;
+  contactEmail?: string;
+  slug: string;
+  featured: boolean;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
+  seo: {
+    title?: string;
+    description?: string;
+    keywords?: string[];
+  };
 }
 
 export default function AdminInternshipsPage() {
   const [internships, setInternships] = useState<Internship[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState<string>("all");
   const [showForm, setShowForm] = useState(false);
@@ -58,6 +69,52 @@ export default function AdminInternshipsPage() {
   const handleEdit = (internship: Internship) => {
     setEditingInternship(internship);
     setShowForm(true);
+  };
+
+  const handleFormSubmit = async (data: Partial<Internship>) => {
+    setSaving(true);
+    try {
+      const url = editingInternship 
+        ? `/api/admin/internships/${editingInternship._id}`
+        : "/api/admin/internships";
+      
+      const method = editingInternship ? "PATCH" : "POST";
+      
+      const response = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `Failed to ${editingInternship ? 'update' : 'create'} internship`);
+      }
+
+      const result = await response.json();
+      
+      if (editingInternship) {
+        setInternships(internships.map(i => i._id === editingInternship._id ? result.internship : i));
+      } else {
+        setInternships([result.internship, ...internships]);
+      }
+      
+      setShowForm(false);
+      setEditingInternship(null);
+      alert(`Internship ${editingInternship ? 'updated' : 'created'} successfully!`);
+    } catch (error) {
+      console.error(`Error ${editingInternship ? 'updating' : 'creating'} internship:`, error);
+      alert(error instanceof Error ? error.message : `Failed to ${editingInternship ? 'update' : 'create'} internship. Please try again.`);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleFormCancel = () => {
+    setShowForm(false);
+    setEditingInternship(null);
   };
 
   const handleDelete = async (id: string) => {
@@ -294,35 +351,14 @@ export default function AdminInternshipsPage() {
         )}
       </div>
 
-      {/* Form Modal would go here */}
+      {/* Form Modal */}
       {showForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-700">
-            <div className="p-6">
-              <h2 className="text-2xl font-bold mb-4 text-white">
-                {editingInternship ? "Edit Internship" : "Add New Internship"}
-              </h2>
-              <p className="text-gray-300 mb-6">
-                This form would contain fields for creating/editing internships. 
-                API integration needed for full functionality.
-              </p>
-              <div className="flex justify-end gap-3">
-                <button
-                  onClick={() => setShowForm(false)}
-                  className="px-4 py-2 text-gray-300 border border-gray-600 rounded-lg hover:bg-gray-700 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={() => setShowForm(false)}
-                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  Save
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <InternshipForm
+          internship={editingInternship}
+          onSubmit={handleFormSubmit}
+          onCancel={handleFormCancel}
+          loading={saving}
+        />
       )}
     </div>
   );

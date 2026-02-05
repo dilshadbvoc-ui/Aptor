@@ -14,23 +14,48 @@ export async function GET(request: NextRequest) {
         await connectDB();
 
         const { searchParams } = new URL(request.url);
-        const search = searchParams.get('search') || '';
+        const page = parseInt(searchParams.get("page") || "1");
+        const limit = parseInt(searchParams.get("limit") || "10");
+        const search = searchParams.get("search");
+        const level = searchParams.get("level");
+        const featured = searchParams.get("featured");
 
-        // Build query
-        const query: any = {};
+        const skip = (page - 1) * limit;
+
+        // Build filter query
+        const filter: any = {};
         if (search) {
-            query.$or = [
-                { title: { $regex: search, $options: 'i' } },
-                { description: { $regex: search, $options: 'i' } }
+            filter.$or = [
+                { title: { $regex: search, $options: "i" } },
+                { description: { $regex: search, $options: "i" } },
+                { category: { $regex: search, $options: "i" } }
             ];
         }
+        if (level && level !== "all") {
+            filter.level = level;
+        }
+        if (featured === "true") {
+            filter.featured = true;
+        }
 
-        const courses = await Course.find(query)
+        const courses = await Course.find(filter)
             .populate('college', 'name')
             .populate('university', 'name')
-            .sort({ createdAt: -1 });
+            .sort({ createdAt: -1 })
+            .skip(skip)
+            .limit(limit);
 
-        return NextResponse.json({ courses });
+        const total = await Course.countDocuments(filter);
+
+        return NextResponse.json({
+            courses,
+            pagination: {
+                page,
+                limit,
+                total,
+                pages: Math.ceil(total / limit)
+            }
+        });
     } catch (error) {
         console.error("Error fetching courses:", error);
         return NextResponse.json(

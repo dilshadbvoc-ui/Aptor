@@ -38,7 +38,15 @@ export default function ApplicationsPage() {
 
   const fetchApplications = async () => {
     try {
-      // Mock data for now
+      const response = await fetch("/api/admin/applications");
+      if (!response.ok) {
+        throw new Error("Failed to fetch applications");
+      }
+      const data = await response.json();
+      setApplications(data.applications || []);
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+      // Fallback to mock data if API fails
       const mockApplications: Application[] = [
         {
           id: "1",
@@ -55,19 +63,34 @@ export default function ApplicationsPage() {
         }
       ];
       setApplications(mockApplications);
-    } catch (error) {
-      console.error("Error fetching applications:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const updateApplicationStatus = async (id: string, newStatus: string) => {
-    setApplications(prev => 
-      prev.map(app => 
-        app.id === id ? { ...app, status: newStatus as any } : app
-      )
-    );
+    try {
+      const response = await fetch(`/api/admin/applications/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: newStatus }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to update application status");
+      }
+
+      setApplications(prev => 
+        prev.map(app => 
+          app.id === id ? { ...app, status: newStatus as any } : app
+        )
+      );
+    } catch (error) {
+      console.error("Error updating application status:", error);
+      alert("Failed to update application status. Please try again.");
+    }
   };
 
   const filteredApplications = applications.filter(app => {

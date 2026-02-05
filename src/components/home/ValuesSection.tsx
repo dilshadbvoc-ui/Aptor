@@ -54,7 +54,7 @@ export function ValuesSection() {
                             </div>
 
                             {/* Floating stats card - Mobile Optimized */}
-                            <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 card-premium p-3 sm:p-4 lg:p-6 hidden sm:block hover-lift-premium shadow-lg">
+                            <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 card p-3 sm:p-4 lg:p-6 hidden sm:block hover:shadow-xl hover:scale-[1.02] shadow-lg">
                                 <div className="text-center">
                                     <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center mx-auto mb-2 sm:mb-3 shadow-lg">
                                         <Star className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-black fill-current" />
@@ -98,7 +98,7 @@ export function ValuesSection() {
                             {benefits.map((benefit, i) => (
                                 <div
                                     key={benefit.title}
-                                    className="flex items-start gap-3 sm:gap-4 card-premium p-3 sm:p-4 hover-lift-premium slide-up"
+                                    className="flex items-start gap-3 sm:gap-4 card p-3 sm:p-4 hover:shadow-xl hover:scale-[1.02] slide-up"
                                     style={{ animationDelay: `${i * 0.1}s` }}
                                 >
                                     <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shrink-0 shadow-lg`}>
@@ -120,7 +120,7 @@ export function ValuesSection() {
                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 fade-in">
                             <Link 
                                 href="/about" 
-                                className="btn-premium inline-flex items-center justify-center gap-2 text-black font-semibold text-sm sm:text-base min-h-[48px]"
+                                className="btn-primary inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[48px]"
                             >
                                 <Crown className="w-4 h-4 sm:w-5 sm:h-5" />
                                 Discover Excellence
@@ -129,7 +129,7 @@ export function ValuesSection() {
                             
                             <Link 
                                 href="/contact" 
-                                className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-3 text-sm font-medium text-green-700 border-2 border-green-500 rounded-lg sm:rounded-xl hover:bg-green-500 hover:text-white transition-all duration-300 bg-white/80 backdrop-blur-sm min-h-[48px]"
+                                className="btn-secondary inline-flex items-center justify-center gap-2 text-sm font-medium min-h-[48px]"
                             >
                                 <Diamond className="w-4 h-4 sm:w-5 sm:h-5" />
                                 Join Network

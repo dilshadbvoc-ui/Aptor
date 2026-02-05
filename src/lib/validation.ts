@@ -153,6 +153,47 @@ export function validateData<T>(schema: z.ZodSchema<T>, data: unknown): { succes
   }
 }
 
+// Application validation
+export const applicationSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100, 'Name must be less than 100 characters'),
+  email: z.string().email('Please enter a valid email address'),
+  phone: z.string().min(10, 'Phone number must be at least 10 digits').max(15, 'Phone number must be less than 15 digits'),
+  message: z.string().min(10, 'Message must be at least 10 characters').max(1000, 'Message must be less than 1000 characters'),
+  source: z.enum(['website', 'referral', 'social', 'advertisement', 'other']).optional(),
+  status: z.enum(['new', 'contacted', 'resolved']).optional(),
+  interest: z.string().optional(),
+  currentEducation: z.string().optional(),
+  preferredCountry: z.string().optional(),
+  preferredCourse: z.string().optional(),
+  budget: z.string().optional(),
+  notes: z.string().optional(),
+  assignedTo: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Invalid user ID').optional()
+});
+
+// Scholarship Application validation
+export const scholarshipApplicationSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters').max(100, 'Name must be less than 100 characters'),
+  fatherName: z.string().min(2, 'Father\'s name must be at least 2 characters').max(100, 'Father\'s name must be less than 100 characters'),
+  motherName: z.string().min(2, 'Mother\'s name must be at least 2 characters').max(100, 'Mother\'s name must be less than 100 characters'),
+  schoolName: z.string().min(2, 'School name must be at least 2 characters').max(200, 'School name must be less than 200 characters'),
+  address: z.string().min(10, 'Address must be at least 10 characters').max(500, 'Address must be less than 500 characters'),
+  pin: z.string().min(4, 'PIN must be at least 4 characters').max(10, 'PIN must be less than 10 characters'),
+  email: z.string().email('Please enter a valid email address'),
+  mobile: z.string().min(10, 'Mobile number must be at least 10 digits').max(15, 'Mobile number must be less than 15 digits'),
+  landPhone: z.string().optional(),
+  coursePreferred: z.array(z.enum(['MBBS', 'BDS', 'ENGG', 'PharmD', 'Nursing', 'Paramedical', 'Others'])).min(1, 'Please select at least one course'),
+  otherCourse: z.string().optional(),
+  status: z.enum(['new', 'under_review', 'approved', 'rejected', 'contacted']).optional(),
+  notes: z.string().optional(),
+  assignedTo: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Invalid user ID').optional(),
+  reviewedBy: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Invalid user ID').optional()
+});
+
+// Helper function to create partial schemas for updates
+export function createPartialSchema<T extends z.ZodRawShape>(schema: z.ZodObject<T>) {
+  return schema.partial();
+}
+
 // Helper function to generate slug from title
 export function generateSlug(title: string): string {
   return title

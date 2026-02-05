@@ -55,7 +55,7 @@ export function CTASection() {
                             <Link
                                 key={index}
                                 href={`/blogs/${blog.slug}`}
-                                className="group card-premium hover-lift-premium slide-up min-h-[280px] sm:min-h-[320px]"
+                                className="group card hover:shadow-xl hover:scale-[1.02] slide-up min-h-[280px] sm:min-h-[320px]"
                                 style={{ animationDelay: `${index * 150}ms` }}
                             >
                                 <div className="p-4 sm:p-6 h-full flex flex-col">
@@ -95,7 +95,7 @@ export function CTASection() {
                     <div className="text-center mt-6 sm:mt-8">
                         <Link
                             href="/blogs"
-                            className="btn-premium inline-flex items-center gap-2 text-black font-semibold text-sm sm:text-base min-h-[48px]"
+                            className="btn-primary inline-flex items-center gap-2 text-sm sm:text-base min-h-[48px]"
                         >
                             <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
                             Explore All Content
@@ -104,7 +104,7 @@ export function CTASection() {
                 </div>
 
                 {/* Final CTA Section - Mobile Optimized */}
-                <div className="card-premium p-4 sm:p-6 lg:p-8 xl:p-12 text-center shadow-lg">
+                <div className="card p-4 sm:p-6 lg:p-8 xl:p-12 text-center shadow-lg">
                     <div className="mb-4 sm:mb-6">
                         <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-green-100 border border-green-300 rounded-full mb-4 sm:mb-6">
                             <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-600" />
@@ -123,7 +123,7 @@ export function CTASection() {
                     <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center mb-8 sm:mb-10 lg:mb-12">
                         <Link
                             href="/counselling"
-                            className="btn-premium inline-flex items-center justify-center gap-2 text-black font-semibold text-sm sm:text-base min-h-[48px]"
+                            className="btn-primary inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[48px]"
                         >
                             <Crown className="w-4 h-4 sm:w-5 sm:h-5" />
                             Book Counselling
@@ -131,7 +131,7 @@ export function CTASection() {
                         </Link>
                         <Link
                             href="/contact"
-                            className="inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 border-2 border-green-500 text-green-700 rounded-lg sm:rounded-xl font-medium hover:bg-green-500 hover:text-white transition-all duration-300 bg-white/80 backdrop-blur-sm text-sm sm:text-base min-h-[48px]"
+                            className="btn-secondary inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[48px]"
                         >
                             <Diamond className="w-4 h-4 sm:w-5 sm:h-5" />
                             Join Network

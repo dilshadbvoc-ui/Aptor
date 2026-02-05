@@ -35,3 +35,14 @@ export function isAdmin(request: NextRequest): boolean {
   const user = verifyToken(request);
   return user?.role === "admin";
 }
+
+export function requireAdmin(request: NextRequest): AuthUser {
+  const user = verifyToken(request);
+  if (!user) {
+    throw new Error('Unauthorized');
+  }
+  if (user.role !== 'admin') {
+    throw new Error('Forbidden: Admin access required');
+  }
+  return user;
+}

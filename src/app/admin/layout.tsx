@@ -24,13 +24,14 @@ import {
 
 const adminNavItems = [
     { href: "/admin", label: "Dashboard", icon: Home },
-    { href: "/admin/universities", label: "Colleges", icon: GraduationCap },
+    { href: "/admin/universities", label: "Universities", icon: GraduationCap },
     { href: "/admin/colleges", label: "Affiliated Colleges", icon: Building2 },
     { href: "/admin/courses", label: "Courses", icon: BookOpen },
     { href: "/admin/blogs", label: "Blogs", icon: BookOpen },
     { href: "/admin/events", label: "Events", icon: Calendar },
     { href: "/admin/internships", label: "Internships", icon: Briefcase },
     { href: "/admin/student-applications", label: "Applications", icon: Star },
+    { href: "/admin/scholarship-applications", label: "Scholarship Applications", icon: GraduationCap },
     { href: "/admin/contacts", label: "Contacts", icon: Mail },
     { href: "/admin/users", label: "Users", icon: Users },
     { href: "/admin/seo", label: "SEO", icon: Search },

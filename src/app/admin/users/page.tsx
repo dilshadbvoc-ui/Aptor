@@ -115,7 +115,7 @@ export default function UsersManagement() {
         </div>
         <Link
           href="/admin/users/create"
-          className="btn-premium inline-flex items-center gap-2 text-black font-semibold"
+          className="btn-primary inline-flex items-center gap-2"
         >
           <Plus className="w-4 h-4" />
           Add User
@@ -123,7 +123,7 @@ export default function UsersManagement() {
       </div>
 
       {/* Controls */}
-      <div className="card-premium p-6">
+      <div className="card p-6">
         <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
           {/* Search and Filters */}
           <div className="flex flex-col sm:flex-row gap-4 flex-1">
@@ -165,7 +165,7 @@ export default function UsersManagement() {
       </div>
 
       {/* Users Table */}
-      <div className="card-premium overflow-hidden">
+      <div className="card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-green-50 border-b border-green-200">
@@ -258,7 +258,7 @@ export default function UsersManagement() {
           { title: "Admins", value: users.filter(u => u.role === 'admin').length.toString(), icon: Shield, color: "from-red-500 to-red-600" },
           { title: "Editors", value: users.filter(u => u.role === 'editor').length.toString(), icon: Edit, color: "from-yellow-500 to-yellow-600" },
         ].map((stat, index) => (
-          <div key={index} className="card-premium p-6 hover-lift-premium">
+          <div key={index} className="card p-6 hover:shadow-xl hover:scale-[1.02]">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-green-600 text-sm">{stat.title}</p>

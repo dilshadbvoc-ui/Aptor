@@ -47,7 +47,7 @@ export default function LoginPage() {
 
             <div className="relative z-10 w-full max-w-md">
                 {/* Login Card */}
-                <div className="card-premium p-6 sm:p-8 glow">
+                <div className="card p-6 sm:p-8 shadow-2xl">
                     {/* Header */}
                     <div className="text-center mb-8">
                         <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full mb-6">
@@ -115,7 +115,7 @@ export default function LoginPage() {
                         <button
                             type="submit"
                             disabled={isLoading}
-                            className="btn-premium w-full text-center inline-flex items-center justify-center gap-2 text-black font-semibold min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="btn-primary w-full text-center inline-flex items-center justify-center gap-2 min-h-[48px] disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <Crown className="w-5 h-5" />
                             {isLoading ? "Signing In..." : "Sign In to Admin Portal"}
