@@ -4,7 +4,6 @@ import University from "@/models/University";
 import College from "@/models/College";
 import Blog from "@/models/Blog";
 import Course from "@/models/Course";
-import Event from "@/models/Event";
 
 export async function GET() {
     try {
@@ -94,32 +93,13 @@ export async function GET() {
             }
         ];
 
-        // --- Events ---
-        const events = [
-            {
-                title: "Bengaluru Education Summit 2026",
-                slug: "bengaluru-education-summit-2026",
-                description: "Join the largest gathering of educators, students, and policymakers in Karnataka.",
-                date: new Date("2026-03-15T10:00:00"),
-                location: "Palace Grounds, Bengaluru",
-            },
-            {
-                title: "Career Counselling Workshop",
-                slug: "career-counselling-workshop-jan",
-                description: "Free workshop for 12th-grade students to explore various career paths.",
-                date: new Date("2026-02-10T14:00:00"),
-                location: "Aptor Studies Office, MG Road",
-            }
-        ];
-
         // Upsert Logic
-        const stats = { universities: 0, colleges: 0, blogs: 0, courses: 0, events: 0 };
+        const stats = { universities: 0, colleges: 0, blogs: 0, courses: 0 };
 
         for (const item of universities) { await University.findOneAndUpdate({ slug: item.slug }, item, { upsert: true }); stats.universities++; }
         for (const item of colleges) { await College.findOneAndUpdate({ slug: item.slug }, item, { upsert: true }); stats.colleges++; }
         for (const item of blogs) { await Blog.findOneAndUpdate({ slug: item.slug }, item, { upsert: true }); stats.blogs++; }
         for (const item of courses) { await Course.findOneAndUpdate({ slug: item.slug }, item, { upsert: true }); stats.courses++; }
-        for (const item of events) { await Event.findOneAndUpdate({ slug: item.slug }, item, { upsert: true }); stats.events++; }
 
         return NextResponse.json({
             message: "Database seeded successfully",

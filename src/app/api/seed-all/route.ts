@@ -5,8 +5,6 @@ import University from "@/models/University";
 import College from "@/models/College";
 import Blog from "@/models/Blog";
 import Course from "@/models/Course";
-import Event from "@/models/Event";
-import Internship from "@/models/Internship";
 import Contact from "@/models/Contact";
 import SeoSettings from "@/models/SeoSettings";
 import bcrypt from "bcryptjs";
@@ -22,8 +20,6 @@ export async function POST() {
             colleges: 0,
             blogs: 0,
             courses: 0,
-            events: 0,
-            internships: 0,
             contacts: 0,
             seoSettings: false
         };
@@ -398,154 +394,7 @@ export async function POST() {
             results.courses++;
         }
 
-        // 6. Seed Events
-        const events = [
-            {
-                title: "Global Education Summit 2024",
-                slug: "global-education-summit-2024",
-                description: "Join the largest gathering of educators, students, and policymakers to discuss the future of international education.",
-                startDate: new Date("2024-03-15T10:00:00Z"),
-                endDate: new Date("2024-03-17T18:00:00Z"),
-                date: new Date("2024-03-15T10:00:00Z"),
-                location: "Convention Center, New Delhi",
-                type: "conference",
-                capacity: 5000,
-                registrationDeadline: new Date("2024-03-01T23:59:59Z"),
-                fee: "₹5,000",
-                organizer: "Aptor Studies",
-                published: true,
-                featured: true,
-                seo: {
-                    title: "Global Education Summit 2024 - International Education Conference",
-                    description: "Join the premier international education conference. Network with educators and explore global opportunities.",
-                    keywords: ["education summit", "international education", "conference", "networking"]
-                }
-            },
-            {
-                title: "University Application Workshop",
-                slug: "university-application-workshop",
-                description: "Comprehensive workshop covering university applications, essay writing, and interview preparation for international students.",
-                startDate: new Date("2024-02-10T14:00:00Z"),
-                endDate: new Date("2024-02-10T17:00:00Z"),
-                date: new Date("2024-02-10T14:00:00Z"),
-                location: "Aptor Studies Office, Calicut",
-                type: "workshop",
-                capacity: 50,
-                registrationDeadline: new Date("2024-02-05T23:59:59Z"),
-                fee: "Free",
-                organizer: "Aptor Studies",
-                published: true,
-                featured: true,
-                seo: {
-                    title: "University Application Workshop - Free Student Workshop",
-                    description: "Learn how to create winning university applications. Free workshop for aspiring international students.",
-                    keywords: ["university applications", "student workshop", "college admissions", "study abroad"]
-                }
-            },
-            {
-                title: "Career Guidance Seminar",
-                slug: "career-guidance-seminar",
-                description: "Expert guidance on career paths, industry trends, and skill development for students and professionals.",
-                startDate: new Date("2024-04-20T15:00:00Z"),
-                endDate: new Date("2024-04-20T18:00:00Z"),
-                date: new Date("2024-04-20T15:00:00Z"),
-                location: "Online Webinar",
-                type: "seminar",
-                capacity: 1000,
-                registrationDeadline: new Date("2024-04-15T23:59:59Z"),
-                fee: "₹500",
-                organizer: "Aptor Studies",
-                published: true,
-                featured: false,
-                seo: {
-                    title: "Career Guidance Seminar - Professional Development",
-                    description: "Get expert career guidance and industry insights. Online seminar for students and professionals.",
-                    keywords: ["career guidance", "professional development", "career planning", "industry trends"]
-                }
-            }
-        ];
-
-        for (const event of events) {
-            await Event.findOneAndUpdate({ slug: event.slug }, event, { upsert: true });
-            results.events++;
-        }
-
-        // 7. Seed Internships
-        const internships = [
-            {
-                title: "Software Development Intern",
-                company: "Tech Innovations Inc.",
-                location: "Bangalore, India",
-                type: "hybrid",
-                duration: "3 months",
-                stipend: "₹25,000/month",
-                description: "Join our development team to work on cutting-edge web applications using React, Node.js, and cloud technologies.",
-                requirements: ["Computer Science or related field", "Knowledge of JavaScript", "Familiarity with React", "Problem-solving skills"],
-                applicationDeadline: new Date("2024-03-31T23:59:59Z"),
-                startDate: new Date("2024-05-01T09:00:00Z"),
-                applicationUrl: "https://techinnovations.com/internships",
-                contactEmail: "internships@techinnovations.com",
-                published: true,
-                featured: true,
-                slug: "software-development-intern-tech-innovations",
-                seo: {
-                    title: "Software Development Internship - Tech Innovations",
-                    description: "Join our software development team as an intern. Work with modern technologies and gain valuable experience.",
-                    keywords: ["software internship", "development intern", "tech internship", "programming"]
-                }
-            },
-            {
-                title: "Digital Marketing Intern",
-                company: "Global Marketing Solutions",
-                location: "Mumbai, India",
-                type: "onsite",
-                duration: "6 months",
-                stipend: "₹20,000/month",
-                description: "Learn digital marketing strategies, social media management, and content creation in a fast-paced marketing environment.",
-                requirements: ["Marketing or related field", "Social media knowledge", "Creative thinking", "Communication skills"],
-                applicationDeadline: new Date("2024-04-15T23:59:59Z"),
-                startDate: new Date("2024-06-01T09:00:00Z"),
-                applicationUrl: "https://globalmarketing.com/careers",
-                contactEmail: "hr@globalmarketing.com",
-                published: true,
-                featured: true,
-                slug: "digital-marketing-intern-global-marketing",
-                seo: {
-                    title: "Digital Marketing Internship - Global Marketing Solutions",
-                    description: "Gain hands-on experience in digital marketing, social media, and content creation.",
-                    keywords: ["marketing internship", "digital marketing", "social media", "content creation"]
-                }
-            },
-            {
-                title: "Research Assistant Intern",
-                company: "Academic Research Institute",
-                location: "Delhi, India",
-                type: "onsite",
-                duration: "4 months",
-                stipend: "₹18,000/month",
-                description: "Assist in academic research projects, data analysis, and publication preparation in various fields of study.",
-                requirements: ["Graduate degree", "Research experience", "Data analysis skills", "Academic writing"],
-                applicationDeadline: new Date("2024-05-30T23:59:59Z"),
-                startDate: new Date("2024-07-01T09:00:00Z"),
-                applicationUrl: "https://academicresearch.org/internships",
-                contactEmail: "research@academicresearch.org",
-                published: true,
-                featured: false,
-                slug: "research-assistant-intern-academic-institute",
-                seo: {
-                    title: "Research Assistant Internship - Academic Research Institute",
-                    description: "Join our research team and contribute to academic publications and data analysis projects.",
-                    keywords: ["research internship", "academic research", "data analysis", "research assistant"]
-                }
-            }
-        ];
-
-        for (const internship of internships) {
-            await Internship.findOneAndUpdate({ slug: internship.slug }, internship, { upsert: true });
-            results.internships++;
-        }
-
-        // 8. Seed Sample Contacts
+        // 6. Seed Sample Contacts
         const contacts = [
             {
                 name: "John Smith",
@@ -630,8 +479,6 @@ export async function POST() {
                     colleges: results.colleges,
                     blogs: results.blogs,
                     courses: results.courses,
-                    events: results.events,
-                    internships: results.internships,
                     contacts: results.contacts,
                     seoSettings: results.seoSettings ? "Created/Exists" : "Failed"
                 }
@@ -659,8 +506,6 @@ export async function GET() {
             colleges: await College.countDocuments(),
             blogs: await Blog.countDocuments(),
             courses: await Course.countDocuments(),
-            events: await Event.countDocuments(),
-            internships: await Internship.countDocuments(),
             contacts: await Contact.countDocuments(),
             seoSettings: await SeoSettings.countDocuments()
         };

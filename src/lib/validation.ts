@@ -103,53 +103,6 @@ export const collegeSchema = z.object({
   }).optional()
 });
 
-// Event validation
-export const eventSchema = z.object({
-  title: z.string().min(5, 'Title must be at least 5 characters').max(200, 'Title must be less than 200 characters'),
-  description: z.string().min(50, 'Description must be at least 50 characters'),
-  startDate: z.string().refine((date) => new Date(date) > new Date(), 'Start date must be in the future'),
-  endDate: z.string().refine((date) => new Date(date) > new Date(), 'End date must be in the future'),
-  location: z.string().min(3, 'Location must be at least 3 characters'),
-  type: z.enum(['workshop', 'seminar', 'webinar', 'conference', 'fair', 'other']),
-  capacity: z.number().min(1, 'Capacity must be at least 1').optional(),
-  registrationDeadline: z.string().optional(),
-  fee: z.string().optional(),
-  slug: slugValidator,
-  isActive: z.boolean().optional(),
-  published: z.boolean().optional(),
-  featured: z.boolean().optional(),
-  seo: z.object({
-    title: z.string().optional(),
-    description: z.string().optional(),
-    keywords: z.array(z.string()).optional()
-  }).optional()
-});
-
-// Internship validation
-export const internshipSchema = z.object({
-  title: z.string().min(5, 'Title must be at least 5 characters').max(200, 'Title must be less than 200 characters'),
-  company: z.string().min(2, 'Company name must be at least 2 characters').max(100, 'Company name must be less than 100 characters'),
-  location: z.string().min(3, 'Location must be at least 3 characters'),
-  type: z.enum(['remote', 'onsite', 'hybrid']),
-  duration: z.string().min(3, 'Duration must be specified'),
-  stipend: z.string().min(1, 'Stipend information is required'),
-  description: z.string().min(50, 'Description must be at least 50 characters'),
-  requirements: z.array(z.string()).min(1, 'At least one requirement must be specified'),
-  applicationDeadline: z.string().refine((date) => new Date(date) > new Date(), 'Application deadline must be in the future'),
-  startDate: z.string().refine((date) => new Date(date) > new Date(), 'Start date must be in the future'),
-  applicationUrl: z.string().url('Please enter a valid application URL').optional(),
-  contactEmail: emailValidator.optional(),
-  slug: slugValidator,
-  isActive: z.boolean().optional(),
-  published: z.boolean().optional(),
-  featured: z.boolean().optional(),
-  seo: z.object({
-    title: z.string().optional(),
-    description: z.string().optional(),
-    keywords: z.array(z.string()).optional()
-  }).optional()
-});
-
 // Course validation
 export const courseSchema = z.object({
   title: z.string().min(3, 'Title must be at least 3 characters').max(200, 'Title must be less than 200 characters'),

@@ -13,8 +13,6 @@ const quickLinks = [
 const services = [
     { label: "Counselling", href: "/counselling" },
     { label: "Scholarships", href: "/scholarships" },
-    { label: "Internships", href: "/internships" },
-    { label: "VIP Events", href: "/events" },
     { label: "Programs", href: "/courses" },
     { label: "Accommodation", href: "/accommodation" },
 ];
