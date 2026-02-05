@@ -12,7 +12,8 @@ export async function GET(
     const { slug } = await params;
     const college = await College.findOne({ 
       slug: slug, 
-      published: true 
+      published: true,
+      isActive: true
     });
     
     if (!college) {

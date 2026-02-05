@@ -1,21 +1,55 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import connectDB from "@/lib/db";
-import University from "@/models/University";
+import { useState, useEffect } from "react";
 
-async function getUniversities() {
-    try {
-        await connectDB();
-        const universities = await University.find({});
-        return universities;
-    } catch (error) {
-        console.error("Failed to fetch universities:", error);
-        return [];
-    }
+interface University {
+    _id: string;
+    name: string;
+    description: string;
+    location: string;
+    country: string;
+    establishedYear: number;
+    type: "public" | "private";
+    ranking?: number;
+    website?: string;
+    slug: string;
 }
 
-export default async function UniversitiesPage() {
-    const universities = await getUniversities();
+export default function UniversitiesPage() {
+    const [universities, setUniversities] = useState<University[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchUniversities();
+    }, []);
+
+    const fetchUniversities = async () => {
+        try {
+            const response = await fetch('/api/universities');
+            if (response.ok) {
+                const data = await response.json();
+                setUniversities(data.universities || []);
+            }
+        } catch (error) {
+            console.error('Error fetching universities:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading) {
+        return (
+            <div className="bg-white pt-24 pb-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-center py-16">
+                        <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-white pt-24 pb-16">
@@ -45,6 +79,10 @@ export default async function UniversitiesPage() {
                                 </div>
                                 <h3 className="text-lg font-semibold text-gray-900 group-hover:text-teal-700 transition-colors">{uni.name}</h3>
                                 <p className="mt-2 text-sm text-gray-600 line-clamp-2">{uni.description}</p>
+                                <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
+                                    <span>{uni.location}, {uni.country}</span>
+                                    <span>Est. {uni.establishedYear}</span>
+                                </div>
                                 <div className="mt-4 flex items-center text-teal-600 text-sm font-medium">
                                     View Details
                                     <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />

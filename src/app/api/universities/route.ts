@@ -6,7 +6,13 @@ export async function GET() {
   try {
     await connectDB();
     
-    const universities = await University.find({ published: true })
+    const universities = await University.find({ 
+      published: true,
+      $or: [
+        { isActive: { $exists: false } }, // For backward compatibility
+        { isActive: true }
+      ]
+    })
       .select('name description location country establishedYear type ranking website slug')
       .sort({ ranking: 1, name: 1 })
       .limit(50);

@@ -12,7 +12,11 @@ export async function GET(
     const { slug } = await params;
     const university = await University.findOne({ 
       slug: slug, 
-      published: true 
+      published: true,
+      $or: [
+        { isActive: { $exists: false } }, // For backward compatibility
+        { isActive: true }
+      ]
     });
     
     if (!university) {

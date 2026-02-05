@@ -12,7 +12,8 @@ export async function GET(
     const { slug } = await params;
     const course = await Course.findOne({ 
       slug: slug, 
-      published: true 
+      published: true,
+      isActive: true
     }).populate('university', 'name location website');
     
     if (!course) {

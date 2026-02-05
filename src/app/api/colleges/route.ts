@@ -6,9 +6,12 @@ export async function GET() {
   try {
     await connectDB();
     
-    const colleges = await College.find({ published: true })
-      .select('name description location country establishedYear type ranking website slug')
-      .sort({ ranking: 1, name: 1 })
+    const colleges = await College.find({ 
+      published: true,
+      isActive: true
+    })
+      .select('name description location establishedYear type affiliation website slug')
+      .sort({ name: 1 })
       .limit(50);
     
     return NextResponse.json({

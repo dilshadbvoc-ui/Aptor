@@ -1,21 +1,54 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import connectDB from "@/lib/db";
-import College from "@/models/College";
+import { useState, useEffect } from "react";
 
-async function getColleges() {
-    try {
-        await connectDB();
-        const colleges = await College.find({});
-        return colleges;
-    } catch (error) {
-        console.error("Failed to fetch colleges:", error);
-        return [];
-    }
+interface College {
+    _id: string;
+    name: string;
+    description: string;
+    location: string;
+    establishedYear: number;
+    type: "engineering" | "medical" | "arts" | "science" | "commerce" | "law" | "other";
+    affiliation?: string;
+    website?: string;
+    slug: string;
 }
 
-export default async function CollegesPage() {
-    const colleges = await getColleges();
+export default function CollegesPage() {
+    const [colleges, setColleges] = useState<College[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchColleges();
+    }, []);
+
+    const fetchColleges = async () => {
+        try {
+            const response = await fetch('/api/colleges');
+            if (response.ok) {
+                const data = await response.json();
+                setColleges(data.colleges || []);
+            }
+        } catch (error) {
+            console.error('Error fetching colleges:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading) {
+        return (
+            <div className="bg-white pt-24 pb-16">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center justify-center py-16">
+                        <div className="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="bg-white pt-24 pb-16">
@@ -46,6 +79,10 @@ export default async function CollegesPage() {
                                 <h3 className="text-lg font-semibold text-gray-900 group-hover:text-teal-700 transition-colors">{college.name}</h3>
                                 <p className="mt-1 text-sm text-gray-500">{college.location}</p>
                                 <p className="mt-2 text-sm text-gray-600 line-clamp-2">{college.description}</p>
+                                <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
+                                    <span className="capitalize">{college.type}</span>
+                                    <span>Est. {college.establishedYear}</span>
+                                </div>
                                 <div className="mt-4 flex items-center text-teal-600 text-sm font-medium">
                                     View Details
                                     <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />

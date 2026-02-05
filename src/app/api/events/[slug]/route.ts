@@ -12,7 +12,8 @@ export async function GET(
     const { slug } = await params;
     const event = await Event.findOne({ 
       slug: slug, 
-      published: true 
+      published: true,
+      isActive: true
     });
     
     if (!event) {

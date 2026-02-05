@@ -12,7 +12,8 @@ export async function GET(
     const { slug } = await params;
     const internship = await Internship.findOne({ 
       slug: slug, 
-      published: true 
+      published: true,
+      isActive: true
     });
     
     if (!internship) {

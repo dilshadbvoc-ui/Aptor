@@ -8,6 +8,7 @@ export async function GET() {
     
     const internships = await Internship.find({ 
       published: true,
+      isActive: true,
       applicationDeadline: { $gte: new Date() } // Only active internships
     })
       .select('title company description location duration stipend applicationDeadline slug')

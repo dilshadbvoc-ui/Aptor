@@ -8,10 +8,11 @@ export async function GET() {
     
     const events = await Event.find({ 
       published: true,
-      date: { $gte: new Date() } // Only future events
+      isActive: true,
+      startDate: { $gte: new Date() } // Only future events
     })
-      .select('title description date location type slug')
-      .sort({ date: 1 })
+      .select('title description startDate endDate location type slug')
+      .sort({ startDate: 1 })
       .limit(20);
     
     return NextResponse.json({

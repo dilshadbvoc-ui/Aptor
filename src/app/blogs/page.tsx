@@ -25,10 +25,10 @@ export default function BlogsPage() {
 
     const fetchBlogs = async () => {
         try {
-            const response = await fetch('/api/admin/blogs');
+            const response = await fetch('/api/blogs');
             if (response.ok) {
                 const data = await response.json();
-                setBlogs(data);
+                setBlogs(data.blogs || []);
             }
         } catch (error) {
             console.error('Error fetching blogs:', error);

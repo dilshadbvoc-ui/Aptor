@@ -46,6 +46,10 @@ const CourseSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  fees: {
+    type: String,
+    trim: true
+  },
   category: {
     type: String,
     trim: true
@@ -58,6 +62,10 @@ const CourseSchema = new mongoose.Schema({
     type: String,
     trim: true
   }],
+  published: {
+    type: Boolean,
+    default: true
+  },
   isActive: {
     type: Boolean,
     default: true
@@ -77,8 +85,8 @@ const CourseSchema = new mongoose.Schema({
 
 // Index for better query performance
 CourseSchema.index({ slug: 1 });
-CourseSchema.index({ level: 1, isActive: 1 });
-CourseSchema.index({ featured: 1, isActive: 1 });
+CourseSchema.index({ level: 1, isActive: 1, published: 1 });
+CourseSchema.index({ featured: 1, isActive: 1, published: 1 });
 CourseSchema.index({ college: 1 });
 CourseSchema.index({ university: 1 });
 

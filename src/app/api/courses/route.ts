@@ -6,7 +6,10 @@ export async function GET() {
   try {
     await connectDB();
     
-    const courses = await Course.find({ published: true })
+    const courses = await Course.find({ 
+      published: true,
+      isActive: true 
+    })
       .select('title description level duration fees university slug')
       .populate('university', 'name location')
       .sort({ createdAt: -1 })
