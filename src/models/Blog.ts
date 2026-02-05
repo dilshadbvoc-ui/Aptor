@@ -59,8 +59,7 @@ const BlogSchema = new mongoose.Schema({
   timestamps: true 
 });
 
-// Index for better query performance
-BlogSchema.index({ slug: 1 });
+// Index for better query performance (slug index is automatic from unique: true)
 BlogSchema.index({ published: 1, publishedAt: -1 });
 BlogSchema.index({ featured: 1, published: 1 });
 BlogSchema.index({ tags: 1 });

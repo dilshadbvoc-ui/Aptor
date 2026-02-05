@@ -9,6 +9,7 @@ import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://aptorstudies.com'),
   title: "Aptor Studies - Education Portal & University Guidance",
   description: "Experience education services with Aptor Studies. Get expert guidance, explore colleges, universities, and courses worldwide.",
   keywords: ["education portal", "universities", "colleges", "courses", "student counseling", "education"],

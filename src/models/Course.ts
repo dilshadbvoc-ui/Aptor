@@ -83,8 +83,7 @@ const CourseSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for better query performance
-CourseSchema.index({ slug: 1 });
+// Index for better query performance (slug index is automatic from unique: true)
 CourseSchema.index({ level: 1, isActive: 1, published: 1 });
 CourseSchema.index({ featured: 1, isActive: 1, published: 1 });
 CourseSchema.index({ college: 1 });

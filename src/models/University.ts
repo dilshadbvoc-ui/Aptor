@@ -86,8 +86,7 @@ const UniversitySchema = new mongoose.Schema({
   timestamps: true 
 });
 
-// Index for better query performance
-UniversitySchema.index({ slug: 1 });
+// Index for better query performance (slug index is automatic from unique: true)
 UniversitySchema.index({ country: 1, isActive: 1 });
 UniversitySchema.index({ featured: 1, isActive: 1 });
 UniversitySchema.index({ ranking: 1 });

@@ -1,0 +1,108 @@
+
+> aptor-studies@0.1.0 build
+> next build
+
+▲ Next.js 16.1.4 (Turbopack)
+- Environments: .env.local
+- Experiments (use with caution):
+  · optimizePackageImports
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.4s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/61) ...
+  Generating static pages using 7 workers (15/61) 
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+  Generating static pages using 7 workers (30/61) 
+  Generating static pages using 7 workers (45/61) 
+✓ Generating static pages using 7 workers (61/61) in 1028.5ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ○ /accommodation
+├ ○ /admin
+├ ○ /admin/applications
+├ ○ /admin/blogs
+├ ƒ /admin/blogs/[id]/edit
+├ ○ /admin/blogs/new
+├ ○ /admin/colleges
+├ ƒ /admin/colleges/[id]/edit
+├ ○ /admin/contacts
+├ ○ /admin/courses
+├ ƒ /admin/courses/[id]/edit
+├ ○ /admin/scholarship-applications
+├ ○ /admin/seo
+├ ○ /admin/settings
+├ ○ /admin/student-applications
+├ ○ /admin/universities
+├ ƒ /admin/universities/[id]/edit
+├ ○ /admin/universities/new
+├ ○ /admin/users
+├ ○ /admin/users/create
+├ ƒ /api/admin/applications
+├ ƒ /api/admin/applications/[id]
+├ ƒ /api/admin/blogs
+├ ƒ /api/admin/blogs/[id]
+├ ƒ /api/admin/cleanup-users
+├ ƒ /api/admin/colleges
+├ ƒ /api/admin/colleges/[id]
+├ ƒ /api/admin/contacts
+├ ƒ /api/admin/contacts/[id]
+├ ƒ /api/admin/courses
+├ ƒ /api/admin/courses/[id]
+├ ƒ /api/admin/scholarship-applications
+├ ƒ /api/admin/scholarship-applications/[id]
+├ ƒ /api/admin/seo
+├ ƒ /api/admin/stats
+├ ƒ /api/admin/universities
+├ ƒ /api/admin/universities/[id]
+├ ƒ /api/admin/users
+├ ƒ /api/admin/users/create
+├ ƒ /api/auth/session
+├ ƒ /api/auth/signin
+├ ƒ /api/blogs
+├ ƒ /api/blogs/[slug]
+├ ƒ /api/colleges
+├ ƒ /api/colleges/[slug]
+├ ƒ /api/contact
+├ ƒ /api/courses
+├ ƒ /api/courses/[slug]
+├ ƒ /api/login
+├ ƒ /api/logout
+├ ƒ /api/scholarship-applications
+├ ƒ /api/seed
+├ ƒ /api/seed-admin
+├ ƒ /api/seed-all
+├ ƒ /api/universities
+├ ƒ /api/universities/[slug]
+├ ○ /blogs
+├ ƒ /blogs/[slug]
+├ ○ /colleges
+├ ƒ /colleges/[slug]
+├ ○ /contact
+├ ○ /counselling
+├ ○ /courses
+├ ƒ /courses/[slug]
+├ ○ /login
+├ ○ /privacy-policy
+├ ○ /robots.txt
+├ ○ /scholarships
+├ ○ /seed-database
+├ ○ /signin
+├ ○ /sitemap.xml
+├ ○ /terms
+├ ○ /universities
+├ ○ /universities-colleges
+└ ƒ /universities/[slug]
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
