@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit;
     
     // Build query
-    const query: any = {};
+    const query: Record<string, unknown> = {};
     if (search) {
       query.$or = [
         { name: { $regex: search, $options: 'i' } },

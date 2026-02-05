@@ -92,7 +92,7 @@ export function Hero() {
                             </h1>
                             
                             <p className="text-body mb-8 max-w-2xl mx-auto lg:mx-0">
-                                Experience quality education services with our comprehensive platform. Your gateway to top institutions and career opportunities in India's educational landscape.
+                                Experience quality education services with our comprehensive platform. Your gateway to top institutions and career opportunities in India&apos;s educational landscape.
                             </p>
                             
                             <div className="flex flex-col sm:flex-row gap-4 mb-12 justify-center lg:justify-start">

@@ -54,7 +54,7 @@ export default function EventForm({ event, onSubmit, onCancel, loading = false }
 
   useEffect(() => {
     if (event) {
-      setFormData({
+      const eventData = {
         title: event.title || "",
         description: event.description || "",
         startDate: event.startDate ? new Date(event.startDate).toISOString().slice(0, 16) : "",
@@ -72,7 +72,8 @@ export default function EventForm({ event, onSubmit, onCancel, loading = false }
           description: event.seo?.description || "",
           keywords: event.seo?.keywords || []
         }
-      });
+      };
+      setFormData(eventData);
     }
   }, [event]);
 

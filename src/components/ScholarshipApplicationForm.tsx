@@ -117,7 +117,7 @@ export default function ScholarshipApplicationForm({ onClose, onSuccess }: Schol
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Father's Name *
+                Father&apos;s Name *
               </label>
               <input
                 type="text"
@@ -130,7 +130,7 @@ export default function ScholarshipApplicationForm({ onClose, onSuccess }: Schol
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Mother's Name *
+                Mother&apos;s Name *
               </label>
               <input
                 type="text"

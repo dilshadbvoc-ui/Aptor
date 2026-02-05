@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit, Trash2, Search, Filter, Building, MapPin, Calendar, Globe, Crown, X } from "lucide-react";
+import { Plus, Edit, Trash2, Search, Filter, Building, MapPin, Calendar, Globe, X } from "lucide-react";
 
 interface College {
   _id: string;
@@ -138,7 +138,7 @@ export default function AdminCollegesPage() {
             setEditingCollege(null);
             setShowForm(true);
           }}
-          className="btn-premium px-4 py-2 text-black font-semibold flex items-center gap-2"
+          className="btn-primary px-4 py-2 flex items-center gap-2"
         >
           <Plus className="w-4 h-4" />
           Add Affiliated College
@@ -146,7 +146,7 @@ export default function AdminCollegesPage() {
       </div>
 
       {/* Filters */}
-      <div className="card-premium p-4">
+      <div className="card p-4">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -155,7 +155,7 @@ export default function AdminCollegesPage() {
               placeholder="Search colleges..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 bg-black/50 border border-yellow-400/30 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="form-input w-full pl-10"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -163,7 +163,7 @@ export default function AdminCollegesPage() {
             <select
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
-              className="px-4 py-3 bg-black/50 border border-yellow-400/30 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+              className="form-input"
             >
               <option value="all">All Types</option>
               <option value="engineering">Engineering</option>
@@ -181,7 +181,7 @@ export default function AdminCollegesPage() {
       {/* Colleges Grid */}
       <div className="space-y-4">
         {filteredColleges.length === 0 ? (
-          <div className="card-premium text-center py-12">
+          <div className="card text-center py-12">
             <Building className="w-12 h-12 text-gray-600 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-white mb-2">No Colleges Found</h3>
             <p className="text-gray-400 mb-4">
@@ -205,7 +205,7 @@ export default function AdminCollegesPage() {
           </div>
         ) : (
           filteredColleges.map((college) => (
-            <div key={college._id} className="card-premium p-6 hover-lift-premium">
+            <div key={college._id} className="card p-6 hover:shadow-xl hover:scale-[1.02]">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
@@ -287,7 +287,7 @@ export default function AdminCollegesPage() {
       {/* Form Modal */}
       {showForm && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-          <div className="card-premium max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+          <div className="card max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
             <div className="p-8">
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
@@ -320,7 +320,8 @@ export default function AdminCollegesPage() {
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                       ...data,
-                      establishedYear: parseInt(data.establishedYear as string) || 2024
+                      establishedYear: parseInt(data.establishedYear as string) || new Date().getFullYear(),
+                      isActive: true
                     }),
                   });
 
@@ -328,7 +329,8 @@ export default function AdminCollegesPage() {
                     setShowForm(false);
                     fetchColleges();
                   } else {
-                    alert("Failed to save college");
+                    const errorData = await response.json();
+                    alert(`Failed to save college: ${errorData.error || 'Unknown error'}`);
                   }
                 } catch (error) {
                   console.error("Error saving college:", error);
@@ -337,24 +339,24 @@ export default function AdminCollegesPage() {
               }} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-green-900 mb-2">College Name</label>
-                    <input name="name" defaultValue={editingCollege?.name} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                    <label className="form-label">College Name</label>
+                    <input name="name" defaultValue={editingCollege?.name} required className="form-input" />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-green-900 mb-2">Slug</label>
-                    <input name="slug" defaultValue={editingCollege?.name?.toLowerCase().replace(/\s+/g, '-')} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                    <label className="form-label">Slug</label>
+                    <input name="slug" defaultValue={editingCollege?.name?.toLowerCase().replace(/\s+/g, '-')} required className="form-input" />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-green-900 mb-2">Location</label>
-                    <input name="location" defaultValue={editingCollege?.location} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                    <label className="form-label">Location</label>
+                    <input name="location" defaultValue={editingCollege?.location} required className="form-input" />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-green-900 mb-2">Est. Year</label>
-                    <input type="number" name="establishedYear" defaultValue={editingCollege?.establishedYear} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                    <label className="form-label">Est. Year</label>
+                    <input type="number" name="establishedYear" defaultValue={editingCollege?.establishedYear} required className="form-input" />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-green-900 mb-2">Type</label>
-                    <select name="type" defaultValue={editingCollege?.type || "engineering"} className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all">
+                    <label className="form-label">Type</label>
+                    <select name="type" defaultValue={editingCollege?.type || "engineering"} className="form-input">
                       <option value="engineering">Engineering</option>
                       <option value="medical">Medical</option>
                       <option value="arts">Arts</option>
@@ -365,27 +367,27 @@ export default function AdminCollegesPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-green-900 mb-2">Website</label>
-                    <input type="url" name="website" defaultValue={editingCollege?.website} className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all" />
+                    <label className="form-label">Website</label>
+                    <input type="url" name="website" defaultValue={editingCollege?.website} className="form-input" />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-green-900 mb-2">Description</label>
-                  <textarea name="description" defaultValue={editingCollege?.description} rows={4} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none transition-all"></textarea>
+                  <label className="form-label">Description</label>
+                  <textarea name="description" defaultValue={editingCollege?.description} rows={4} required className="form-input"></textarea>
                 </div>
 
-                <div className="flex justify-end gap-3 pt-6 border-t border-green-100">
+                <div className="flex justify-end gap-3 pt-6 border-t border-border">
                   <button
                     type="button"
                     onClick={() => setShowForm(false)}
-                    className="px-6 py-2.5 text-green-700 font-semibold border border-green-200 rounded-xl hover:bg-green-50 transition-colors"
+                    className="btn-secondary"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="btn-premium px-8 py-2.5 text-black font-bold"
+                    className="btn-primary"
                   >
                     {editingCollege ? "Update College" : "Create College"}
                   </button>

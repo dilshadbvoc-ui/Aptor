@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useSession } from "@/components/providers/SessionProvider";
 import { useRouter } from "next/navigation";
-import { Search, Eye, CheckCircle, Clock, Star, Mail, Phone, MapPin, Calendar, User, GraduationCap, School, Filter } from "lucide-react";
+import { Search, Eye, CheckCircle, Clock, Star, Mail, Phone, MapPin, User, GraduationCap, School } from "lucide-react";
 
 interface ScholarshipApplication {
   _id: string;
@@ -44,16 +44,7 @@ export default function ScholarshipApplicationsPage() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [courseFilter, setCourseFilter] = useState<string>("all");
 
-  useEffect(() => {
-    if (status === "loading") return;
-    if (status === "unauthenticated") {
-      router.push("/login");
-      return;
-    }
-    fetchApplications();
-  }, [status, router]);
-
-  const fetchApplications = async () => {
+  const fetchApplications = useCallback(async () => {
     try {
       const params = new URLSearchParams();
       if (searchTerm) params.append("search", searchTerm);
@@ -72,13 +63,22 @@ export default function ScholarshipApplicationsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchTerm, statusFilter, courseFilter]);
+
+  useEffect(() => {
+    if (status === "loading") return;
+    if (status === "unauthenticated") {
+      router.push("/login");
+      return;
+    }
+    fetchApplications();
+  }, [status, router, fetchApplications]);
 
   useEffect(() => {
     if (status !== "loading" && status !== "unauthenticated") {
       fetchApplications();
     }
-  }, [searchTerm, statusFilter, courseFilter]);
+  }, [status, fetchApplications]);
 
   const updateApplicationStatus = async (id: string, newStatus: string, notes?: string) => {
     try {

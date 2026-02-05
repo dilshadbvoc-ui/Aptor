@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit, Trash2, Search, BookOpen, GraduationCap, X, Star, Building2 } from "lucide-react";
+import { Plus, Edit, Trash2, Search, BookOpen, GraduationCap, X, Building2 } from "lucide-react";
 
 interface College {
     _id: string;
@@ -107,14 +107,14 @@ export default function AdminCoursesPage() {
                         setEditingCourse(null);
                         setShowForm(true);
                     }}
-                    className="btn-premium px-4 py-2 text-black font-semibold flex items-center gap-2"
+                    className="btn-primary px-4 py-2 flex items-center gap-2"
                 >
                     <Plus className="w-4 h-4" />
                     Add New Course
                 </button>
             </div>
 
-            <div className="card-premium p-4">
+            <div className="card p-4">
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-green-600 w-5 h-5" />
                     <input
@@ -122,14 +122,14 @@ export default function AdminCoursesPage() {
                         placeholder="Search courses..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 bg-white border border-green-200 rounded-xl focus:ring-2 focus:ring-green-500 outline-none transition-all"
+                        className="form-input w-full pl-10"
                     />
                 </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {filteredCourses.length === 0 ? (
-                    <div className="md:col-span-2 card-premium text-center py-12">
+                    <div className="md:col-span-2 card text-center py-12">
                         <BookOpen className="w-12 h-12 text-green-300 mx-auto mb-4" />
                         <h3 className="text-lg font-medium text-green-900 mb-2">No Courses Found</h3>
                         <button
@@ -141,7 +141,7 @@ export default function AdminCoursesPage() {
                     </div>
                 ) : (
                     filteredCourses.map((course) => (
-                        <div key={course._id} className="card-premium p-6 hover-lift-premium">
+                        <div key={course._id} className="card p-6 hover:shadow-xl hover:scale-[1.02]">
                             <div className="flex justify-between items-start">
                                 <div className="flex-1">
                                     <div className="flex items-center gap-2 mb-2">
@@ -184,7 +184,7 @@ export default function AdminCoursesPage() {
 
             {showForm && (
                 <div className="fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
-                    <div className="card-premium max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
+                    <div className="card max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in duration-200">
                         <div className="p-8">
                             <div className="flex items-center justify-between mb-8">
                                 <h2 className="text-2xl font-bold text-green-900">{editingCourse ? "Edit Course" : "Add New Course"}</h2>
@@ -204,21 +204,31 @@ export default function AdminCoursesPage() {
                                         headers: { "Content-Type": "application/json" },
                                         body: JSON.stringify({
                                             ...data,
-                                            college: data.college || undefined,
-                                            university: data.university || undefined
+                                            college: data.college && data.college !== "" ? data.college : undefined,
+                                            university: data.university && data.university !== "" ? data.university : undefined,
+                                            isActive: true
                                         }),
                                     });
-                                    if (response.ok) { setShowForm(false); fetchData(); }
-                                } catch (error) { console.error(error); }
+                                    if (response.ok) { 
+                                        setShowForm(false); 
+                                        fetchData(); 
+                                    } else {
+                                        const errorData = await response.json();
+                                        alert(`Failed to save course: ${errorData.error || 'Unknown error'}`);
+                                    }
+                                } catch (error) { 
+                                    console.error("Error saving course:", error);
+                                    alert("An error occurred. Please try again.");
+                                }
                             }} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label className="block text-sm font-semibold text-green-900 mb-2">Course Title</label>
-                                        <input name="title" defaultValue={editingCourse?.title} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl outline-none focus:ring-2 focus:ring-green-500" />
+                                        <label className="form-label">Course Title</label>
+                                        <input name="title" defaultValue={editingCourse?.title} required className="form-input" />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-semibold text-green-900 mb-2">Level</label>
-                                        <select name="level" defaultValue={editingCourse?.level || "Undergraduate"} className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                                        <label className="form-label">Level</label>
+                                        <select name="level" defaultValue={editingCourse?.level || "Undergraduate"} className="form-input">
                                             <option value="Undergraduate">Undergraduate</option>
                                             <option value="Postgraduate">Postgraduate</option>
                                             <option value="Diploma">Diploma</option>
@@ -226,31 +236,31 @@ export default function AdminCoursesPage() {
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-semibold text-green-900 mb-2">College (Main)</label>
-                                        <select name="university" defaultValue={editingCourse?.university?._id} className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                                        <label className="form-label">College (Main)</label>
+                                        <select name="university" defaultValue={editingCourse?.university?._id} className="form-input">
                                             <option value="">Select a College</option>
                                             {universities.map(u => <option key={u._id} value={u._id}>{u.name}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-semibold text-green-900 mb-2">Affiliated College (Optional)</label>
-                                        <select name="college" defaultValue={editingCourse?.college?._id} className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl outline-none focus:ring-2 focus:ring-green-500">
+                                        <label className="form-label">Affiliated College (Optional)</label>
+                                        <select name="college" defaultValue={editingCourse?.college?._id} className="form-input">
                                             <option value="">Select an Affiliated College</option>
                                             {colleges.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-semibold text-green-900 mb-2">Duration</label>
-                                        <input name="duration" defaultValue={editingCourse?.duration} required placeholder="e.g. 3 Years" className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl outline-none focus:ring-2 focus:ring-green-500" />
+                                        <label className="form-label">Duration</label>
+                                        <input name="duration" defaultValue={editingCourse?.duration} required placeholder="e.g. 3 Years" className="form-input" />
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-semibold text-green-900 mb-2">Description</label>
-                                    <textarea name="description" defaultValue={editingCourse?.description} rows={4} required className="w-full px-4 py-3 bg-white border border-green-200 rounded-xl outline-none focus:ring-2 focus:ring-green-500"></textarea>
+                                    <label className="form-label">Description</label>
+                                    <textarea name="description" defaultValue={editingCourse?.description} rows={4} required className="form-input"></textarea>
                                 </div>
-                                <div className="flex justify-end gap-3 pt-6 border-t border-green-100">
-                                    <button type="button" onClick={() => setShowForm(false)} className="px-6 py-2.5 text-green-700 font-semibold border border-green-200 rounded-xl hover:bg-green-50">Cancel</button>
-                                    <button type="submit" className="btn-premium px-8 py-2.5 text-black font-bold">{editingCourse ? "Update Course" : "Create Course"}</button>
+                                <div className="flex justify-end gap-3 pt-6 border-t border-border">
+                                    <button type="button" onClick={() => setShowForm(false)} className="btn-secondary">Cancel</button>
+                                    <button type="submit" className="btn-primary">{editingCourse ? "Update Course" : "Create Course"}</button>
                                 </div>
                             </form>
                         </div>

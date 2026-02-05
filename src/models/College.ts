@@ -55,6 +55,10 @@ const CollegeSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  isActive: {
+    type: Boolean,
+    default: true
+  },
   ranking: {
     type: Number,
     default: 0

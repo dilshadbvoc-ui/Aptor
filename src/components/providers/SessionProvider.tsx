@@ -22,11 +22,6 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [status, setStatus] = useState<"loading" | "authenticated" | "unauthenticated">("loading");
 
-  // Check if user is authenticated on mount
-  useEffect(() => {
-    checkAuth();
-  }, []);
-
   const checkAuth = async () => {
     try {
       const response = await fetch('/api/auth/session');
@@ -46,6 +41,11 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       setStatus("unauthenticated");
     }
   };
+
+  // Check if user is authenticated on mount
+  useEffect(() => {
+    checkAuth();
+  }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {

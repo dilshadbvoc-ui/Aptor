@@ -62,7 +62,7 @@ export default function InternshipForm({ internship, onSubmit, onCancel, loading
 
   useEffect(() => {
     if (internship) {
-      setFormData({
+      const internshipData = {
         title: internship.title || "",
         company: internship.company || "",
         location: internship.location || "",
@@ -83,7 +83,8 @@ export default function InternshipForm({ internship, onSubmit, onCancel, loading
           description: internship.seo?.description || "",
           keywords: internship.seo?.keywords || []
         }
-      });
+      };
+      setFormData(internshipData);
     }
   }, [internship]);
 
