@@ -88,6 +88,8 @@ export const eventSchema = z.object({
   registrationDeadline: z.string().optional(),
   fee: z.string().optional(),
   slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
+  isActive: z.boolean().optional(),
+  published: z.boolean().optional(),
   featured: z.boolean().optional(),
   seo: z.object({
     title: z.string().optional(),
@@ -111,6 +113,8 @@ export const internshipSchema = z.object({
   applicationUrl: z.string().url('Please enter a valid application URL').optional(),
   contactEmail: z.string().email('Please enter a valid contact email').optional(),
   slug: z.string().min(3, 'Slug must be at least 3 characters').regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
+  isActive: z.boolean().optional(),
+  published: z.boolean().optional(),
   featured: z.boolean().optional(),
   seo: z.object({
     title: z.string().optional(),

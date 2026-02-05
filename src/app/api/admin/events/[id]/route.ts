@@ -93,6 +93,42 @@ export async function PUT(
   }
 }
 
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const authUser = verifyToken(request);
+    if (!authUser) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await params;
+    const data = await request.json();
+    
+    await connectDB();
+    
+    // For PATCH, we only update the provided fields
+    const event = await Event.findByIdAndUpdate(
+      id,
+      { $set: data },
+      { new: true, runValidators: true }
+    );
+    
+    if (!event) {
+      return NextResponse.json({ error: "Event not found" }, { status: 404 });
+    }
+    
+    return NextResponse.json(event);
+  } catch (error) {
+    console.error("Error updating event:", error);
+    return NextResponse.json(
+      { error: "Failed to update event" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

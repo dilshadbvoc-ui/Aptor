@@ -57,6 +57,10 @@ const EventSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  isActive: {
+    type: Boolean,
+    default: true
+  },
   date: { 
     type: Date, 
     required: true,

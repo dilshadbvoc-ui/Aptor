@@ -95,6 +95,42 @@ export async function PUT(
   }
 }
 
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const authUser = verifyToken(request);
+    if (!authUser) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await params;
+    const data = await request.json();
+    
+    await connectDB();
+    
+    // For PATCH, we only update the provided fields
+    const internship = await Internship.findByIdAndUpdate(
+      id,
+      { $set: data },
+      { new: true, runValidators: true }
+    );
+    
+    if (!internship) {
+      return NextResponse.json({ error: "Internship not found" }, { status: 404 });
+    }
+    
+    return NextResponse.json(internship);
+  } catch (error) {
+    console.error("Error updating internship:", error);
+    return NextResponse.json(
+      { error: "Failed to update internship" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
