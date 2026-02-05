@@ -73,6 +73,8 @@ export const universitySchema = z.object({
   ranking: z.number().min(1).optional(),
   website: z.string().url('Please enter a valid website URL').optional(),
   slug: slugValidator,
+  published: z.boolean().optional(),
+  isActive: z.boolean().optional(),
   featured: z.boolean().optional(),
   seo: z.object({
     title: z.string().optional(),
@@ -91,6 +93,7 @@ export const collegeSchema = z.object({
   affiliation: z.string().optional(),
   website: z.string().url('Please enter a valid website URL').optional().or(z.literal("")),
   slug: slugValidator,
+  published: z.boolean().optional(),
   isActive: z.boolean().optional(),
   featured: z.boolean().optional(),
   seo: z.object({
@@ -159,6 +162,7 @@ export const courseSchema = z.object({
   university: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Invalid university ID').optional().or(z.literal("")).transform(val => val === "" ? undefined : val),
   price: z.string().optional(),
   category: z.string().optional(),
+  published: z.boolean().optional(),
   featured: z.boolean().optional(),
   isActive: z.boolean().optional(),
   seo: z.object({
