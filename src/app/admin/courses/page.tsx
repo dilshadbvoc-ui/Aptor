@@ -206,6 +206,7 @@ export default function AdminCoursesPage() {
                                             ...data,
                                             college: data.college && data.college !== "" ? data.college : undefined,
                                             university: data.university && data.university !== "" ? data.university : undefined,
+                                            published: true,
                                             isActive: true
                                         }),
                                     });

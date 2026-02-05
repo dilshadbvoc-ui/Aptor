@@ -321,6 +321,7 @@ export default function AdminCollegesPage() {
                     body: JSON.stringify({
                       ...data,
                       establishedYear: parseInt(data.establishedYear as string) || new Date().getFullYear(),
+                      published: true,
                       isActive: true
                     }),
                   });

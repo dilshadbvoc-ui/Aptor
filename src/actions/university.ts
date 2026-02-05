@@ -28,7 +28,9 @@ export async function createUniversity(formData: FormData) {
         type,
         description,
         website,
-        courses: []
+        courses: [],
+        published: true,
+        isActive: true
     });
 
     revalidatePath("/universities");
