@@ -1,42 +1,46 @@
 import mongoose from "mongoose";
 
 const CourseSchema = new mongoose.Schema({
-  title: { 
-    type: String, 
+  title: {
+    type: String,
     required: true,
     trim: true
   },
-  slug: { 
-    type: String, 
-    required: true, 
+  slug: {
+    type: String,
+    required: true,
     unique: true,
     trim: true
   },
-  description: { 
-    type: String, 
-    required: true 
+  description: {
+    type: String,
+    required: true
   },
-  level: { 
-    type: String, 
-    enum: ["Undergraduate", "Postgraduate", "Diploma", "Certificate"], 
-    required: true 
+  level: {
+    type: String,
+    enum: ["Undergraduate", "Postgraduate", "Diploma", "Certificate"],
+    required: true
   },
-  mode: { 
-    type: String, 
-    enum: ["Offline", "Online", "Hybrid"], 
-    default: "Offline" 
+  mode: {
+    type: String,
+    enum: ["Offline", "Online", "Hybrid"],
+    default: "Offline"
   },
-  duration: { 
+  duration: {
     type: String,
     trim: true
   },
-  image: { 
+  image: {
     type: String,
     trim: true
   },
   college: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'College'
+  },
+  university: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'University'
   },
   price: {
     type: String,
@@ -67,8 +71,8 @@ const CourseSchema = new mongoose.Schema({
     description: String,
     keywords: [String]
   }
-}, { 
-  timestamps: true 
+}, {
+  timestamps: true
 });
 
 // Index for better query performance

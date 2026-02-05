@@ -27,6 +27,7 @@ export async function GET(request: NextRequest) {
 
         const courses = await Course.find(query)
             .populate('college', 'name')
+            .populate('university', 'name')
             .sort({ createdAt: -1 });
 
         return NextResponse.json({ courses });
