@@ -120,7 +120,7 @@ export function Hero() {
                                 </Link>
                                 
                                 <Link
-                                    href="/universities"
+                                    href="/colleges"
                                     className="btn-secondary"
                                 >
                                     <Diamond className="w-5 h-5" />

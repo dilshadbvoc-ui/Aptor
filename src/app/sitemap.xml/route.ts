@@ -14,16 +14,10 @@ export async function GET() {
     <priority>${seoSettings.sitemapSettings?.priority?.homepage || 1.0}</priority>
   </url>
   <url>
-    <loc>${baseUrl}/universities</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>${seoSettings.sitemapSettings?.changeFreq?.universities || 'weekly'}</changefreq>
-    <priority>${seoSettings.sitemapSettings?.priority?.universities || 0.9}</priority>
-  </url>
-  <url>
     <loc>${baseUrl}/colleges</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>${seoSettings.sitemapSettings?.changeFreq?.universities || 'weekly'}</changefreq>
-    <priority>${seoSettings.sitemapSettings?.priority?.universities || 0.9}</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>${baseUrl}/courses</loc>
@@ -38,13 +32,7 @@ export async function GET() {
     <priority>${seoSettings.sitemapSettings?.priority?.blogs || 0.8}</priority>
   </url>
   <url>
-    <loc>${baseUrl}/events</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>${baseUrl}/internships</loc>
+    <loc>${baseUrl}/scholarships</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

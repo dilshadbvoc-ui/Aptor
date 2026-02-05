@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Linkedin, Crown, Diamond, Star, Sparkles } from "lucide-react";
 
 const quickLinks = [
-    { label: "Colleges", href: "/universities-colleges" },
+    { label: "Colleges", href: "/colleges" },
     { label: "Courses", href: "/courses" },
     { label: "Scholarships", href: "/scholarships" },
     { label: "About Us", href: "/about" },

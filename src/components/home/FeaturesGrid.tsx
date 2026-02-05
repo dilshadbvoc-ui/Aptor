@@ -8,7 +8,7 @@ const services = [
         title: "Colleges",
         description: "Exclusive partnerships with world-class institutions and top faculty",
         icon: Building2,
-        href: "/universities-colleges",
+        href: "/colleges",
         color: "from-blue-500 to-blue-700",
         accent: "text-blue-400"
     },

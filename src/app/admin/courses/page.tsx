@@ -16,7 +16,6 @@ interface Course {
     mode: "Offline" | "Online" | "Hybrid";
     duration: string;
     college?: College;
-    university?: College;
     isActive: boolean;
     price?: string;
     category?: string;
@@ -26,7 +25,6 @@ interface Course {
 export default function AdminCoursesPage() {
     const [courses, setCourses] = useState<Course[]>([]);
     const [colleges, setColleges] = useState<College[]>([]);
-    const [universities, setUniversities] = useState<College[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [showForm, setShowForm] = useState(false);
@@ -38,10 +36,9 @@ export default function AdminCoursesPage() {
 
     const fetchData = async () => {
         try {
-            const [coursesRes, collegesRes, universitiesRes] = await Promise.all([
+            const [coursesRes, collegesRes] = await Promise.all([
                 fetch("/api/admin/courses"),
-                fetch("/api/admin/colleges"),
-                fetch("/api/admin/universities")
+                fetch("/api/admin/colleges")
             ]);
 
             if (coursesRes.ok) {
@@ -52,11 +49,6 @@ export default function AdminCoursesPage() {
             if (collegesRes.ok) {
                 const data = await collegesRes.json();
                 setColleges(data.colleges || []);
-            }
-
-            if (universitiesRes.ok) {
-                const data = await universitiesRes.json();
-                setUniversities(data.universities || []);
             }
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -157,16 +149,10 @@ export default function AdminCoursesPage() {
                                             <GraduationCap className="w-4 h-4" />
                                             {course.level}
                                         </div>
-                                        {course.university && (
-                                            <div className="flex items-center gap-1">
-                                                <GraduationCap className="w-4 h-4" />
-                                                {course.university.name}
-                                            </div>
-                                        )}
                                         {course.college && (
                                             <div className="flex items-center gap-1">
                                                 <Building2 className="w-4 h-4" />
-                                                Affiliated: {course.college.name}
+                                                {course.college.name}
                                             </div>
                                         )}
                                     </div>
@@ -205,7 +191,6 @@ export default function AdminCoursesPage() {
                                         body: JSON.stringify({
                                             ...data,
                                             college: data.college && data.college !== "" ? data.college : undefined,
-                                            university: data.university && data.university !== "" ? data.university : undefined,
                                             published: true,
                                             isActive: true
                                         }),
@@ -237,16 +222,9 @@ export default function AdminCoursesPage() {
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="form-label">College (Main)</label>
-                                        <select name="university" defaultValue={editingCourse?.university?._id} className="form-input">
-                                            <option value="">Select a College</option>
-                                            {universities.map(u => <option key={u._id} value={u._id}>{u.name}</option>)}
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label className="form-label">Affiliated College (Optional)</label>
+                                        <label className="form-label">College</label>
                                         <select name="college" defaultValue={editingCourse?.college?._id} className="form-input">
-                                            <option value="">Select an Affiliated College</option>
+                                            <option value="">Select a College</option>
                                             {colleges.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
                                         </select>
                                     </div>

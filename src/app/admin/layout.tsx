@@ -22,8 +22,7 @@ import {
 
 const adminNavItems = [
     { href: "/admin", label: "Dashboard", icon: Home },
-    { href: "/admin/universities", label: "Universities", icon: GraduationCap },
-    { href: "/admin/colleges", label: "Affiliated Colleges", icon: Building2 },
+    { href: "/admin/colleges", label: "Colleges", icon: Building2 },
     { href: "/admin/courses", label: "Courses", icon: BookOpen },
     { href: "/admin/blogs", label: "Blogs", icon: BookOpen },
     { href: "/admin/student-applications", label: "Applications", icon: Star },

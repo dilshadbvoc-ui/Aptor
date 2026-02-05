@@ -112,7 +112,6 @@ export const courseSchema = z.object({
   mode: z.enum(["Offline", "Online", "Hybrid"]).optional(),
   duration: z.string().min(1, 'Duration is required'),
   college: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Invalid college ID').optional().or(z.literal("")).transform(val => val === "" ? undefined : val),
-  university: z.string().regex(/^[0-9a-fA-F]{24}$/, 'Invalid university ID').optional().or(z.literal("")).transform(val => val === "" ? undefined : val),
   price: z.string().optional(),
   category: z.string().optional(),
   published: z.boolean().optional(),

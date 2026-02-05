@@ -38,10 +38,6 @@ const CourseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'College'
   },
-  university: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'University'
-  },
   price: {
     type: String,
     trim: true
@@ -87,6 +83,5 @@ const CourseSchema = new mongoose.Schema({
 CourseSchema.index({ level: 1, isActive: 1, published: 1 });
 CourseSchema.index({ featured: 1, isActive: 1, published: 1 });
 CourseSchema.index({ college: 1 });
-CourseSchema.index({ university: 1 });
 
 export default mongoose.models.Course || mongoose.model("Course", CourseSchema);

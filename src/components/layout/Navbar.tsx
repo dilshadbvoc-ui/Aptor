@@ -6,7 +6,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
-    { href: "/universities-colleges", label: "Colleges" },
+    { href: "/colleges", label: "Colleges" },
     { href: "/courses", label: "Courses" },
     { href: "/scholarships", label: "Scholarships" },
     { href: "/about", label: "About Us" },

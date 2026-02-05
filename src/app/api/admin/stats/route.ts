@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { verifyToken } from "@/lib/auth-middleware";
 import connectDB from "@/lib/db";
 import User from "@/models/User";
-import University from "@/models/University";
+import College from "@/models/College";
 import Contact from "@/models/Contact";
 
 export async function GET(request: NextRequest) {
@@ -16,9 +16,9 @@ export async function GET(request: NextRequest) {
         await connectDB();
 
         // Fetch real counts from database
-        const [totalUsers, universities, applications] = await Promise.all([
+        const [totalUsers, colleges, applications] = await Promise.all([
             User.countDocuments({ isActive: true }),
-            University.countDocuments().catch(() => 0),
+            College.countDocuments().catch(() => 0),
             Contact.countDocuments().catch(() => 0)
         ]);
 
@@ -27,7 +27,7 @@ export async function GET(request: NextRequest) {
 
         return NextResponse.json({
             totalUsers,
-            universities,
+            colleges,
             applications,
             successRate
         });
@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
         console.error("Error fetching stats:", error);
         return NextResponse.json({
             totalUsers: 0,
-            universities: 0,
+            colleges: 0,
             applications: 0,
             successRate: "0%"
         });

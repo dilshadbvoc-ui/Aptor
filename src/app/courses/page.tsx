@@ -12,7 +12,7 @@ interface Course {
     level: "Undergraduate" | "Postgraduate" | "Diploma" | "Certificate";
     duration: string;
     fees?: string;
-    university?: {
+    college?: {
         _id: string;
         name: string;
         location: string;
@@ -49,7 +49,7 @@ export default function CoursesPage() {
     const filteredCourses = courses.filter(course => {
         const matchesFilter = activeFilter === "all" || course.level === activeFilter;
         const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            (course.university?.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+                            (course.college?.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
                             course.description.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesFilter && matchesSearch;
     });
@@ -136,8 +136,8 @@ export default function CoursesPage() {
                                     <span>{course.level}</span>
                                     <span>{course.duration}</span>
                                 </div>
-                                {course.university && (
-                                    <p className="mt-2 text-sm text-teal-600">{course.university.name}</p>
+                                {course.college && (
+                                    <p className="mt-2 text-sm text-teal-600">{course.college.name}</p>
                                 )}
                                 <button
                                     onClick={() => handleEnrollClick(course.title)}
