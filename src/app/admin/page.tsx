@@ -8,7 +8,7 @@ import Link from "next/link";
 
 interface DashboardStats {
     totalUsers: number;
-    universities: number;
+    colleges: number;
     applications: number;
     successRate: string;
 }
@@ -18,7 +18,7 @@ export default function AdminDashboard() {
     const router = useRouter();
     const [stats, setStats] = useState<DashboardStats>({
         totalUsers: 0,
-        universities: 0,
+        colleges: 0,
         applications: 0,
         successRate: "0%"
     });
@@ -83,7 +83,7 @@ export default function AdminDashboard() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 {[
                     { title: "Total Users", value: stats.totalUsers.toString(), icon: Users, color: "from-green-500 to-green-600" },
-                    { title: "Universities", value: stats.universities.toString(), icon: BookOpen, color: "from-blue-500 to-blue-600" },
+                    { title: "Colleges", value: stats.colleges.toString(), icon: BookOpen, color: "from-blue-500 to-blue-600" },
                     { title: "Applications", value: stats.applications.toString(), icon: Star, color: "from-yellow-500 to-yellow-600" },
                     { title: "Success Rate", value: stats.successRate, icon: TrendingUp, color: "from-purple-500 to-purple-600" },
                 ].map((stat, index) => (
@@ -104,11 +104,11 @@ export default function AdminDashboard() {
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
-                    { title: "Manage Universities", desc: "Add and edit university listings", icon: BookOpen, href: "/admin/universities" },
+                    { title: "Manage Colleges", desc: "Add and edit college listings", icon: BookOpen, href: "/admin/colleges" },
+                    { title: "Manage Courses", desc: "Add and edit course offerings", icon: Calendar, href: "/admin/courses" },
                     { title: "View Applications", desc: "Review student applications", icon: Star, href: "/admin/student-applications" },
                     { title: "User Management", desc: "Manage user accounts", icon: Users, href: "/admin/users" },
-                    { title: "Content Management", desc: "Edit blogs and content", icon: Calendar, href: "/admin/blogs" },
-                    { title: "Contact Messages", desc: "View contact inquiries", icon: Mail, href: "/admin/contacts" },
+                    { title: "Content Management", desc: "Edit blogs and content", icon: Mail, href: "/admin/blogs" },
                     { title: "Settings", desc: "System configuration", icon: Settings, href: "/admin/settings" },
                 ].map((action, index) => (
                     <Link key={index} href={action.href} className="card p-6 hover:shadow-xl hover:scale-[1.02] group cursor-pointer block">
