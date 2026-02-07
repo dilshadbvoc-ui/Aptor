@@ -516,4 +516,81 @@
       transform: translateY(-2px) scale(0.99);
     }
   }
+
+  /* Mobile Modal Styles */
+  .z-modal {
+    z-index: 9999;
+  }
+
+  .max-h-screen-safe {
+    max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  }
+
+  /* Prevent body scroll when modal is open */
+  body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+
+  /* Mobile-specific form improvements */
+  @media (max-width: 767px) {
+    .form-input {
+      font-size: 16px !important; /* Prevents zoom on iOS */
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+    }
+
+    /* Stack form grids on mobile */
+    .grid.grid-cols-2 {
+      grid-template-columns: 1fr;
+    }
+
+    /* Better spacing for mobile */
+    .section-padding {
+      padding: var(--space-8) var(--space-4);
+    }
+  }
+
+  /* Minimum touch target sizes */
+  .min-w-touch {
+    min-width: var(--touch-target-sm);
+  }
+
+  .min-h-touch {
+    min-height: var(--touch-target-sm);
+  }
+
+  /* Loading spinner animation */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  /* Slide in from bottom animation for modals */
+  @keyframes slide-in-from-bottom {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .slide-in-from-bottom-4 {
+    animation: slide-in-from-bottom 0.3s ease-out;
+  }
+
+  .animate-in {
+    animation-fill-mode: both;
+  }
 }

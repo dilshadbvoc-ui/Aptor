@@ -10,6 +10,7 @@ interface ScholarshipApplicationFormProps {
 
 export default function ScholarshipApplicationForm({ onClose, onSuccess }: ScholarshipApplicationFormProps) {
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     name: "",
     fatherName: "",
@@ -34,22 +35,72 @@ export default function ScholarshipApplicationForm({ onClose, onSuccess }: Schol
     { id: "Others", label: "Others" }
   ];
 
+  const validateField = (name: string, value: string | string[]) => {
+    const newErrors = { ...errors };
+    
+    switch (name) {
+      case "email":
+        if (typeof value === 'string' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          newErrors.email = "Please enter a valid email";
+        } else {
+          delete newErrors.email;
+        }
+        break;
+      case "mobile":
+        if (typeof value === 'string' && !/^[\+]?[\d\s\-\(\)]{10,15}$/.test(value)) {
+          newErrors.mobile = "Please enter a valid mobile number";
+        } else {
+          delete newErrors.mobile;
+        }
+        break;
+      case "pin":
+        if (typeof value === 'string' && value.length < 4) {
+          newErrors.pin = "PIN must be at least 4 characters";
+        } else {
+          delete newErrors.pin;
+        }
+        break;
+    }
+    
+    setErrors(newErrors);
+  };
+
   const handleCourseChange = (courseId: string, checked: boolean) => {
-    if (checked) {
-      setFormData(prev => ({
-        ...prev,
-        coursePreferred: [...prev.coursePreferred, courseId]
-      }));
+    const newCourses = checked
+      ? [...formData.coursePreferred, courseId]
+      : formData.coursePreferred.filter(c => c !== courseId);
+    
+    setFormData(prev => ({
+      ...prev,
+      coursePreferred: newCourses
+    }));
+    
+    // Validate course selection
+    if (newCourses.length === 0) {
+      setErrors(prev => ({ ...prev, coursePreferred: "Please select at least one course" }));
     } else {
-      setFormData(prev => ({
-        ...prev,
-        coursePreferred: prev.coursePreferred.filter(c => c !== courseId)
-      }));
+      setErrors(prev => {
+        const { coursePreferred, ...rest } = prev;
+        return rest;
+      });
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate course selection
+    if (formData.coursePreferred.length === 0) {
+      setErrors(prev => ({ ...prev, coursePreferred: "Please select at least one course" }));
+      return;
+    }
+    
+    // Check for any validation errors
+    if (Object.keys(errors).length > 0) {
+      alert("Please fix all errors before submitting");
+      return;
+    }
+    
     setLoading(true);
 
     try {
@@ -61,9 +112,10 @@ export default function ScholarshipApplicationForm({ onClose, onSuccess }: Schol
         body: JSON.stringify(formData),
       });
 
+      const data = await response.json();
+
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to submit application");
+        throw new Error(data.error || "Failed to submit application");
       }
 
       alert("Scholarship application submitted successfully! We will contact you soon.");
@@ -194,9 +246,11 @@ export default function ScholarshipApplicationForm({ onClose, onSuccess }: Schol
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                onBlur={(e) => validateField('email', e.target.value)}
+                className={`w-full px-3 py-2 border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent`}
                 required
               />
+              {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
             </div>
           </div>
 
@@ -211,9 +265,11 @@ export default function ScholarshipApplicationForm({ onClose, onSuccess }: Schol
                 type="tel"
                 value={formData.mobile}
                 onChange={(e) => setFormData(prev => ({ ...prev, mobile: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
+                onBlur={(e) => validateField('mobile', e.target.value)}
+                className={`w-full px-3 py-2 border ${errors.mobile ? 'border-red-500' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent`}
                 required
               />
+              {errors.mobile && <p className="mt-1 text-xs text-red-600">{errors.mobile}</p>}
             </div>
 
             <div>
@@ -247,6 +303,7 @@ export default function ScholarshipApplicationForm({ onClose, onSuccess }: Schol
                 </label>
               ))}
             </div>
+            {errors.coursePreferred && <p className="mt-2 text-sm text-red-600">{errors.coursePreferred}</p>}
           </div>
 
           {/* Other Course */}
@@ -270,17 +327,29 @@ export default function ScholarshipApplicationForm({ onClose, onSuccess }: Schol
             <button
               type="button"
               onClick={onClose}
-              className="px-6 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-6 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors min-h-[44px]"
             >
               Cancel
             </button>
             <button
               type="submit"
-              disabled={loading || formData.coursePreferred.length === 0}
-              className="inline-flex items-center gap-2 px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading || formData.coursePreferred.length === 0 || Object.keys(errors).length > 0}
+              className="inline-flex items-center gap-2 px-6 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
             >
-              <Send className="w-4 h-4" />
-              {loading ? "Submitting..." : "Submit Application"}
+              {loading ? (
+                <>
+                  <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Submitting...
+                </>
+              ) : (
+                <>
+                  <Send className="w-4 h-4" />
+                  Submit Application
+                </>
+              )}
             </button>
           </div>
         </form>

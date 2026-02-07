@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Crown, X, Sparkles, ArrowRight, Phone, Mail, User, BookOpen, GraduationCap } from "lucide-react";
 
 interface LeadModalProps {
@@ -24,12 +24,53 @@ export function LeadModal({ isOpen, onClose, title = "Apply Now", subtitle = "St
     });
     
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errors, setErrors] = useState<Record<string, string>>({});
+
+    const validateField = (name: string, value: string) => {
+        const newErrors = { ...errors };
+        
+        switch (name) {
+            case "name":
+                if (value.length < 2) {
+                    newErrors.name = "Name must be at least 2 characters";
+                } else {
+                    delete newErrors.name;
+                }
+                break;
+            case "email":
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    newErrors.email = "Please enter a valid email";
+                } else {
+                    delete newErrors.email;
+                }
+                break;
+            case "phone":
+                if (!/^[\+]?[\d\s\-\(\)]{10,15}$/.test(value)) {
+                    newErrors.phone = "Please enter a valid phone number";
+                } else {
+                    delete newErrors.phone;
+                }
+                break;
+        }
+        
+        setErrors(newErrors);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
+        // Validate all required fields
         if (!formData.email || !formData.name || !formData.phone) {
-            alert('Please fill in all required fields');
+            setErrors({
+                ...(!formData.name && { name: "Name is required" }),
+                ...(!formData.email && { email: "Email is required" }),
+                ...(!formData.phone && { phone: "Phone is required" })
+            });
+            return;
+        }
+
+        // Check for validation errors
+        if (Object.keys(errors).length > 0) {
             return;
         }
 
@@ -49,6 +90,8 @@ export function LeadModal({ isOpen, onClose, title = "Apply Now", subtitle = "St
                 }),
             });
 
+            const data = await response.json();
+
             if (response.ok) {
                 alert('Application submitted successfully! Our team will contact you within 24 hours.');
                 setFormData({ 
@@ -61,10 +104,10 @@ export function LeadModal({ isOpen, onClose, title = "Apply Now", subtitle = "St
                     message: '',
                     source: source
                 });
+                setErrors({});
                 onClose();
             } else {
-                const error = await response.json();
-                alert(error.message || 'Failed to submit application. Please try again.');
+                alert(data.message || 'Failed to submit application. Please try again.');
             }
         } catch (error) {
             console.error('Form submission error:', error);
@@ -75,11 +118,29 @@ export function LeadModal({ isOpen, onClose, title = "Apply Now", subtitle = "St
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+        const { name, value } = e.target;
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [name]: value
         });
     };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        validateField(e.target.name, e.target.value);
+    };
+
+    // Prevent body scroll when modal is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.classList.add('modal-open');
+        } else {
+            document.body.classList.remove('modal-open');
+        }
+        
+        return () => {
+            document.body.classList.remove('modal-open');
+        };
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -140,9 +201,11 @@ export function LeadModal({ isOpen, onClose, title = "Apply Now", subtitle = "St
                                     placeholder="Enter your full name"
                                     value={formData.name}
                                     onChange={handleInputChange}
-                                    className="form-input"
+                                    onBlur={handleBlur}
+                                    className={`form-input ${errors.name ? 'border-red-500' : ''}`}
                                     required
                                 />
+                                {errors.name && <p className="mt-1 text-xs text-red-600">{errors.name}</p>}
                             </div>
                             <div>
                                 <label className="form-label">
@@ -155,9 +218,11 @@ export function LeadModal({ isOpen, onClose, title = "Apply Now", subtitle = "St
                                     placeholder="Enter your email"
                                     value={formData.email}
                                     onChange={handleInputChange}
-                                    className="form-input"
+                                    onBlur={handleBlur}
+                                    className={`form-input ${errors.email ? 'border-red-500' : ''}`}
                                     required
                                 />
+                                {errors.email && <p className="mt-1 text-xs text-red-600">{errors.email}</p>}
                             </div>
                         </div>
 
@@ -173,9 +238,11 @@ export function LeadModal({ isOpen, onClose, title = "Apply Now", subtitle = "St
                                     placeholder="Enter your phone number"
                                     value={formData.phone}
                                     onChange={handleInputChange}
-                                    className="form-input"
+                                    onBlur={handleBlur}
+                                    className={`form-input ${errors.phone ? 'border-red-500' : ''}`}
                                     required
                                 />
+                                {errors.phone && <p className="mt-1 text-xs text-red-600">{errors.phone}</p>}
                             </div>
                             <div>
                                 <label className="form-label">
@@ -262,12 +329,24 @@ export function LeadModal({ isOpen, onClose, title = "Apply Now", subtitle = "St
                         <div className="pt-4">
                             <button
                                 type="submit"
-                                disabled={isSubmitting}
-                                className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                                disabled={isSubmitting || Object.keys(errors).length > 0}
+                                className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                             >
-                                <Crown className="w-5 h-5" />
-                                {isSubmitting ? 'Submitting...' : 'Submit Application'}
-                                <ArrowRight className="w-5 h-5" />
+                                {isSubmitting ? (
+                                    <>
+                                        <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Submitting...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Crown className="w-5 h-5" />
+                                        Submit Application
+                                        <ArrowRight className="w-5 h-5" />
+                                    </>
+                                )}
                             </button>
                         </div>
 

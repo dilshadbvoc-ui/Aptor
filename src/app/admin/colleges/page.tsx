@@ -311,27 +311,48 @@ export default function AdminCollegesPage() {
                 const formData = new FormData(e.currentTarget);
                 const data = Object.fromEntries(formData.entries());
 
+                // Validate description length
+                if ((data.description as string).length < 50) {
+                  alert("Description must be at least 50 characters long");
+                  return;
+                }
+
+                // Generate slug from name if not provided
+                const slug = data.slug || (data.name as string).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
                 try {
                   const method = editingCollege ? "PATCH" : "POST";
                   const url = editingCollege ? `/api/admin/colleges/${editingCollege._id}` : "/api/admin/colleges";
 
+                  const payload = {
+                    name: data.name,
+                    description: data.description,
+                    location: data.location,
+                    establishedYear: parseInt(data.establishedYear as string) || new Date().getFullYear(),
+                    type: data.type,
+                    affiliation: data.affiliation || undefined,
+                    website: data.website || undefined,
+                    slug,
+                    published: true,
+                    isActive: true
+                  };
+
+                  console.log("Sending college data:", payload);
+
                   const response = await fetch(url, {
                     method,
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                      ...data,
-                      establishedYear: parseInt(data.establishedYear as string) || new Date().getFullYear(),
-                      published: true,
-                      isActive: true
-                    }),
+                    body: JSON.stringify(payload),
                   });
 
                   if (response.ok) {
                     setShowForm(false);
                     fetchColleges();
+                    alert("College saved successfully!");
                   } else {
                     const errorData = await response.json();
-                    alert(`Failed to save college: ${errorData.error || 'Unknown error'}`);
+                    console.error("Error response:", errorData);
+                    alert(`Failed to save college: ${errorData.error || errorData.message || JSON.stringify(errorData.details || 'Unknown error')}`);
                   }
                 } catch (error) {
                   console.error("Error saving college:", error);
@@ -339,24 +360,41 @@ export default function AdminCollegesPage() {
                 }
               }} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="form-label">College Name</label>
-                    <input name="name" defaultValue={editingCollege?.name} required className="form-input" />
+                  <div className="md:col-span-2">
+                    <label className="form-label">College Name *</label>
+                    <input 
+                      name="name" 
+                      defaultValue={editingCollege?.name} 
+                      required 
+                      className="form-input"
+                      placeholder="Enter college name"
+                    />
                   </div>
                   <div>
-                    <label className="form-label">Slug</label>
-                    <input name="slug" defaultValue={editingCollege?.name?.toLowerCase().replace(/\s+/g, '-')} required className="form-input" />
+                    <label className="form-label">Location *</label>
+                    <input 
+                      name="location" 
+                      defaultValue={editingCollege?.location} 
+                      required 
+                      className="form-input"
+                      placeholder="City, State"
+                    />
                   </div>
                   <div>
-                    <label className="form-label">Location</label>
-                    <input name="location" defaultValue={editingCollege?.location} required className="form-input" />
+                    <label className="form-label">Established Year *</label>
+                    <input 
+                      type="number" 
+                      name="establishedYear" 
+                      defaultValue={editingCollege?.establishedYear} 
+                      required 
+                      min="1800"
+                      max={new Date().getFullYear()}
+                      className="form-input"
+                      placeholder="e.g. 2000"
+                    />
                   </div>
                   <div>
-                    <label className="form-label">Est. Year</label>
-                    <input type="number" name="establishedYear" defaultValue={editingCollege?.establishedYear} required className="form-input" />
-                  </div>
-                  <div>
-                    <label className="form-label">Type</label>
+                    <label className="form-label">Type *</label>
                     <select name="type" defaultValue={editingCollege?.type || "engineering"} className="form-input">
                       <option value="engineering">Engineering</option>
                       <option value="medical">Medical</option>
@@ -368,14 +406,39 @@ export default function AdminCollegesPage() {
                     </select>
                   </div>
                   <div>
-                    <label className="form-label">Website</label>
-                    <input type="url" name="website" defaultValue={editingCollege?.website} className="form-input" />
+                    <label className="form-label">Website (Optional)</label>
+                    <input 
+                      type="url" 
+                      name="website" 
+                      defaultValue={editingCollege?.website} 
+                      className="form-input"
+                      placeholder="https://example.com"
+                    />
                   </div>
                 </div>
 
                 <div>
-                  <label className="form-label">Description</label>
-                  <textarea name="description" defaultValue={editingCollege?.description} rows={4} required className="form-input"></textarea>
+                  <label className="form-label">Description * (minimum 50 characters)</label>
+                  <textarea 
+                    name="description" 
+                    defaultValue={editingCollege?.description} 
+                    rows={4} 
+                    required 
+                    minLength={50}
+                    className="form-input"
+                    placeholder="Provide a detailed description of the college (at least 50 characters)..."
+                  ></textarea>
+                  <p className="text-xs text-gray-500 mt-1">Current length: <span id="desc-length">0</span> characters</p>
+                </div>
+
+                <div>
+                  <label className="form-label">Affiliation (Optional)</label>
+                  <input 
+                    name="affiliation" 
+                    defaultValue={editingCollege?.affiliation} 
+                    className="form-input"
+                    placeholder="e.g. University of Kerala"
+                  />
                 </div>
 
                 <div className="flex justify-end gap-3 pt-6 border-t border-border">

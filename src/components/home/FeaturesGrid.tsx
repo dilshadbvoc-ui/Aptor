@@ -45,10 +45,10 @@ const services = [
         accent: "text-red-400"
     },
     {
-        title: "Events",
-        description: "Exclusive networking with industry titans and thought leaders",
+        title: "Counselling",
+        description: "Expert guidance and career counselling for your educational journey",
         icon: Users,
-        href: "/events",
+        href: "/counselling",
         color: "from-pink-500 to-pink-700",
         accent: "text-pink-400"
     }

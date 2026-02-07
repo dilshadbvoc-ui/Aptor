@@ -1,12 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Plus, Edit, Trash2, Search, BookOpen, GraduationCap, X, Building2 } from "lucide-react";
-
-interface College {
-    _id: string;
-    name: string;
-}
+import { Plus, Edit, Trash2, Search, BookOpen, GraduationCap, X } from "lucide-react";
 
 interface Course {
     _id: string;
@@ -15,7 +10,6 @@ interface Course {
     level: "Undergraduate" | "Postgraduate" | "Diploma" | "Certificate";
     mode: "Offline" | "Online" | "Hybrid";
     duration: string;
-    college?: College;
     isActive: boolean;
     price?: string;
     category?: string;
@@ -24,34 +18,24 @@ interface Course {
 
 export default function AdminCoursesPage() {
     const [courses, setCourses] = useState<Course[]>([]);
-    const [colleges, setColleges] = useState<College[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
     const [showForm, setShowForm] = useState(false);
     const [editingCourse, setEditingCourse] = useState<Course | null>(null);
 
     useEffect(() => {
-        fetchData();
+        fetchCourses();
     }, []);
 
-    const fetchData = async () => {
+    const fetchCourses = async () => {
         try {
-            const [coursesRes, collegesRes] = await Promise.all([
-                fetch("/api/admin/courses"),
-                fetch("/api/admin/colleges")
-            ]);
-
-            if (coursesRes.ok) {
-                const data = await coursesRes.json();
+            const response = await fetch("/api/admin/courses");
+            if (response.ok) {
+                const data = await response.json();
                 setCourses(data.courses || []);
             }
-
-            if (collegesRes.ok) {
-                const data = await collegesRes.json();
-                setColleges(data.colleges || []);
-            }
         } catch (error) {
-            console.error("Error fetching data:", error);
+            console.error("Error fetching courses:", error);
         } finally {
             setLoading(false);
         }
@@ -149,12 +133,10 @@ export default function AdminCoursesPage() {
                                             <GraduationCap className="w-4 h-4" />
                                             {course.level}
                                         </div>
-                                        {course.college && (
-                                            <div className="flex items-center gap-1">
-                                                <Building2 className="w-4 h-4" />
-                                                {course.college.name}
-                                            </div>
-                                        )}
+                                        <div className="flex items-center gap-1">
+                                            <BookOpen className="w-4 h-4" />
+                                            {course.duration}
+                                        </div>
                                     </div>
                                     <p className="text-green-800 text-sm line-clamp-2">{course.description}</p>
                                 </div>
@@ -182,25 +164,48 @@ export default function AdminCoursesPage() {
                                 const formData = new FormData(e.currentTarget);
                                 const data = Object.fromEntries(formData.entries());
 
+                                // Validate description length
+                                if ((data.description as string).length < 50) {
+                                    alert("Description must be at least 50 characters long");
+                                    return;
+                                }
+
+                                // Generate slug from title
+                                const slug = (data.title as string).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
                                 try {
                                     const method = editingCourse ? "PATCH" : "POST";
                                     const url = editingCourse ? `/api/admin/courses/${editingCourse._id}` : "/api/admin/courses";
+                                    
+                                    const payload = {
+                                        title: data.title,
+                                        description: data.description,
+                                        level: data.level,
+                                        duration: data.duration,
+                                        mode: data.mode || undefined,
+                                        price: data.price || undefined,
+                                        category: data.category || undefined,
+                                        slug,
+                                        published: true,
+                                        isActive: true
+                                    };
+
+                                    console.log("Sending course data:", payload);
+
                                     const response = await fetch(url, {
                                         method,
                                         headers: { "Content-Type": "application/json" },
-                                        body: JSON.stringify({
-                                            ...data,
-                                            college: data.college && data.college !== "" ? data.college : undefined,
-                                            published: true,
-                                            isActive: true
-                                        }),
+                                        body: JSON.stringify(payload),
                                     });
+                                    
                                     if (response.ok) { 
                                         setShowForm(false); 
-                                        fetchData(); 
+                                        fetchCourses();
+                                        alert("Course saved successfully!");
                                     } else {
                                         const errorData = await response.json();
-                                        alert(`Failed to save course: ${errorData.error || 'Unknown error'}`);
+                                        console.error("Error response:", errorData);
+                                        alert(`Failed to save course: ${errorData.error || errorData.message || JSON.stringify(errorData.details || 'Unknown error')}`);
                                     }
                                 } catch (error) { 
                                     console.error("Error saving course:", error);
@@ -208,12 +213,18 @@ export default function AdminCoursesPage() {
                                 }
                             }} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div>
-                                        <label className="form-label">Course Title</label>
-                                        <input name="title" defaultValue={editingCourse?.title} required className="form-input" />
+                                    <div className="md:col-span-2">
+                                        <label className="form-label">Course Title *</label>
+                                        <input 
+                                            name="title" 
+                                            defaultValue={editingCourse?.title} 
+                                            required 
+                                            className="form-input"
+                                            placeholder="Enter course title"
+                                        />
                                     </div>
                                     <div>
-                                        <label className="form-label">Level</label>
+                                        <label className="form-label">Level *</label>
                                         <select name="level" defaultValue={editingCourse?.level || "Undergraduate"} className="form-input">
                                             <option value="Undergraduate">Undergraduate</option>
                                             <option value="Postgraduate">Postgraduate</option>
@@ -222,20 +233,54 @@ export default function AdminCoursesPage() {
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="form-label">College</label>
-                                        <select name="college" defaultValue={editingCourse?.college?._id} className="form-input">
-                                            <option value="">Select a College</option>
-                                            {colleges.map(c => <option key={c._id} value={c._id}>{c.name}</option>)}
+                                        <label className="form-label">Duration *</label>
+                                        <input 
+                                            name="duration" 
+                                            defaultValue={editingCourse?.duration} 
+                                            required 
+                                            placeholder="e.g. 3 Years, 6 Months" 
+                                            className="form-input" 
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="form-label">Mode (Optional)</label>
+                                        <select name="mode" defaultValue={editingCourse?.mode || "Offline"} className="form-input">
+                                            <option value="Offline">Offline</option>
+                                            <option value="Online">Online</option>
+                                            <option value="Hybrid">Hybrid</option>
                                         </select>
                                     </div>
                                     <div>
-                                        <label className="form-label">Duration</label>
-                                        <input name="duration" defaultValue={editingCourse?.duration} required placeholder="e.g. 3 Years" className="form-input" />
+                                        <label className="form-label">Price (Optional)</label>
+                                        <input 
+                                            name="price" 
+                                            defaultValue={editingCourse?.price} 
+                                            placeholder="e.g. ₹50,000/year" 
+                                            className="form-input" 
+                                        />
+                                    </div>
+                                    <div className="md:col-span-2">
+                                        <label className="form-label">Category (Optional)</label>
+                                        <input 
+                                            name="category" 
+                                            defaultValue={editingCourse?.category} 
+                                            placeholder="e.g. Engineering, Medical, Arts" 
+                                            className="form-input" 
+                                        />
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="form-label">Description</label>
-                                    <textarea name="description" defaultValue={editingCourse?.description} rows={4} required className="form-input"></textarea>
+                                    <label className="form-label">Description * (minimum 50 characters)</label>
+                                    <textarea 
+                                        name="description" 
+                                        defaultValue={editingCourse?.description} 
+                                        rows={4} 
+                                        required 
+                                        minLength={50}
+                                        className="form-input"
+                                        placeholder="Provide a detailed description of the course (at least 50 characters)..."
+                                    ></textarea>
+                                    <p className="text-xs text-gray-500 mt-1">Minimum 50 characters required</p>
                                 </div>
                                 <div className="flex justify-end gap-3 pt-6 border-t border-border">
                                     <button type="button" onClick={() => setShowForm(false)} className="btn-secondary">Cancel</button>

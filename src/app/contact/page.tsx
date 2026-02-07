@@ -11,10 +11,49 @@ export default function ContactPage() {
         message: "",
     });
     const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+    const [errors, setErrors] = useState<Record<string, string>>({});
+
+    const validateField = (name: string, value: string) => {
+        const newErrors = { ...errors };
+        
+        switch (name) {
+            case "name":
+                if (value.length < 2) {
+                    newErrors.name = "Name must be at least 2 characters";
+                } else {
+                    delete newErrors.name;
+                }
+                break;
+            case "email":
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    newErrors.email = "Please enter a valid email address";
+                } else {
+                    delete newErrors.email;
+                }
+                break;
+            case "phone":
+                if (value && !/^[\+]?[\d\s\-\(\)]{10,15}$/.test(value)) {
+                    newErrors.phone = "Please enter a valid phone number";
+                } else {
+                    delete newErrors.phone;
+                }
+                break;
+            case "message":
+                if (value.length < 10) {
+                    newErrors.message = "Message must be at least 10 characters";
+                } else {
+                    delete newErrors.message;
+                }
+                break;
+        }
+        
+        setErrors(newErrors);
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setStatus("submitting");
+        setErrors({});
 
         try {
             const response = await fetch("/api/contact", {
@@ -23,11 +62,22 @@ export default function ContactPage() {
                 body: JSON.stringify(formData),
             });
 
+            const data = await response.json();
+
             if (response.ok) {
                 setStatus("success");
                 setFormData({ name: "", email: "", phone: "", message: "" });
+                setTimeout(() => setStatus("idle"), 5000);
             } else {
                 setStatus("error");
+                if (data.errors) {
+                    const errorObj: Record<string, string> = {};
+                    data.errors.forEach((err: string) => {
+                        const [field, msg] = err.split(": ");
+                        errorObj[field] = msg;
+                    });
+                    setErrors(errorObj);
+                }
             }
         } catch (error) {
             console.error(error);
@@ -36,7 +86,12 @@ export default function ContactPage() {
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        validateField(e.target.name, e.target.value);
     };
 
     return (
@@ -175,9 +230,11 @@ export default function ContactPage() {
                                             required
                                             value={formData.name}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                                            onBlur={handleBlur}
+                                            className={`w-full px-4 py-3 bg-white border ${errors.name ? 'border-red-500' : 'border-gray-300'} rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300`}
                                             placeholder="Enter your full name"
                                         />
+                                        {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
                                     </div>
                                     
                                     <div>
@@ -189,9 +246,11 @@ export default function ContactPage() {
                                             required
                                             value={formData.email}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                                            onBlur={handleBlur}
+                                            className={`w-full px-4 py-3 bg-white border ${errors.email ? 'border-red-500' : 'border-gray-300'} rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300`}
                                             placeholder="your.email@example.com"
                                         />
+                                        {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
                                     </div>
                                     
                                     <div>
@@ -202,9 +261,11 @@ export default function ContactPage() {
                                             id="phone"
                                             value={formData.phone}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300"
+                                            onBlur={handleBlur}
+                                            className={`w-full px-4 py-3 bg-white border ${errors.phone ? 'border-red-500' : 'border-gray-300'} rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300`}
                                             placeholder="+91 98765 43210"
                                         />
+                                        {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
                                     </div>
                                     
                                     <div>
@@ -216,19 +277,33 @@ export default function ContactPage() {
                                             required
                                             value={formData.message}
                                             onChange={handleChange}
-                                            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 resize-none"
+                                            onBlur={handleBlur}
+                                            className={`w-full px-4 py-3 bg-white border ${errors.message ? 'border-red-500' : 'border-gray-300'} rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-300 resize-none`}
                                             placeholder="Tell us about your educational goals and how we can assist you..."
                                         />
+                                        {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
                                     </div>
                                     
                                     <button
                                         type="submit"
-                                        disabled={status === "submitting"}
-                                        className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 inline-flex items-center justify-center gap-2"
+                                        disabled={status === "submitting" || Object.keys(errors).length > 0}
+                                        className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none inline-flex items-center justify-center gap-2 min-h-[48px]"
                                     >
-                                        <Crown className="w-5 h-5" />
-                                        {status === "submitting" ? "Sending Message..." : "Send Message"}
-                                        <Send className="w-5 h-5" />
+                                        {status === "submitting" ? (
+                                            <>
+                                                <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                </svg>
+                                                Sending Message...
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Crown className="w-5 h-5" />
+                                                Send Message
+                                                <Send className="w-5 h-5" />
+                                            </>
+                                        )}
                                     </button>
                                 </form>
 

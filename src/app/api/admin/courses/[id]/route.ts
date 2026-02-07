@@ -18,8 +18,7 @@ export async function GET(
 
         const { id } = await params;
         const course = await Course.findById(id)
-            .populate('college', 'name')
-            .populate('university', 'name');
+            .populate('college', 'name');
 
         if (!course) {
             return NextResponse.json(
@@ -83,7 +82,7 @@ export async function PUT(
             id,
             validation.data,
             { new: true, runValidators: true }
-        ).populate('college', 'name').populate('university', 'name');
+        ).populate('college', 'name');
 
         if (!course) {
             return NextResponse.json(
@@ -134,7 +133,7 @@ export async function PATCH(
             id,
             { ...validation.data, updatedAt: new Date() },
             { new: true, runValidators: true }
-        ).populate('college', 'name').populate('university', 'name');
+        ).populate('college', 'name');
 
         if (!course) {
             return NextResponse.json(

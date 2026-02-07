@@ -40,7 +40,6 @@ export async function GET(request: NextRequest) {
 
         const courses = await Course.find(filter)
             .populate('college', 'name')
-            .populate('university', 'name')
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit);

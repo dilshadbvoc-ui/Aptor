@@ -14,7 +14,7 @@ export async function GET(
       slug: slug, 
       published: true,
       isActive: true
-    }).populate('university', 'name location website');
+    }).populate('college', 'name location website');
     
     if (!course) {
       return NextResponse.json({
