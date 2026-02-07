@@ -48,9 +48,9 @@ const team = [
     },
     {
         name: "Adv. Arif Wafy",
-        role: "LEGAL ADVISOR",
+        role: "CHAIRMAN",
         image: "/arif-wafy.jpeg",
-        description: "Legal expert ensuring highest standards of compliance and ethical practice in all our operations.",
+        description: "Strategic leader ensuring highest standards of excellence and ethical practice in all our operations.",
         quote: "Our focus on student satisfaction has helped us win the respect of both students and parents. Because of how well we have served them, parents have become our strongest advocates."
     }
 ];
@@ -370,11 +370,11 @@ export default function AboutPage() {
                                 <ArrowRight className="w-5 h-5" />
                             </Link>
                             <Link
-                                href="/universities-colleges"
+                                href="/colleges"
                                 className="inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-green-500 text-green-600 rounded-xl font-medium hover:bg-green-500 hover:text-white transition-all duration-300"
                             >
                                 <Globe className="w-5 h-5" />
-                                Explore Institutions
+                                Explore Colleges
                             </Link>
                         </div>
                     </div>
