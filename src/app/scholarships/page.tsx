@@ -8,28 +8,23 @@ export default function ScholarshipsPage() {
     const [showApplicationForm, setShowApplicationForm] = useState(false);
 
     const scholarship = {
-        name: "Aptor Studies Merit Scholarship 2024",
-        amount: "₹5,00,000",
+        name: "Aptor Studies Merit Scholarship",
+        amount: "Up to ₹5,00,000",
         duration: "Full Academic Program",
-        eligibility: "Academic Excellence (85%+ in 12th Grade)",
-        deadline: "June 30, 2024",
-        recipients: "100 students",
-        description: "A comprehensive scholarship program designed to support meritorious students in pursuing their higher education dreams at top colleges worldwide.",
+        eligibility: "Academic Excellence",
+        recipients: "Limited Seats",
+        description: "A comprehensive scholarship program designed to support meritorious students in pursuing their higher education dreams at top colleges.",
         benefits: [
-            "Full tuition fee coverage",
-            "Monthly stipend for living expenses",
-            "Book and study material allowance",
-            "Career counseling and mentorship",
-            "Internship placement assistance",
-            "Alumni network access"
+            "Financial assistance for tuition fees",
+            "Academic support and guidance",
+            "Career counseling services",
+            "Mentorship opportunities"
         ],
         requirements: [
-            "Minimum 85% marks in 12th grade",
+            "Academic merit",
             "Valid entrance exam scores",
             "Statement of purpose",
-            "Two letters of recommendation",
-            "Financial need documentation",
-            "Interview participation"
+            "Recommendation letters"
         ]
     };
 
@@ -44,7 +39,7 @@ export default function ScholarshipsPage() {
                 <div className="max-w-3xl mb-12">
                     <span className="text-teal-600 font-semibold text-sm uppercase tracking-wider">Scholarship Opportunity</span>
                     <h1 className="mt-2 text-4xl md:text-5xl font-bold text-gray-900">
-                        Merit Scholarship Program 2024
+                        Merit Scholarship Program
                     </h1>
                     <p className="mt-4 text-lg text-gray-600">
                         Transform your educational dreams into reality with our comprehensive scholarship program designed for exceptional students.
@@ -61,12 +56,11 @@ export default function ScholarshipsPage() {
                 </div>
 
                 {/* Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12">
                     {[
-                        { icon: Award, value: "₹5,00,000", label: "Scholarship Amount" },
-                        { icon: Users, value: "100", label: "Recipients" },
-                        { icon: Star, value: "85%+", label: "Min. Requirement" },
-                        { icon: Calendar, value: "June 30", label: "Application Deadline" }
+                        { icon: Award, value: "Up to ₹5L", label: "Scholarship Amount" },
+                        { icon: Users, value: "Limited", label: "Seats Available" },
+                        { icon: Star, value: "Merit Based", label: "Selection Criteria" }
                     ].map((stat, index) => (
                         <div key={index} className="p-6 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-lg transition-all">
                             <div className="flex justify-center mb-3">
@@ -104,13 +98,9 @@ export default function ScholarshipsPage() {
                                     <div className="text-teal-600 text-sm font-medium mb-1">Duration</div>
                                     <div className="text-gray-900 font-bold">{scholarship.duration}</div>
                                 </div>
-                                <div className="bg-white p-4 rounded-lg border border-gray-200">
-                                    <div className="text-teal-600 text-sm font-medium mb-1">Recipients</div>
+                                <div className="bg-white p-4 rounded-lg border border-gray-200 col-span-2">
+                                    <div className="text-teal-600 text-sm font-medium mb-1">Availability</div>
                                     <div className="text-gray-900 font-bold">{scholarship.recipients}</div>
-                                </div>
-                                <div className="bg-white p-4 rounded-lg border border-gray-200">
-                                    <div className="text-teal-600 text-sm font-medium mb-1">Deadline</div>
-                                    <div className="text-red-600 font-bold">{scholarship.deadline}</div>
                                 </div>
                             </div>
 
@@ -209,10 +199,10 @@ export default function ScholarshipsPage() {
                 {/* CTA Section */}
                 <div className="p-8 md:p-12 bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl border border-teal-200 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                        Don't Miss This Opportunity
+                        Apply for Scholarship
                     </h2>
                     <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
-                        Applications close on June 30, 2024. Apply now to secure your future with our merit scholarship program.
+                        Take the first step towards your educational goals. Apply now to secure financial support for your academic journey.
                     </p>
                     
                     <button
