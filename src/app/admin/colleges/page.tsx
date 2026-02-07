@@ -12,6 +12,7 @@ interface College {
   type: "engineering" | "medical" | "arts" | "science" | "commerce" | "law" | "other";
   affiliation?: string;
   website?: string;
+  images?: string[];
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
@@ -332,6 +333,7 @@ export default function AdminCollegesPage() {
                     type: data.type,
                     affiliation: data.affiliation || undefined,
                     website: data.website || undefined,
+                    images: data.image ? [data.image] : undefined,
                     slug,
                     published: true,
                     isActive: true
@@ -414,6 +416,17 @@ export default function AdminCollegesPage() {
                       className="form-input"
                       placeholder="https://example.com"
                     />
+                  </div>
+                  <div className="md:col-span-2">
+                    <label className="form-label">Image URL (Optional)</label>
+                    <input 
+                      type="url" 
+                      name="image" 
+                      defaultValue={editingCollege?.images?.[0]} 
+                      className="form-input"
+                      placeholder="https://example.com/image.jpg"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">Enter a direct link to the college image</p>
                   </div>
                 </div>
 

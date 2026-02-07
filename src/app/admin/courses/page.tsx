@@ -10,6 +10,7 @@ interface Course {
     level: "Undergraduate" | "Postgraduate" | "Diploma" | "Certificate";
     mode: "Offline" | "Online" | "Hybrid";
     duration: string;
+    image?: string;
     isActive: boolean;
     price?: string;
     category?: string;
@@ -185,6 +186,7 @@ export default function AdminCoursesPage() {
                                         mode: data.mode || undefined,
                                         price: data.price || undefined,
                                         category: data.category || undefined,
+                                        image: data.image || undefined,
                                         slug,
                                         published: true,
                                         isActive: true
@@ -267,6 +269,17 @@ export default function AdminCoursesPage() {
                                             placeholder="e.g. Engineering, Medical, Arts" 
                                             className="form-input" 
                                         />
+                                    </div>
+                                    <div className="md:col-span-2">
+                                        <label className="form-label">Image URL (Optional)</label>
+                                        <input 
+                                            type="url" 
+                                            name="image" 
+                                            defaultValue={editingCourse?.image} 
+                                            className="form-input"
+                                            placeholder="https://example.com/course-image.jpg"
+                                        />
+                                        <p className="text-xs text-gray-500 mt-1">Enter a direct link to the course image</p>
                                     </div>
                                 </div>
                                 <div>
