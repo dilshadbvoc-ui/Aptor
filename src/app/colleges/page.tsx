@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import { LeadModal } from "@/components/ui";
 
 interface College {
     _id: string;
@@ -20,6 +21,8 @@ interface College {
 export default function CollegesPage() {
     const [colleges, setColleges] = useState<College[]>([]);
     const [loading, setLoading] = useState(true);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedCollege, setSelectedCollege] = useState<string>("");
 
     useEffect(() => {
         fetchColleges();
@@ -37,6 +40,11 @@ export default function CollegesPage() {
         } finally {
             setLoading(false);
         }
+    };
+
+    const handleApplyClick = (collegeName: string) => {
+        setSelectedCollege(collegeName);
+        setIsModalOpen(true);
     };
 
     if (loading) {
@@ -92,9 +100,20 @@ export default function CollegesPage() {
                                     <span className="capitalize">{college.type}</span>
                                     <span>Est. {college.establishedYear}</span>
                                 </div>
-                                <div className="mt-4 flex items-center text-teal-600 text-sm font-medium">
-                                    View Details
-                                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                                <div className="mt-4 flex flex-col gap-2">
+                                    <button
+                                        onClick={() => handleApplyClick(college.name)}
+                                        className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-teal-500 hover:bg-teal-600 text-white rounded-lg font-medium transition-colors"
+                                    >
+                                        Apply Now
+                                        <ArrowRight className="w-4 h-4" />
+                                    </button>
+                                    <Link
+                                        href={`/colleges/${college.slug}`}
+                                        className="w-full flex items-center justify-center gap-2 px-4 py-2 border-2 border-teal-500 text-teal-600 hover:bg-teal-50 rounded-lg font-medium transition-colors"
+                                    >
+                                        View Details
+                                    </Link>
                                 </div>
                             </Link>
                         ))
@@ -106,6 +125,15 @@ export default function CollegesPage() {
                     )}
                 </div>
             </div>
+
+            {/* Lead Generation Modal */}
+            <LeadModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title={`Apply to ${selectedCollege}`}
+                subtitle="Start Your Application"
+                source={`college-${selectedCollege.toLowerCase().replace(/\s+/g, '-')}`}
+            />
         </div>
     );
 }
