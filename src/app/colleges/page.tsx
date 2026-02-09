@@ -13,6 +13,7 @@ interface College {
     type: "engineering" | "medical" | "arts" | "science" | "commerce" | "law" | "other";
     affiliation?: string;
     website?: string;
+    images?: string[];
     slug: string;
 }
 
@@ -73,8 +74,16 @@ export default function CollegesPage() {
                                 href={`/colleges/${college.slug}`}
                                 className="group block p-6 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-lg hover:shadow-gray-100 border border-transparent hover:border-gray-100 transition-all"
                             >
-                                <div className="h-40 w-full bg-gradient-to-br from-violet-100 to-violet-50 rounded-xl mb-4 flex items-center justify-center">
-                                    <span className="text-4xl">🎓</span>
+                                <div className="h-40 w-full bg-gradient-to-br from-violet-100 to-violet-50 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
+                                    {college.images && college.images[0] ? (
+                                        <img 
+                                            src={college.images[0]} 
+                                            alt={college.name}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    ) : (
+                                        <span className="text-4xl">🎓</span>
+                                    )}
                                 </div>
                                 <h3 className="text-lg font-semibold text-gray-900 group-hover:text-teal-700 transition-colors">{college.name}</h3>
                                 <p className="mt-1 text-sm text-gray-500">{college.location}</p>
