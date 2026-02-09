@@ -10,7 +10,7 @@ export async function GET() {
       published: true,
       isActive: true 
     })
-      .select('title description level duration fees college slug')
+      .select('title description level duration fees image college slug')
       .populate('college', 'name location')
       .sort({ createdAt: -1 })
       .limit(50);

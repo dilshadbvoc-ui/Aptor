@@ -10,7 +10,7 @@ export async function GET() {
       published: true,
       isActive: true
     })
-      .select('name description location establishedYear type affiliation website slug')
+      .select('name description location establishedYear type affiliation website images slug')
       .sort({ name: 1 })
       .limit(50);
     
