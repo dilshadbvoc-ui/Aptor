@@ -40,13 +40,17 @@ export default function CoursesPage() {
 
     const fetchCourses = async () => {
         try {
+            console.log('🔄 Fetching courses from API...');
             const response = await fetch('/api/courses');
             if (response.ok) {
                 const data = await response.json();
+                console.log(`✅ Received ${data.courses?.length || 0} courses from API`);
                 setCourses(data.courses || []);
+            } else {
+                console.error('❌ API response not OK:', response.status);
             }
         } catch (error) {
-            console.error('Error fetching courses:', error);
+            console.error('❌ Error fetching courses:', error);
         } finally {
             setLoading(false);
         }

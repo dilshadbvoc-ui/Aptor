@@ -30,7 +30,7 @@ export default function AdminCoursesPage() {
 
     const fetchCourses = async () => {
         try {
-            const response = await fetch("/api/admin/courses");
+            const response = await fetch("/api/admin/courses?limit=1000");
             if (response.ok) {
                 const data = await response.json();
                 setCourses(data.courses || []);

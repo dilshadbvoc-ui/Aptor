@@ -36,13 +36,17 @@ export default function CollegesPage() {
 
     const fetchColleges = async () => {
         try {
+            console.log('🔄 Fetching colleges from API...');
             const response = await fetch('/api/colleges');
             if (response.ok) {
                 const data = await response.json();
+                console.log(`✅ Received ${data.colleges?.length || 0} colleges from API`);
                 setColleges(data.colleges || []);
+            } else {
+                console.error('❌ API response not OK:', response.status);
             }
         } catch (error) {
-            console.error('Error fetching colleges:', error);
+            console.error('❌ Error fetching colleges:', error);
         } finally {
             setLoading(false);
         }

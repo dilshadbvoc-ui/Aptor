@@ -32,7 +32,7 @@ export default function AdminCollegesPage() {
 
   const fetchColleges = async () => {
     try {
-      const response = await fetch("/api/admin/colleges");
+      const response = await fetch("/api/admin/colleges?limit=1000");
       if (!response.ok) {
         throw new Error("Failed to fetch colleges");
       }
