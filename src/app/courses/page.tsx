@@ -21,6 +21,10 @@ interface Course {
     slug: string;
 }
 
+interface ImageState {
+    [key: string]: boolean;
+}
+
 export default function CoursesPage() {
     const [courses, setCourses] = useState<Course[]>([]);
     const [loading, setLoading] = useState(true);
@@ -28,6 +32,7 @@ export default function CoursesPage() {
     const [searchTerm, setSearchTerm] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCourse, setSelectedCourse] = useState<string>("");
+    const [imageErrors, setImageErrors] = useState<ImageState>({});
 
     useEffect(() => {
         fetchCourses();
@@ -58,6 +63,10 @@ export default function CoursesPage() {
     const handleEnrollClick = (courseTitle: string) => {
         setSelectedCourse(courseTitle);
         setIsModalOpen(true);
+    };
+
+    const handleImageError = (courseId: string) => {
+        setImageErrors(prev => ({ ...prev, [courseId]: true }));
     };
 
     if (loading) {
@@ -129,11 +138,12 @@ export default function CoursesPage() {
                                 className="group block p-6 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-lg hover:shadow-gray-100 border border-transparent hover:border-gray-100 transition-all"
                             >
                                 <div className="h-40 w-full bg-gradient-to-br from-teal-100 to-teal-50 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
-                                    {course.image ? (
+                                    {course.image && !imageErrors[course._id] ? (
                                         <img 
                                             src={course.image} 
                                             alt={course.title}
                                             className="w-full h-full object-cover"
+                                            onError={() => handleImageError(course._id)}
                                         />
                                     ) : (
                                         <span className="text-4xl">📚</span>

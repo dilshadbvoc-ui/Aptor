@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { LeadModal } from "@/components/ui";
@@ -18,11 +19,16 @@ interface College {
     slug: string;
 }
 
+interface ImageState {
+    [key: string]: boolean;
+}
+
 export default function CollegesPage() {
     const [colleges, setColleges] = useState<College[]>([]);
     const [loading, setLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCollege, setSelectedCollege] = useState<string>("");
+    const [imageErrors, setImageErrors] = useState<ImageState>({});
 
     useEffect(() => {
         fetchColleges();
@@ -45,6 +51,10 @@ export default function CollegesPage() {
     const handleApplyClick = (collegeName: string) => {
         setSelectedCollege(collegeName);
         setIsModalOpen(true);
+    };
+
+    const handleImageError = (collegeId: string) => {
+        setImageErrors(prev => ({ ...prev, [collegeId]: true }));
     };
 
     if (loading) {
@@ -83,11 +93,12 @@ export default function CollegesPage() {
                                 className="group block p-6 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-lg hover:shadow-gray-100 border border-transparent hover:border-gray-100 transition-all"
                             >
                                 <div className="h-40 w-full bg-gradient-to-br from-violet-100 to-violet-50 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
-                                    {college.images && college.images[0] ? (
+                                    {college.images && college.images[0] && !imageErrors[college._id] ? (
                                         <img 
                                             src={college.images[0]} 
                                             alt={college.name}
                                             className="w-full h-full object-cover"
+                                            onError={() => handleImageError(college._id)}
                                         />
                                     ) : (
                                         <span className="text-4xl">🎓</span>
