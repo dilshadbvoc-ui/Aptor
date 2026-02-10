@@ -12,7 +12,7 @@ export async function GET() {
     })
       .select('name description location establishedYear type affiliation website images slug')
       .sort({ name: 1 })
-      .limit(50);
+      .limit(200);
     
     return NextResponse.json({
       success: true,
