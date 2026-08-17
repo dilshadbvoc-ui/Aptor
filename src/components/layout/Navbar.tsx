@@ -62,9 +62,9 @@ export function Navbar() {
                                     alt="APTOR Studies Logo" 
                                     className="w-16 h-16 rounded-xl object-cover shadow-lg group-hover:shadow-green-400/25 transition-all duration-300"
                                 />
-                                <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent-400 rounded-full flex items-center justify-center">
+                                {/* <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent-400 rounded-full flex items-center justify-center">
                                     <Sparkles className="w-2.5 h-2.5 text-black" />
-                                </div>
+                                </div> */}
                             </div>
                         </Link>
 
