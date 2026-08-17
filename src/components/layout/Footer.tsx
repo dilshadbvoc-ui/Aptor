@@ -5,6 +5,7 @@ const quickLinks = [
     { label: "Colleges", href: "/colleges" },
     { label: "Courses", href: "/courses" },
     { label: "Scholarships", href: "/scholarships" },
+    { label: "Aptor Academy", href: "/academy" },
     { label: "About Us", href: "/about" },
     { label: "Insights", href: "/blogs" },
     { label: "Contact", href: "/contact" },

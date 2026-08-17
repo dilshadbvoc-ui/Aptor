@@ -9,6 +9,7 @@ const navLinks = [
     { href: "/colleges", label: "Colleges" },
     { href: "/courses", label: "Courses" },
     { href: "/scholarships", label: "Scholarships" },
+    { href: "/academy", label: "Aptor Academy" },
     { href: "/about", label: "About Us" },
 ];
 

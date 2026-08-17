@@ -91,30 +91,31 @@ export default function CollegesPage() {
                 <div className="mt-12 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                     {colleges.length > 0 ? (
                         colleges.map((college) => (
-                            <Link
+                            <div
                                 key={college._id}
-                                href={`/colleges/${college.slug}`}
-                                className="group block p-6 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-lg hover:shadow-gray-100 border border-transparent hover:border-gray-100 transition-all"
+                                className="group block p-6 bg-gray-50 rounded-2xl hover:bg-white hover:shadow-lg hover:shadow-gray-100 border border-transparent hover:border-gray-100 transition-all flex flex-col justify-between"
                             >
-                                <div className="h-40 w-full bg-gradient-to-br from-violet-100 to-violet-50 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
-                                    {college.images && college.images[0] && !imageErrors[college._id] ? (
-                                        <img 
-                                            src={college.images[0]} 
-                                            alt={college.name}
-                                            className="w-full h-full object-cover"
-                                            onError={() => handleImageError(college._id)}
-                                        />
-                                    ) : (
-                                        <span className="text-4xl">🎓</span>
-                                    )}
-                                </div>
-                                <h3 className="text-lg font-semibold text-gray-900 group-hover:text-teal-700 transition-colors">{college.name}</h3>
-                                <p className="mt-1 text-sm text-gray-500">{college.location}</p>
-                                <p className="mt-2 text-sm text-gray-600 line-clamp-2">{college.description}</p>
-                                <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
-                                    <span className="capitalize">{college.type}</span>
-                                    <span>Est. {college.establishedYear}</span>
-                                </div>
+                                <Link href={`/colleges/${college.slug}`} className="block">
+                                    <div className="h-40 w-full bg-gradient-to-br from-violet-100 to-violet-50 rounded-xl mb-4 flex items-center justify-center overflow-hidden">
+                                        {college.images && college.images[0] && !imageErrors[college._id] ? (
+                                            <img 
+                                                src={college.images[0]} 
+                                                alt={college.name}
+                                                className="w-full h-full object-cover"
+                                                onError={() => handleImageError(college._id)}
+                                            />
+                                        ) : (
+                                            <span className="text-4xl">🎓</span>
+                                        )}
+                                    </div>
+                                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-teal-700 transition-colors">{college.name}</h3>
+                                    <p className="mt-1 text-sm text-gray-500">{college.location}</p>
+                                    <p className="mt-2 text-sm text-gray-600 line-clamp-2">{college.description}</p>
+                                    <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
+                                        <span className="capitalize">{college.type}</span>
+                                        <span>Est. {college.establishedYear}</span>
+                                    </div>
+                                </Link>
                                 <div className="mt-4 flex flex-col gap-2">
                                     <button
                                         onClick={() => handleApplyClick(college.name)}
@@ -130,7 +131,7 @@ export default function CollegesPage() {
                                         View Details
                                     </Link>
                                 </div>
-                            </Link>
+                            </div>
                         ))
                     ) : (
                         <div className="col-span-full text-center py-16">
