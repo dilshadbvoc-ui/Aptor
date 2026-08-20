@@ -6,14 +6,53 @@ export async function GET() {
   const robots = `User-agent: *
 Allow: /
 
-# Disallow admin pages
+# Disallow administrative and non-public endpoints
 Disallow: /admin/
 Disallow: /api/
 
-# Allow important pages
+# Allow important contact endpoints
 Allow: /api/contact
 
-# Sitemap
+# Explicit Permissions for AI Search Engines & LLM Crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: diffbot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+# Machine-Readable Context for LLMs (AEO & GEO Standard)
+# LLMs-Text: ${baseUrl}/llms.txt
+# LLMs-Full-Text: ${baseUrl}/llms-full.txt
+# GEO-Manifest: ${baseUrl}/geo.json
+
+# XML Sitemap
 Sitemap: ${baseUrl}/sitemap.xml`;
 
   return new NextResponse(robots, {

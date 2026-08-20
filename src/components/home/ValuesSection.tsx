@@ -2,142 +2,162 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Crown, Diamond, Star, Shield, Sparkles, Award } from "lucide-react";
+import { ArrowRight, Crown, Diamond, Star, Shield, Hash } from "lucide-react";
 
 const benefits = [
     {
         icon: Crown,
         title: "Expert Mentorship",
-        description: "Quality guidance from industry professionals and academic experts",
-        color: "from-yellow-400 to-yellow-600"
+        description: "Quality guidance from industry professionals and academic experts"
     },
     {
         icon: Diamond,
         title: "Proven Excellence",
-        description: "Join a network of students achieving outstanding success",
-        color: "from-blue-400 to-blue-600"
+        description: "Join a network of students achieving outstanding success"
     },
     {
         icon: Star,
         title: "Quality Experience",
-        description: "Comprehensive educational journey tailored to your aspirations",
-        color: "from-purple-400 to-purple-600"
+        description: "Comprehensive educational journey tailored to your aspirations"
     },
     {
         icon: Shield,
         title: "Security",
-        description: "Secure platform trusted by students and institutions worldwide",
-        color: "from-emerald-400 to-emerald-600"
+        description: "Secure platform trusted by students and institutions worldwide"
     },
 ];
 
 export function ValuesSection() {
     return (
-        <section className="py-12 sm:py-16 lg:py-24 bg-gradient-to-b from-green-50 to-white mobile-safe-area">
-            <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
-                    {/* Image Side - Mobile Optimized */}
-                    <div className="relative order-2 lg:order-1 fade-in">
-                        <div className="relative">
-                            {/* Main image */}
-                            <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl">
-                                <div className="absolute inset-0 bg-gradient-to-t from-green-900/30 to-transparent z-10"></div>
-                                <Image
-                                    src="/campus.png"
-                                    alt="University campus with modern facilities and architecture"
-                                    width={600}
-                                    height={500}
-                                    className="w-full object-cover aspect-[4/3] sm:aspect-auto"
-                                />
-                                {/* Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-green-400/10 to-transparent"></div>
-                            </div>
-
-                            {/* Floating stats card - Mobile Optimized */}
-                            <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 card p-3 sm:p-4 lg:p-6 hidden sm:block hover:shadow-xl hover:scale-[1.02] shadow-lg">
-                                <div className="text-center">
-                                    <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center mx-auto mb-2 sm:mb-3 shadow-lg">
-                                        <Star className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-black fill-current" />
-                                    </div>
-                                    <div className="text-lg sm:text-xl lg:text-2xl font-bold gradient-text mb-0.5 sm:mb-1">99.8%</div>
-                                    <div className="text-xs sm:text-sm text-green-600">Success Rate</div>
-                                </div>
-                            </div>
-
-                            {/* Decorative elements - Mobile Optimized */}
-                            <div className="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 w-4 h-4 sm:w-6 sm:h-6 lg:w-8 lg:h-8 border-2 border-green-400 rounded-full opacity-60 animate-pulse"></div>
-                            <div className="absolute top-1/2 -right-1 sm:-right-2 w-2 h-2 sm:w-3 sm:h-3 lg:w-4 lg:h-4 bg-yellow-400 rounded-full opacity-40 animate-pulse delay-1000"></div>
-                        </div>
-                    </div>
-
-                    {/* Content Side - Mobile Optimized */}
-                    <div className="order-1 lg:order-2 fade-in">
-                        <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-green-100 border border-green-300 rounded-full mb-4 sm:mb-6">
-                            <Crown className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-600" />
-                            <span className="text-green-700 text-xs sm:text-sm font-medium">ADVANTAGE</span>
-                            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-600" />
+        <section className="py-16 sm:py-20 lg:py-24 bg-[#fbfdfc] bg-light-green-dots overflow-hidden mobile-safe-area relative">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 xl:gap-8 items-center">
+                    
+                    {/* Left Column: Heading, Subtitle & Buttons (Span 4) */}
+                    <div className="lg:col-span-4 fade-in">
+                        {/* Pill Badge */}
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#d8f5e5] border border-[#a3e6c2] rounded-full mb-6 shadow-sm">
+                            <Crown className="w-4 h-4 text-[#095738]" />
+                            <span className="text-[#095738] text-xs font-bold tracking-wide uppercase">ADVANTAGE</span>
+                            <Hash className="w-3.5 h-3.5 text-[#095738]" />
                         </div>
 
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-green-800 mb-4 sm:mb-6 leading-tight">
-                            Why <span className="gradient-text">Students</span> Choose 
-                            <div className="inline-flex items-center gap-2 sm:gap-3 ml-2 sm:ml-3">
-                                <img 
-                                    src="/logo.png" 
-                                    alt="APTOR Studies Logo" 
-                                    className="w-10 h-10 sm:w-12 sm:h-12 lg:w-16 lg:h-16 rounded-lg object-cover shadow-lg"
-                                />
-                            </div>
+                        {/* Heading */}
+                        <h2 className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight leading-[1.15] mb-6">
+                            Why Students
+                            <span className="block text-[#063b25]">Choose Us</span>
                         </h2>
-                        
-                        <p className="text-base sm:text-lg md:text-xl text-green-600 leading-relaxed mb-6 sm:mb-8">
-                            We're dedicated to elevating your educational journey with quality support, guidance, and exceptional results that define educational excellence.
+
+                        {/* Aptor Logo Branding Badge */}
+                        <div className="inline-flex items-center gap-3 p-2 bg-white rounded-2xl border border-slate-100 shadow-md mb-6">
+                            <Image 
+                                src="/logo.png" 
+                                alt="Aptor Logo" 
+                                width={48} 
+                                height={48} 
+                                className="w-11 h-11 object-contain rounded-xl"
+                            />
+                        </div>
+
+                        {/* Description */}
+                        <p className="text-slate-600 text-sm sm:text-base leading-relaxed mb-8 max-w-md font-normal">
+                            We&apos;re dedicated to elevating your educational journey with quality support, guidance, and exceptional results that define educational excellence.
                         </p>
 
-                        {/* Benefits - Mobile Optimized */}
-                        <div className="space-y-4 sm:space-y-6 mb-6 sm:mb-8">
-                            {benefits.map((benefit, i) => (
-                                <div
-                                    key={benefit.title}
-                                    className="flex items-start gap-3 sm:gap-4 card p-3 sm:p-4 hover:shadow-xl hover:scale-[1.02] slide-up"
-                                    style={{ animationDelay: `${i * 0.1}s` }}
-                                >
-                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shrink-0 shadow-lg`}>
-                                        <benefit.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                                    </div>
-                                    <div className="min-w-0 flex-1">
-                                        <h3 className="text-base sm:text-lg font-semibold text-green-800 mb-1 sm:mb-2 group-hover:text-yellow-600 transition-colors">
-                                            {benefit.title}
-                                        </h3>
-                                        <p className="text-green-600 text-sm leading-relaxed">
-                                            {benefit.description}
-                                        </p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-                        {/* CTA buttons - Mobile Optimized */}
-                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 fade-in">
+                        {/* CTA Buttons */}
+                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
                             <Link 
-                                href="/about" 
-                                className="btn-primary inline-flex items-center justify-center gap-2 text-sm sm:text-base min-h-[48px]"
+                                href="/counselling" 
+                                className="bg-[#063b25] hover:bg-[#094d31] text-white font-bold text-xs sm:text-sm xl:text-base px-5 sm:px-6 py-3.5 rounded-xl inline-flex items-center justify-center gap-2 sm:gap-2.5 shadow-lg shadow-[#063b25]/20 hover:shadow-[#063b25]/30 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0"
                             >
-                                <Crown className="w-4 h-4 sm:w-5 sm:h-5" />
-                                Discover Excellence
-                                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                                <Crown className="w-4 h-4 shrink-0" />
+                                <span>Discover Excellence</span>
+                                <ArrowRight className="w-4 h-4 shrink-0" />
                             </Link>
-                            
+
                             <Link 
                                 href="/contact" 
-                                className="btn-secondary inline-flex items-center justify-center gap-2 text-sm font-medium min-h-[48px]"
+                                className="bg-white hover:bg-emerald-50/50 border-2 border-[#063b25] text-[#063b25] font-bold text-xs sm:text-sm xl:text-base px-5 sm:px-6 py-3.5 rounded-xl inline-flex items-center justify-center gap-2 sm:gap-2.5 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0"
                             >
-                                <Diamond className="w-4 h-4 sm:w-5 sm:h-5" />
-                                Join Network
+                                <Diamond className="w-4 h-4 text-[#063b25] shrink-0" />
+                                <span>Join Network</span>
                             </Link>
                         </div>
                     </div>
+
+                    {/* Center Column: Rotated Diamond Image & Floating Stat Box (Span 4) */}
+                    <div className="lg:col-span-4 relative flex items-center justify-center my-8 lg:my-0 py-6">
+                        
+                        {/* Decorative Curved Dotted Trajectory Line */}
+                        <svg className="absolute w-[340px] sm:w-[400px] h-[340px] sm:h-[400px] pointer-events-none opacity-45 z-0" viewBox="0 0 400 400" fill="none">
+                            <path d="M 60 200 A 140 140 0 0 1 340 200" stroke="#10b981" strokeWidth="2" strokeDasharray="4 6" fill="none" />
+                            <circle cx="60" cy="200" r="5" fill="#063b25" />
+                        </svg>
+
+                        {/* Rotated Diamond Frame Container */}
+                        <div className="relative z-10">
+                            {/* Outer Rotated Green Diamond Frame */}
+                            <div className="w-[250px] sm:w-[300px] lg:w-[270px] xl:w-[310px] h-[250px] sm:h-[300px] lg:h-[270px] xl:h-[310px] rotate-45 rounded-[40px] bg-gradient-to-br from-[#10b981] via-[#1a6843] to-[#063b25] p-3 sm:p-4 shadow-2xl flex items-center justify-center transition-transform hover:scale-[1.02] duration-300">
+                                
+                                {/* Inner Rotated Image Container (Mask) */}
+                                <div className="w-full h-full rounded-[32px] overflow-hidden relative shadow-inner">
+                                    <Image
+                                        src="/campus.png"
+                                        alt="Modern University Campus Architecture"
+                                        fill
+                                        sizes="(max-width: 768px) 300px, 350px"
+                                        className="-rotate-45 scale-[1.45] object-cover object-center"
+                                        priority
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Floating Highlight Stat Box (Bottom-Left) */}
+                            <div className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 z-20">
+                                <div className="bg-white rounded-2xl p-2.5 sm:p-3 shadow-xl border border-slate-100/90 text-center min-w-[105px] sm:min-w-[120px] hover:scale-105 transition-transform duration-300">
+                                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#063b25] text-white flex items-center justify-center mx-auto mb-1 shadow-sm">
+                                        <Star className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white fill-current" />
+                                    </div>
+                                    <div className="text-lg sm:text-xl font-extrabold text-[#063b25] tracking-tight mb-0.5">
+                                        99.8%
+                                    </div>
+                                    <div className="text-[10px] sm:text-xs font-semibold text-slate-500">
+                                        Success Rate
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right Column: Highlighting Content Container Box (Span 4) */}
+                    <div className="lg:col-span-4 fade-in">
+                        <div className="bg-[#062419] rounded-[36px] sm:rounded-[44px] p-6 sm:p-8 lg:p-8 xl:p-9 text-white shadow-2xl border border-emerald-900/40 space-y-6 sm:space-y-7 relative z-10">
+                            {benefits.map((benefit) => {
+                                const IconComp = benefit.icon;
+                                return (
+                                    <div key={benefit.title} className="flex items-start gap-4 group">
+                                        {/* Icon Badge */}
+                                        <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#1b7a4e] text-white flex items-center justify-center shrink-0 shadow-md group-hover:bg-[#22c55e] transition-colors duration-200">
+                                            <IconComp className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                                        </div>
+                                        
+                                        {/* Content */}
+                                        <div className="min-w-0 flex-1">
+                                            <h3 className="text-base sm:text-lg font-bold text-white mb-1 group-hover:text-[#34d399] transition-colors duration-200">
+                                                {benefit.title}
+                                            </h3>
+                                            <p className="text-xs sm:text-sm text-emerald-100/70 font-normal leading-relaxed">
+                                                {benefit.description}
+                                            </p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
     );
-}
+}

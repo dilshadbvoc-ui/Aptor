@@ -32,6 +32,12 @@ export async function GET() {
     <priority>${seoSettings.sitemapSettings?.priority?.blogs || 0.8}</priority>
   </url>
   <url>
+    <loc>${baseUrl}/academy</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>${baseUrl}/scholarships</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
     <changefreq>weekly</changefreq>

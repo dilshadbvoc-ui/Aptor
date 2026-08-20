@@ -2,6 +2,9 @@
 
 import { Home, MapPin, Wifi, Car, Utensils, Shield, Phone, Mail, CheckCircle, Crown, Star, Diamond, Sparkles, ArrowRight, Trophy } from "lucide-react";
 import Link from "next/link";
+import { AeoSchema } from "@/components/seo/AeoSchema";
+import { GeoSchema } from "@/components/seo/GeoSchema";
+import { SeoSchema } from "@/components/seo/SeoSchema";
 
 export default function AccommodationPage() {
   const accommodationTypes = [
@@ -48,6 +51,34 @@ export default function AccommodationPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
+      <AeoSchema
+        breadcrumbs={[{ name: "Home", item: "/" }, { name: "Accommodation", item: "/accommodation" }]}
+        faqs={[
+          {
+            question: "Does Aptor Studies assist with student accommodation and hosteling?",
+            answer: "Yes, Aptor Studies provides verified student housing, paying guest (PG) suites, and university residence bookings equipped with 24/7 security, high-speed Wi-Fi, study lounges, and dining services."
+          },
+          {
+            question: "Which cities have student accommodations through Aptor Studies?",
+            answer: "Accommodations are available near major college clusters in Bengaluru, Calicut, Kochi, Chennai, Mangalore, Delhi, Mumbai, Hyderabad, and Pune."
+          }
+        ]}
+        extraSchemas={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "name": "Student Accommodation Assistance",
+            "provider": {
+              "@type": "EducationalOrganization",
+              "name": "Aptor Studies",
+              "url": "https://aptorstudies.com"
+            },
+            "description": "Verified student hosteling, PG suites, and university residences near top educational institutions."
+          }
+        ]}
+      />
+      <GeoSchema pageTitle="Verified Student Accommodation & Hostels - Aptor Studies" pagePath="/accommodation" />
+      <SeoSchema routeKey="accommodation" />
       {/* Hero Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/10 to-transparent"></div>

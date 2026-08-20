@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Crown, Sparkles, ArrowRight, Star, Diamond } from "lucide-react";
+import Image from "next/image";
+import { Crown, Star, Diamond, ArrowRight, Hash } from "lucide-react";
 import { useState } from "react";
 
 export function Hero() {
@@ -68,171 +69,164 @@ export function Hero() {
     };
 
     return (
-        <section className="relative min-h-screen bg-gradient-to-br from-white via-green-50 to-white overflow-hidden mobile-safe-area-top">
-            {/* Background Elements */}
-            <div className="absolute inset-0">
-                <div className="absolute inset-0 bg-gradient-to-br from-green-50/50 via-white to-green-50/30"></div>
-                <div 
-                    className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-10"
-                    style={{
-                        backgroundImage: "url('/hero-students.png')"
-                    }}
+        <section className="relative min-h-[92vh] overflow-hidden mobile-safe-area-top py-14 lg:py-20 flex items-center bg-[#01160d]">
+            {/* Aptor Hero Background Image */}
+            <div className="absolute inset-0 z-0">
+                <Image
+                    src="/Aptor_hero.png"
+                    alt="Aptor Hero Background"
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="object-cover object-center"
                 />
-                {/* Decorative Elements */}
-                <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-20 left-20 w-32 h-32 border border-green-400 rounded-full animate-pulse"></div>
-                    <div className="absolute top-40 right-32 w-24 h-24 border border-accent-500 rounded-full animate-pulse"></div>
-                    <div className="absolute bottom-32 left-32 w-20 h-20 border border-green-400 rounded-full animate-pulse"></div>
-                </div>
+                {/* Overlay gradient for contrast and high text legibility */}
+                <div className="absolute inset-0 bg-gradient-to-r from-[#01160d]/85 via-[#01160d]/60 to-black/30 pointer-events-none" />
             </div>
-            
-            {/* Content - Standardized Spacing */}
-            <div className="relative z-10 section-padding">
-                <div className="max-w-7xl mx-auto container-padding">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        {/* Left Content - Standardized Typography */}
-                        <div className="text-green-800 fade-in text-center lg:text-left">
-                            {/* Badge */}
-                            <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 border border-green-300 rounded-full mb-6">
-                                <Crown className="w-4 h-4 text-accent-500" />
-                                <span className="text-green-700 text-sm font-medium">EDUCATION PORTAL</span>
-                                <Sparkles className="w-4 h-4 text-accent-500" />
-                            </div>
 
-                            <h1 className="heading-xl mb-6">
-                                <span className="gradient-text">APTOR</span>
-                                <br />
-                                <span className="text-green-800">Studies</span>
-                            </h1>
-                            
-                            <p className="text-body mb-8 max-w-2xl mx-auto lg:mx-0">
-                                Experience quality education services with our comprehensive platform. Your gateway to top institutions and career opportunities in India&apos;s educational landscape.
-                            </p>
-                            
-                            <div className="flex flex-col sm:flex-row gap-4 mb-12 justify-center lg:justify-start">
-                                <Link 
-                                    href="/counselling" 
-                                    className="btn-primary"
-                                >
-                                    <Crown className="w-5 h-5" />
-                                    Get Counselling
-                                    <ArrowRight className="w-5 h-5" />
-                                </Link>
-                                
-                                <Link
-                                    href="/colleges"
-                                    className="btn-secondary"
-                                >
-                                    <Diamond className="w-5 h-5" />
-                                    Explore Programs
-                                </Link>
-                            </div>
-
-                            {/* Stats Grid - Standardized */}
-                            <div className="grid grid-cols-3 gap-6 max-w-lg mx-auto lg:mx-0">
-                                {[
-                                    { num: "500+", label: "Partner Institutions", icon: Crown },
-                                    { num: "10K+", label: "Success Stories", icon: Star },
-                                    { num: "95%", label: "Placement Rate", icon: Diamond },
-                                ].map((stat) => (
-                                    <div key={stat.label} className="text-center card">
-                                        <div className="flex justify-center mb-2">
-                                            <stat.icon className="w-6 h-6 text-accent-500" />
-                                        </div>
-                                        <div className="heading-md gradient-text mb-1">
-                                            {stat.num}
-                                        </div>
-                                        <div className="text-small line-clamp-2">{stat.label}</div>
-                                    </div>
-                                ))}
-                            </div>
+            {/* Content Container */}
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+                    
+                    {/* Left Column */}
+                    <div className="fade-in text-center lg:text-left">
+                        {/* Pill Badge */}
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#d8f5e5] border border-[#a3e6c2] rounded-full mb-6 shadow-sm">
+                            <Crown className="w-4 h-4 text-[#095738]" />
+                            <span className="text-[#095738] text-xs font-bold tracking-wide uppercase">EDUCATION PORTAL</span>
+                            <Hash className="w-3.5 h-3.5 text-[#095738]" />
                         </div>
 
-                        {/* Right Content - Standardized Form */}
-                        <div className="lg:ml-auto slide-up order-first lg:order-last">
-                            <div className="card max-w-md mx-auto">
-                                <div className="text-center mb-6">
-                                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-green-100 border border-green-300 rounded-full mb-4">
-                                        <Crown className="w-4 h-4 text-accent-500" />
-                                        <span className="text-green-700 text-xs font-medium">FREE CONSULTATION</span>
+                        {/* Title */}
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] mb-6">
+                            <span className="text-[#eab308] block">APTOR</span>
+                            <span className="text-white block">Studies</span>
+                        </h1>
+
+                        {/* Description */}
+                        <p className="text-[#cbf3df] text-sm sm:text-base leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8 font-normal opacity-90">
+                            Experience quality education services with our comprehensive platform. Your gateway to top institutions and career opportunities in India&apos;s educational landscape.
+                        </p>
+
+                        {/* CTA Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-4 mb-12 justify-center lg:justify-start">
+                            <Link 
+                                href="/counselling" 
+                                className="bg-[#eab308] hover:bg-[#d99b0c] text-[#05291b] font-bold text-sm sm:text-base px-6 py-3.5 rounded-xl inline-flex items-center justify-center gap-2.5 shadow-lg shadow-yellow-500/20 hover:shadow-yellow-500/30 hover:-translate-y-0.5 transition-all duration-200"
+                            >
+                                <Crown className="w-4 h-4" />
+                                Get Counselling
+                                <ArrowRight className="w-4 h-4" />
+                            </Link>
+
+                            <Link
+                                href="/colleges"
+                                className="bg-[#063b25]/80 hover:bg-[#084e31] border border-[#1a6e46] text-white font-medium text-sm sm:text-base px-6 py-3.5 rounded-xl inline-flex items-center justify-center gap-2.5 hover:-translate-y-0.5 transition-all duration-200 backdrop-blur-sm"
+                            >
+                                <Diamond className="w-4 h-4 text-emerald-400" />
+                                Explore Programs
+                            </Link>
+                        </div>
+
+                        {/* Stats Cards */}
+                        <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-md mx-auto lg:mx-0">
+                            {[
+                                { num: "500+", label: "Partner Institutions", icon: Crown },
+                                { num: "10K+", label: "Success Stories", icon: Star },
+                                { num: "95%", label: "Placement Rate", icon: Diamond },
+                            ].map((stat) => (
+                                <div 
+                                    key={stat.label} 
+                                    className="bg-[#053722]/80 backdrop-blur-md border border-[#0e5235] hover:border-[#1ca765]/50 rounded-2xl p-3.5 text-center transition-all duration-200"
+                                >
+                                    <div className="flex justify-center mb-1.5">
+                                        <stat.icon className="w-4 h-4 text-[#eab308]" />
                                     </div>
-                                    <h3 className="heading-md text-green-800 mb-2">Expert Consultation</h3>
-                                    <p className="text-small text-green-600">Get personalized guidance from our education experts</p>
+                                    <div className="text-xl sm:text-2xl font-bold text-[#eab308] mb-0.5 tracking-tight">
+                                        {stat.num}
+                                    </div>
+                                    <div className="text-[11px] sm:text-xs text-[#a7f3d0] font-medium leading-tight line-clamp-2">
+                                        {stat.label}
+                                    </div>
                                 </div>
-                                
-                                <form onSubmit={handleSubmit} className="space-y-4">
-                                    <div>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            placeholder="Full Name"
-                                            value={formData.name}
-                                            onChange={handleInputChange}
-                                            className="form-input"
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            placeholder="Email Address"
-                                            value={formData.email}
-                                            onChange={handleInputChange}
-                                            className="form-input"
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <input
-                                            type="tel"
-                                            name="phone"
-                                            placeholder="Phone Number"
-                                            value={formData.phone}
-                                            onChange={handleInputChange}
-                                            className="form-input"
-                                            required
-                                        />
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        className="btn-primary w-full"
-                                    >
-                                        <Crown className="w-5 h-5" />
-                                        Request Free Session
-                                    </button>
-                                </form>
-                                
-                                <p className="text-xs text-green-500 mt-4 text-center">
-                                    By submitting, you agree to our Terms & Privacy Policy
-                                </p>
-                            </div>
+                            ))}
                         </div>
                     </div>
-                </div>
-            </div>
 
-            {/* Bottom Curve */}
-            <div className="absolute bottom-0 left-0 right-0">
-                <svg
-                    viewBox="0 0 1440 120"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-full h-20"
-                >
-                    <defs>
-                        <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#f0f9f4" />
-                            <stop offset="50%" stopColor="#ffffff" />
-                            <stop offset="100%" stopColor="#f0f9f4" />
-                        </linearGradient>
-                    </defs>
-                    <path
-                        d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
-                        fill="url(#curveGradient)"
-                    />
-                </svg>
+                    {/* Right Column - Form Card */}
+                    <div className="lg:ml-auto w-full max-w-md slide-up z-10">
+                        <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-2xl shadow-black/60 border border-emerald-100/20">
+                            
+                            {/* Form Header Badge */}
+                            <div className="text-center mb-6">
+                                <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#d8f5e5] border border-[#a3e6c2] rounded-full mb-3">
+                                    <Crown className="w-3.5 h-3.5 text-[#095738]" />
+                                    <span className="text-[#095738] text-[11px] font-bold tracking-wide uppercase">FREE CONSULTATION</span>
+                                </div>
+                                <h3 className="text-2xl font-bold text-[#063b25] mb-1">
+                                    Expert Consultation
+                                </h3>
+                                <p className="text-xs text-gray-500 font-medium">
+                                    Get personalized guidance from our education experts
+                                </p>
+                            </div>
+
+                            {/* Form */}
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                <div>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder="Full Name"
+                                        value={formData.name}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-3 bg-[#f8faf9] border border-gray-200 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#063b25] focus:border-transparent transition-all placeholder:text-gray-400"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        placeholder="Email Address"
+                                        value={formData.email}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-3 bg-[#f8faf9] border border-gray-200 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#063b25] focus:border-transparent transition-all placeholder:text-gray-400"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        placeholder="Phone Number"
+                                        value={formData.phone}
+                                        onChange={handleInputChange}
+                                        className="w-full px-4 py-3 bg-[#f8faf9] border border-gray-200 rounded-xl text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#063b25] focus:border-transparent transition-all placeholder:text-gray-400"
+                                        required
+                                    />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="w-full bg-[#eab308] hover:bg-[#d99b0c] text-[#05291b] font-bold text-sm sm:text-base py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 shadow-md shadow-yellow-500/20 hover:shadow-yellow-500/30 transition-all duration-200 cursor-pointer mt-2"
+                                >
+                                    <Crown className="w-4 h-4" />
+                                    Request Free Session
+                                </button>
+                            </form>
+
+                            {/* Form Footer */}
+                            <p className="text-[11px] text-[#095738] mt-4 text-center font-medium">
+                                By submitting, you agree to our Terms & Privacy Policy
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </section>
     );
 }
+
+

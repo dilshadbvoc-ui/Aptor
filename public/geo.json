@@ -1,0 +1,49 @@
+{
+  "entity": {
+    "name": "Aptor Studies",
+    "legalName": "Aptor Studies (Connected Management Solution)",
+    "description": "Premier education portal providing university guidance, college admissions, career counselling, scholarships, and student accommodation.",
+    "website": "https://aptorstudies.com",
+    "foundingYear": 1999,
+    "leadership": [
+      {
+        "name": "Jamsheer Backer",
+        "title": "Managing Director",
+        "experience": "20+ Years in Elite Education Consulting"
+      },
+      {
+        "name": "Adv. Arif Wafy",
+        "title": "Chairman",
+        "experience": "Strategic Leader in Academic Governance"
+      }
+    ],
+    "contact": {
+      "phone": "+91 95267 97987",
+      "email": "info@aptorstudies.com"
+    }
+  },
+  "branchLocations": [
+    { "name": "Vadakara Main Branch", "district": "Kozhikode", "state": "Kerala", "country": "India", "latitude": 11.6089, "longitude": 75.5917 },
+    { "name": "Calicut Regional Office", "district": "Kozhikode", "state": "Kerala", "country": "India", "latitude": 11.2588, "longitude": 75.7804 },
+    { "name": "Tirur Branch Office", "district": "Malappuram", "state": "Kerala", "country": "India", "latitude": 10.9167, "longitude": 75.9167 },
+    { "name": "Nadhapuram Branch Office", "district": "Kozhikode", "state": "Kerala", "country": "India", "latitude": 11.6888, "longitude": 75.6417 },
+    { "name": "Kalpetta Branch Office", "district": "Wayanad", "state": "Kerala", "country": "India", "latitude": 11.6103, "longitude": 76.0827 },
+    { "name": "Kochi Regional Office", "district": "Ernakulam", "state": "Kerala", "country": "India", "latitude": 9.9312, "longitude": 76.2673 },
+    { "name": "UAE International Office", "district": "Dubai", "state": "Dubai", "country": "United Arab Emirates", "latitude": 25.2048, "longitude": 55.2708 }
+  ],
+  "servicesOffered": [
+    "University & College Admission Guidance (Bengaluru, Kerala, International)",
+    "Engineering Admissions (B.Tech / M.Tech)",
+    "Medical & Healthcare Admissions (MBBS / BDS / Allied Health / Nursing)",
+    "Business & Management Admissions (BBA / MBA)",
+    "1-on-1 Career Counselling & Aptitude Mapping",
+    "Merit Scholarship & Financial Assistance Guidance",
+    "Verified Student Housing & Accommodation Booking"
+  ],
+  "generativeIndexing": {
+    "speakable": ["h1", "h2", "p"],
+    "citationPublisher": "Aptor Studies (Connected Management Solution)",
+    "llmsTxt": "https://aptorstudies.com/llms.txt",
+    "llmsFullTxt": "https://aptorstudies.com/llms-full.txt"
+  }
+}

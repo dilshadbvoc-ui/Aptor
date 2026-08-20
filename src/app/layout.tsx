@@ -1,23 +1,50 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Agbalumo } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { SessionProvider } from "@/components/providers/SessionProvider";
 import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
+import { AeoSchema } from "@/components/seo/AeoSchema";
+import { GeoSchema } from "@/components/seo/GeoSchema";
+import { SeoSchema } from "@/components/seo/SeoSchema";
 
 const inter = Inter({ subsets: ["latin"] });
+const agbalumo = Agbalumo({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-heading",
+});
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://aptorstudies.com';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || 'https://aptorstudies.com'),
+  metadataBase: new URL(baseUrl),
   title: "Aptor Studies - Education Portal & University Guidance",
-  description: "Experience education services with Aptor Studies. Get expert guidance, explore colleges, universities, and courses worldwide.",
-  keywords: ["education portal", "universities", "colleges", "courses", "student counseling", "education"],
+  description: "Experience premier education services with Aptor Studies. Get expert career guidance, explore top colleges, universities, and courses in Bengaluru, Kerala, and worldwide.",
+  keywords: ["education portal", "universities", "colleges", "courses", "student counseling", "education consultancy", "bengaluru colleges", "kerala education"],
+  authors: [{ name: "Aptor Studies", url: baseUrl }],
+  publisher: "Aptor Studies (Connected Management Solution)",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  other: {
+    'llms-txt': `${baseUrl}/llms.txt`,
+    'citation_publisher': 'Aptor Studies',
+    'citation_author': 'Aptor Studies Advisory Board',
+  },
   openGraph: {
-    title: "Aptor Studies - Education Portal",
-    description: "Experience education services with Aptor Studies. Get expert guidance, explore colleges, universities, and courses worldwide.",
+    title: "Aptor Studies - Education Portal & University Guidance",
+    description: "Experience premier education services with Aptor Studies. Get expert guidance, explore colleges, universities, and courses worldwide.",
     type: "website",
     siteName: "Aptor Studies",
+    url: baseUrl,
     images: [
       {
         url: "/logo.png",
@@ -29,8 +56,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Aptor Studies - Education Portal",
-    description: "Experience education services with Aptor Studies. Get expert guidance, explore colleges, universities, and courses worldwide.",
+    title: "Aptor Studies - Education Portal & University Guidance",
+    description: "Experience premier education services with Aptor Studies. Get expert guidance, explore colleges, universities, and courses worldwide.",
     images: ["/logo.png"],
   },
   appleWebApp: {
@@ -62,8 +89,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <SeoSchema routeKey="home" />
+        <AeoSchema />
+        <GeoSchema />
+      </head>
+      <body className={`${inter.className} ${agbalumo.variable}`} suppressHydrationWarning>
         <SessionProvider>
           <ConditionalLayout>
             {children}

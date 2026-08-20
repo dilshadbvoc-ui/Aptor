@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send, Crown, Star, Diamond, Sparkles, Clock, Globe } from "lucide-react";
+import { AeoSchema } from "@/components/seo/AeoSchema";
+import { GeoSchema } from "@/components/seo/GeoSchema";
+import { SeoSchema } from "@/components/seo/SeoSchema";
 
 export default function ContactPage() {
     const [formData, setFormData] = useState({
@@ -96,6 +99,21 @@ export default function ContactPage() {
 
     return (
         <div className="min-h-screen bg-white">
+            <AeoSchema
+                breadcrumbs={[{ name: "Home", item: "/" }, { name: "Contact Us", item: "/contact" }]}
+                faqs={[
+                    {
+                        question: "What is the official contact telephone number for Aptor Studies?",
+                        answer: "You can reach Aptor Studies by calling +91 95267 97987 or emailing info@aptorstudies.com."
+                    },
+                    {
+                        question: "What are Aptor Studies working hours?",
+                        answer: "Aptor Studies consultants are available Monday to Saturday from 9:00 AM to 8:00 PM IST."
+                    }
+                ]}
+            />
+            <GeoSchema pageTitle="Contact Aptor Studies - Branch Network & Support" pagePath="/contact" />
+            <SeoSchema routeKey="contact" />
             {/* Hero Section */}
             <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-green-50 to-white">
                 <div className="absolute inset-0 bg-gradient-to-br from-green-100/30 to-transparent"></div>

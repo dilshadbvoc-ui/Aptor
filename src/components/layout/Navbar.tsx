@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, X, Phone, Mail, Crown, Sparkles } from "lucide-react";
+import { Menu, X, Phone, Mail, Crown, Sparkles, Lock } from "lucide-react";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -20,7 +20,7 @@ export function Navbar() {
     return (
         <>
             {/* Top Bar - Standardized */}
-            <div className="bg-green-800/95 backdrop-blur-md text-white py-3 text-sm border-b border-green-500/30 mobile-safe-area-top">
+            <div className="bg-green-800/95 backdrop-blur-md text-white py-2 text-xs border-b border-green-500/30 mobile-safe-area-top">
                 <div className="max-w-7xl mx-auto container-padding">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-8">
@@ -51,58 +51,52 @@ export function Navbar() {
             </div>
 
             {/* Main Navigation - Standardized */}
-            <header className="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-green-200 shadow-sm mobile-safe-area">
+            <header className="bg-[#eef2f0]/95 backdrop-blur-md sticky top-0 z-50 border-b border-slate-300/60 shadow-sm mobile-safe-area">
                 <div className="max-w-7xl mx-auto container-padding">
-                    <div className="flex items-center justify-between h-20">
+                    <div className="flex items-center justify-between h-16">
                         {/* Logo - Standardized */}
                         <Link href="/" className="flex items-center group">
                             <div className="relative">
                                 <img 
                                     src="/logo.png" 
                                     alt="APTOR Studies Logo" 
-                                    className="w-16 h-16 rounded-xl object-cover shadow-lg group-hover:shadow-green-400/25 transition-all duration-300"
+                                    className="w-12 h-12 rounded-xl object-cover shadow-md group-hover:shadow-green-400/25 transition-all duration-300"
                                 />
-                                {/* <div className="absolute -top-1 -right-1 w-5 h-5 bg-accent-400 rounded-full flex items-center justify-center">
-                                    <Sparkles className="w-2.5 h-2.5 text-black" />
-                                </div> */}
                             </div>
                         </Link>
 
-                        {/* Desktop Navigation - Standardized */}
+                        {/* Desktop Navigation - Clean Uppercase Pill Style */}
                         <nav className="hidden lg:flex items-center space-x-1">
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className={`relative px-6 py-3 text-sm font-medium transition-all duration-300 rounded-lg group min-h-touch ${
+                                    className={`relative px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 rounded-full group ${
                                         pathname === link.href
-                                            ? "text-green-700 bg-green-100"
-                                            : "text-green-600 hover:text-green-800 hover:bg-green-50"
+                                            ? "text-emerald-900 bg-emerald-100/90 font-extrabold"
+                                            : "text-slate-800 hover:text-emerald-800 hover:bg-slate-200/60"
                                     }`}
                                 >
                                     <span className="relative z-10">{link.label}</span>
-                                    {pathname === link.href && (
-                                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-green-500 rounded-full"></div>
-                                    )}
                                 </Link>
                             ))}
                         </nav>
 
-                        {/* CTA Buttons - Standardized */}
+                        {/* CTA Buttons - Rounded Pill Green Style */}
                         <div className="hidden md:flex items-center space-x-3">
                             <Link
                                 href="/login"
-                                className="btn-secondary px-4 py-2 text-sm"
+                                className="px-5.5 py-3 bg-[#22c55e] hover:bg-[#16a34a] text-white rounded-full font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-2"
                             >
-                                <Crown className="w-4 h-4" />
-                                Login
+                                <span>Login</span>
+                                <Lock className="w-3.5 h-3.5 shrink-0" />
                             </Link>
                             
                             <Link
                                 href="/counselling"
-                                className="btn-primary px-6 py-3"
+                                className="px-5.5 py-3 bg-[#063326] hover:bg-[#084e31] text-white rounded-full font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-2"
                             >
-                                <Crown className="w-4 h-4" />
+                                <Crown className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                                 <span className="hidden lg:inline">Counselling</span>
                                 <span className="lg:hidden">Counsel</span>
                             </Link>
@@ -111,26 +105,26 @@ export function Navbar() {
                         {/* Mobile Menu Button - Standardized */}
                         <button
                             onClick={() => setIsOpen(!isOpen)}
-                            className="lg:hidden p-3 text-green-600 hover:text-green-800 hover:bg-green-50 rounded-lg transition-all duration-300 min-w-touch min-h-touch flex items-center justify-center"
+                            className="lg:hidden p-3 text-slate-800 hover:text-emerald-800 hover:bg-slate-200/60 rounded-lg transition-all duration-300 min-w-touch min-h-touch flex items-center justify-center"
                             aria-label="Toggle menu"
                         >
                             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                         </button>
                     </div>
 
-                    {/* Mobile Navigation - Standardized */}
+                    {/* Mobile Navigation - Styled */}
                     {isOpen && (
-                        <div className="lg:hidden border-t border-green-200 bg-white/95 backdrop-blur-md mobile-safe-area-bottom">
+                        <div className="lg:hidden border-t border-slate-300/60 bg-[#eef2f0]/95 backdrop-blur-md mobile-safe-area-bottom">
                             <div className="py-6 space-y-2 max-h-[80vh] overflow-y-auto">
                                 {navLinks.map((link) => (
                                     <Link
                                         key={link.href}
                                         href={link.href}
                                         onClick={() => setIsOpen(false)}
-                                        className={`block px-6 py-4 text-sm font-medium rounded-xl transition-all duration-300 min-h-touch-lg flex items-center ${
+                                        className={`block px-6 py-3.5 text-xs font-bold uppercase tracking-wider rounded-full transition-all duration-300 min-h-touch-lg flex items-center ${
                                             pathname === link.href
-                                                ? "text-green-700 bg-green-100 border border-green-200"
-                                                : "text-green-600 hover:text-green-800 hover:bg-green-50 active:bg-green-100"
+                                                ? "text-emerald-900 bg-emerald-100/90 font-extrabold border border-emerald-300/60"
+                                                : "text-slate-800 hover:text-emerald-800 hover:bg-slate-200/60 active:bg-slate-200"
                                         }`}
                                     >
                                         {link.label}
@@ -138,26 +132,26 @@ export function Navbar() {
                                 ))}
                                 
                                 {/* Mobile Login */}
-                                <div className="pt-4 border-t border-green-200 mt-4">
+                                <div className="pt-4 border-t border-slate-300/60 mt-4 px-4">
                                     <Link
                                         href="/login"
                                         onClick={() => setIsOpen(false)}
-                                        className="block px-6 py-4 text-sm font-medium text-green-700 bg-green-100 border border-green-200 hover:bg-green-200 rounded-xl transition-all duration-300 min-h-touch-lg flex items-center gap-2"
+                                        className="w-full px-6 py-4 text-xs font-bold uppercase tracking-wider text-white bg-[#22c55e] hover:bg-[#16a34a] rounded-full transition-all duration-300 min-h-touch-lg flex items-center justify-center gap-2 shadow-sm"
                                     >
-                                        <Crown className="w-4 h-4" />
-                                        Member Login
+                                        <span>Member Login</span>
+                                        <Lock className="w-4 h-4" />
                                     </Link>
                                 </div>
                                 
                                 {/* Mobile CTA */}
-                                <div className="pt-6 border-t border-green-200 mt-6">
+                                <div className="pt-3 border-t border-slate-300/60 mt-3 px-4">
                                     <Link
                                         href="/counselling"
                                         onClick={() => setIsOpen(false)}
-                                        className="btn-primary w-full min-h-touch-lg"
+                                        className="w-full px-6 py-4 text-xs font-bold uppercase tracking-wider text-white bg-[#063326] hover:bg-[#084e31] rounded-full transition-all duration-300 min-h-touch-lg flex items-center justify-center gap-2 shadow-sm"
                                     >
-                                        <Crown className="w-4 h-4" />
-                                        Counselling
+                                        <Crown className="w-4 h-4 text-amber-400" />
+                                        <span>Counselling</span>
                                     </Link>
                                 </div>
                             </div>
