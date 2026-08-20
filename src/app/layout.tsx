@@ -23,6 +23,14 @@ export const metadata: Metadata = {
   keywords: ["education portal", "universities", "colleges", "courses", "student counseling", "education consultancy", "bengaluru colleges", "kerala education"],
   authors: [{ name: "Aptor Studies", url: baseUrl }],
   publisher: "Aptor Studies (Connected Management Solution)",
+  icons: {
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   robots: {
     index: true,
     follow: true,
@@ -91,6 +99,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/favicon.png" type="image/png" sizes="any" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
         <SeoSchema routeKey="home" />
         <AeoSchema />
         <GeoSchema />
