@@ -59,7 +59,8 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Times New Roman', 'Times', 'serif'],
+        heading: ['Times New Roman', 'Times', 'serif'],
       },
       spacing: {
         '18': '4.5rem',

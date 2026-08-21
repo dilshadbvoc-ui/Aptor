@@ -1,12 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Agbalumo&display=swap');
 @import "tailwindcss";
 
 @layer base {
   h1, h2, h3, h4, h5, h6, .heading-xl, .heading-lg, .heading-md, .font-heading {
-    font-family: var(--font-heading), 'Agbalumo', cursive, system-ui, sans-serif !important;
+    font-family: 'Times New Roman', Times, serif !important;
   }
 
   :root {
+    --font-heading: 'Times New Roman', Times, serif;
     /* Design System Colors */
     --background: #ffffff;
     --foreground: #1a5f3f;

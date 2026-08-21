@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Agbalumo } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "@/components/providers/SessionProvider";
 import { ConditionalLayout } from "@/components/layout/ConditionalLayout";
@@ -8,11 +8,6 @@ import { GeoSchema } from "@/components/seo/GeoSchema";
 import { SeoSchema } from "@/components/seo/SeoSchema";
 
 const inter = Inter({ subsets: ["latin"] });
-const agbalumo = Agbalumo({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-heading",
-});
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://aptorstudies.com';
 
@@ -105,7 +100,7 @@ export default function RootLayout({
         <AeoSchema />
         <GeoSchema />
       </head>
-      <body className={`${inter.className} ${agbalumo.variable}`} suppressHydrationWarning>
+      <body className={inter.className} suppressHydrationWarning>
         <SessionProvider>
           <ConditionalLayout>
             {children}
