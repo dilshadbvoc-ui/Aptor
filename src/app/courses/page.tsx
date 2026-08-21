@@ -62,8 +62,8 @@ export default function CoursesPage() {
     const filteredCourses = courses.filter(course => {
         const matchesFilter = activeFilter === "all" || course.level === activeFilter;
         const matchesSearch = course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            (course.college?.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            course.description.toLowerCase().includes(searchTerm.toLowerCase());
+            (course.college?.name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
+            course.description.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesFilter && matchesSearch;
     });
 
@@ -186,11 +186,10 @@ export default function CoursesPage() {
                                 <button
                                     key={filter.key}
                                     onClick={() => setActiveFilter(filter.key)}
-                                    className={`px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 cursor-pointer ${
-                                        activeFilter === filter.key
+                                    className={`px-4 py-2 rounded-xl font-bold text-xs sm:text-sm transition-all duration-200 cursor-pointer ${activeFilter === filter.key
                                             ? "bg-[#063326] text-white shadow-md shadow-emerald-900/20 border border-emerald-500/30"
                                             : "bg-slate-100 text-slate-600 hover:text-[#063326] hover:bg-emerald-50 border border-transparent"
-                                    }`}
+                                        }`}
                                 >
                                     {filter.label}
                                 </button>
@@ -210,14 +209,14 @@ export default function CoursesPage() {
                                         {/* Image Frame */}
                                         <div className="h-44 sm:h-48 w-full bg-slate-100 rounded-xl mb-4 flex items-center justify-center overflow-hidden relative border border-slate-100 shadow-inner">
                                             {course.image && !imageErrors[course._id] ? (
-                                                <img 
-                                                    src={course.image} 
+                                                <img
+                                                    src={course.image}
                                                     alt={course.title}
                                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                     onError={() => handleImageError(course._id)}
                                                 />
                                             ) : (
-                                                <div className="w-full h-full bg-gradient-to-br from-emerald-900 via-[#032619] to-[#063326] flex items-center justify-center text-white">
+                                                <div className="w-full h-full bg-gradient-to-br from-emerald-900 via-[#ffffff] to-[#02d673] flex items-center justify-center text-white">
                                                     <GraduationCap className="w-14 h-14 text-[#eab308] opacity-90 group-hover:scale-110 transition-transform duration-300" />
                                                 </div>
                                             )}
@@ -286,8 +285,8 @@ export default function CoursesPage() {
                                 </div>
                                 <h3 className="text-xl font-bold text-slate-900 mb-2">No Courses Found</h3>
                                 <p className="text-slate-500 max-w-md mx-auto text-sm mb-6">
-                                    {searchTerm || activeFilter !== "all" 
-                                        ? "No courses matched your search or filter criteria. Try clearing filters or searching for something else." 
+                                    {searchTerm || activeFilter !== "all"
+                                        ? "No courses matched your search or filter criteria. Try clearing filters or searching for something else."
                                         : "No courses found yet. Check back soon!"
                                     }
                                 </p>

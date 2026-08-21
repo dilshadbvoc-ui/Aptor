@@ -165,7 +165,7 @@ export default function CollegesPage() {
                                                     onError={() => handleImageError(college._id)}
                                                 />
                                             ) : (
-                                                <div className="w-full h-full bg-gradient-to-br from-emerald-800 to-[#063326] flex items-center justify-center text-white">
+                                                <div className="w-full h-full bg-gradient-to-br from-emerald-900 via-[#ffffff] to-[#02d673] flex items-center justify-center text-white">
                                                     <GraduationCap className="w-12 h-12 text-[#eab308]" />
                                                 </div>
                                             )}
